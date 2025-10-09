@@ -1,0 +1,7 @@
+{
+  "extends": "@pulse/typescript-config/expo",
+  "compilerOptions": {
+    "baseUrl": ".",
+    "paths": { "@/*": ["./src/*"] }
+  }
+}

@@ -1,0 +1,21 @@
+# Ignorierte Ordner
+node_modules
+.next
+dist
+build
+coverage
+.turbo
+.expo
+android
+ios
+
+# Konfig-Ordner
+.husky
+.vscode
+
+# Logs & temporäres
+*.log
+*.tmp
+
+# Lockfiles
+*.lock

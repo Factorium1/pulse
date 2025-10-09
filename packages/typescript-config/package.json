@@ -1,0 +1,15 @@
+{
+  "name": "@pulse/typescript-config",
+  "private": true,
+  "type": "module",
+  "files": [
+    "base.json",
+    "next.json",
+    "expo.json"
+  ],
+  "exports": {
+    "./base": "./base.json",
+    "./next": "./next.json",
+    "./expo": "./expo.json"
+  }
+}

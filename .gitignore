@@ -1,0 +1,83 @@
+# ─────────────────────────────
+# Core: Node / pnpm / Turbo
+# ─────────────────────────────
+node_modules/
+.pnpm-store/
+.turbo/
+.cache/
+dist/
+build/
+out/
+.nx/
+
+# ─────────────────────────────
+# Lockfiles
+# ─────────────────────────────
+**/package-lock.json
+**/yarn.lock
+**/pnpm-lock.yaml
+!/pnpm-lock.yaml
+
+# ─────────────────────────────
+# Logs & Temp Files
+# ─────────────────────────────
+*.log
+logs/
+*.tmp
+*.pid
+*.pid.lock
+
+# ─────────────────────────────
+# Environment & Local Configs
+# ─────────────────────────────
+.env*
+!.env.example
+
+# ─────────────────────────────
+# IDEs / Editor Settings
+# ─────────────────────────────
+.vscode/*
+!.vscode/settings.json
+!.vscode/extensions.json
+.idea/
+*.code-workspace
+
+# ─────────────────────────────
+# TypeScript / Linting / Coverage
+# ─────────────────────────────
+*.tsbuildinfo
+.eslintcache
+coverage/
+
+# ─────────────────────────────
+# Next.js / Expo / React Native
+# ─────────────────────────────
+.next/
+.vercel/
+.expo/
+expo-shared/
+expo-env.d.ts
+.metros/
+.metro-cache/
+web-build/
+ios/
+android/
+*.keystore
+*.jks
+*.p8
+*.p12
+
+# ─────────────────────────────
+# Tailwind / PostCSS / Temp Files
+# ─────────────────────────────
+*.css.map
+postcss.config.js.backup
+*.tailwind.config.js.backup
+
+# ─────────────────────────────
+# Misc (macOS / Windows / System)
+# ─────────────────────────────
+.DS_Store
+Thumbs.db
+desktop.ini
+*.local

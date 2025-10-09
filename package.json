@@ -1,0 +1,53 @@
+{
+  "name": "pulse",
+  "private": true,
+  "packageManager": "pnpm@10.18.1",
+  "scripts": {
+    "dev": "turbo run dev",
+    "build": "turbo run build",
+    "lint": "turbo run lint",
+    "check-types": "turbo run check-types",
+    "format": "prettier . --write",
+    "prepare": "husky",
+    "preinstall": "if [ \"$npm_execpath\" != *pnpm* ]; then echo '\\n❌ Dieses Projekt verwendet pnpm!\\n'; exit 1; fi"
+  },
+  "devDependencies": {
+    "eslint": "^9.37.0",
+    "husky": "^9.1.7",
+    "lint-staged": "^16.2.3",
+    "prettier": "^3.6.2",
+    "turbo": "latest"
+  },
+  "lint-staged": {
+    "apps/web/**/*.{ts,tsx,js,jsx,mjs,cjs}": [
+      "bash -lc 'cd apps/web && pnpm exec eslint --fix'"
+    ],
+    "*.{json,md,css,scss}": [
+      "pnpm exec prettier --write"
+    ]
+  },
+  "pnpm": {
+    "peerDependencyRules": {
+      "allowAny": [
+        "eslint"
+      ]
+    },
+    "packageExtensions": {
+      "eslint-plugin-react-hooks@*": {
+        "peerDependencies": {
+          "eslint": "*"
+        }
+      },
+      "eslint-plugin-react-native@*": {
+        "peerDependencies": {
+          "eslint": "*"
+        }
+      }
+    },
+    "onlyBuiltDependencies": [
+      "@tailwindcss/oxide",
+      "sharp",
+      "unrs-resolver"
+    ]
+  }
+}
