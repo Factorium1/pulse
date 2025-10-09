@@ -61,6 +61,8 @@
     "*.js": "javascriptreact",
     "*.ts": "typescriptreact"
   },
+  // Allow Tailwind @apply and custom directives without lint noise
+  "css.lint.unknownAtRules": "ignore",
   "workbench.editor.enablePreview": false,
   "workbench.tree.indent": 16
 }
