@@ -1,10 +1,14 @@
 import Link from 'next/link'
+import { FaBars } from 'react-icons/fa'
 
 const Header = () => {
   return (
-    <div className="hidden backdrop-blur-sm bg-opacity-30 bg-white/30 border border-gray-300 md:flex-between md:w-lg mx-auto mt-5 px-5 py-3 rounded-full">
+    <div className="w-sm flex-between backdrop-blur-sm bg-opacity-30 bg-white/30 border border-gray-300 md:w-lg mx-auto mt-5 px-5 py-3 rounded-full">
       <h1 className="text-2xl font-bold">Pulse</h1>
-      <nav className="flex-center space-x-4 text-md">
+      <button className="md:hidden p-2 rounded-full hover:bg-gray-200 transition">
+        <FaBars />
+      </button>
+      <nav className="hidden md:flex md:flex-center space-x-4 text-md">
         <Link href="/">Funktionen</Link>
         <Link href="/">Preise</Link>
         <Link href="/">Download</Link>
