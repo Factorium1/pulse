@@ -3,7 +3,7 @@ import { FaBars } from 'react-icons/fa'
 
 const Header = () => {
   return (
-    <div className="w-sm flex-between backdrop-blur-sm bg-opacity-30 bg-white/30 border border-gray-300 md:w-lg mx-auto mt-5 px-5 py-3 rounded-full">
+    <div className="sticky top-40 z-10 w-sm flex-between backdrop-blur-sm bg-opacity-30 bg-white/30 border border-gray-300 md:w-lg mx-auto px-5 py-3 rounded-full ">
       <h1 className="text-2xl font-bold">Pulse</h1>
       <button className="md:hidden p-2 rounded-full hover:bg-gray-200 transition">
         <FaBars />
