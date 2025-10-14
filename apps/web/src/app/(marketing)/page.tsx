@@ -4,7 +4,10 @@ export const metadata = {
 
 const Homepage = () => {
   return (
-    <section className="[min-height:calc(100svh-40px)] md:[min-height:calc(100vh-40px)] flex-center">
+    <section
+      id="home"
+      className="[min-height:calc(100svh-40px)] md:[min-height:calc(100vh-40px)] flex-center"
+    >
       <div className="flex-col gap-6 text-center text-white">
         <h1 className="h1-bold">Welcome to Pulse</h1>
         <p className="max-w-2xl text-lg text-white/70">
