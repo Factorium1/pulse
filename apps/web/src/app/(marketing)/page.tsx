@@ -1,4 +1,8 @@
-import Card from '@/components/shared/web/card'
+import { Card } from '@/components/shared/web/card'
+import { FaEdit, FaMobile } from 'react-icons/fa'
+import { MdOutlineShare } from 'react-icons/md'
+import { GrAnalytics } from 'react-icons/gr'
+
 export const metadata = {
   title: 'Home',
 }
@@ -27,6 +31,28 @@ const Homepage = () => {
           <p className="text-base md:text-lg max-w-2xl">
             Alles, was Sie für aufschlussreiche Umfragen benötigen, in einer intuitiven App.
           </p>
+        </div>
+        <div className="grid grid-cols-1 md:grid-cols-3 gap-6 max-w-5xl mx-auto px-6 pb-20">
+          <Card
+            icon={FaEdit}
+            title="Einfacher Editor"
+            description="Erstellen sie ansprechende Umfragen in Minuten. Nutzen Sie unsere Drag-and-Drop-Oberfläche, um Ihre Umfragen anzupassen."
+          />
+          <Card
+            icon={MdOutlineShare}
+            title="Nahtlos Teilen"
+            description="Verteilen Sie Ihre Umfragen über Links, E-Mails oder soziale Medien mit nur einem Klick."
+          />
+          <Card
+            icon={GrAnalytics}
+            title="Echtzeit Analyse"
+            description="Beobachten Sie, wie die Ergebnisse eintreffen, und gewinnen Sie sofort wertvolle Einblicke."
+          />
+          <Card
+            icon={FaMobile}
+            title="Mobile-freundlich"
+            description="Unsere Umfragen sind vollständig mobiloptimiert, sodass Ihre Teilnehmer auf jedem Gerät eine nahtlose Erfahrung haben."
+          />
         </div>
       </section>
     </>
