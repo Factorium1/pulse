@@ -9,7 +9,7 @@ export const metadata = {
 const Homepage = () => {
   return (
     <>
-      <section id="home" className="section-vh flex items-center justify-center px-6">
+      <section id="home" className="section-vh flex-center px-6">
         <div className="max-w-2xl mx-auto flex flex-col gap-6 text-center text-white/80">
           <h1 className="text-4xl sm:text-5xl md:text-6xl font-extrabold leading-tight">
             Welcome to Pulse
@@ -22,7 +22,7 @@ const Homepage = () => {
         </div>
       </section>
       <section id="features" className="section-vh">
-        <div className="max-w-3xl mx-auto flex items-center justify-center flex-col text-center gap-3 text-foreground px-6 pt-30 pb-20">
+        <div className="max-w-3xl mx-auto flex-center flex-col text-center gap-3 text-foreground px-6 pt-30 pb-20">
           <h2 className="text-2xl md:text-3xl font-bold">Funktionen</h2>
           <p className="text-base md:text-lg max-w-2xl">
             Alles, was Sie für aufschlussreiche Umfragen benötigen, in einer intuitiven App.
@@ -62,7 +62,7 @@ const Homepage = () => {
         </div>
       </section>
       <section id="price" className="section-vh">
-        <div className="max-w-3xl mx-auto flex-center text-center gap-3 text-foreground px-6 pt-30 pb-20">
+        <div className="max-w-3xl mx-auto flex-center flex-col text-center gap-3 text-foreground px-6 pt-30 pb-20">
           <h2 className="text-2xl md:text-3xl font-bold">Preise</h2>
           <p className="text-base md:text-lg max-w-2xl">
             Wählen Sie den Plan, der am besten zu Ihnen passt. Keine versteckten Gebühren, keine
