@@ -1,12 +1,12 @@
-import type { CardProps } from '@/types/cardprops'
+import type { CardProps } from '@/types/props'
 
 export const Card = ({ icon: Icon, title, description }: CardProps) => {
   return (
-    <div className="border rounded-lg p-6 shadow-lg hover:shadow-xl transition flex flex-col gap-4 lg:min-w-md bg-[color:var(--color-card)] text-[color:var(--color-card-foreground)]">
+    <div className="border rounded-lg p-6 shadow-lg hover:shadow-xl flex flex-col gap-4 lg:min-w-md bg-card text-card-foreground">
       <h3 className="font-bold h3-bold flex items-center gap-2">
         {Icon && (
-          <span className="bg-[color:var(--color-accent)] p-4 rounded-full flex-center">
-            <Icon className="text-[color:var(--color-accent-foreground)]" />
+          <span className="bg-accent p-4 rounded-full flex-center">
+            <Icon className="text-accent-foreground" />
           </span>
         )}
         <span>{title}</span>
