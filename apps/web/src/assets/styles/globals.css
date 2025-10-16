@@ -112,6 +112,10 @@
     @apply max-w-7xl w-full p-0 md:px-10 mx-auto;
   }
 
+  .section-vh {
+    @apply min-h-[100dvh] md:min-h-[100vh];
+  }
+
   .flex-start {
     @apply flex items-center justify-start;
   }
