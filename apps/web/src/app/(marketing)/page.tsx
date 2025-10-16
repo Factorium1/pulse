@@ -1,4 +1,5 @@
 import { Card } from '@/components/shared/web/card'
+import { PricingCard } from '@/components/shared/web/pricingCard'
 import { FaBook, FaGlobe, FaMobile, FaPen, FaShare } from 'react-icons/fa'
 import { FaDiagramSuccessor } from 'react-icons/fa6'
 
@@ -65,9 +66,50 @@ const Homepage = () => {
         <div className="max-w-3xl mx-auto flex-center flex-col text-center gap-3 text-foreground px-6 pt-30 pb-20">
           <h2 className="text-2xl md:text-3xl font-bold">Preise</h2>
           <p className="text-base md:text-lg max-w-2xl">
-            Wählen Sie den Plan, der am besten zu Ihnen passt. Keine versteckten Gebühren, keine
-            Überraschungen.
+            The whole project is licensed under the MIT License. You can use it for free for both
+            personal and commercial projects.
           </p>
+        </div>
+        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-10 mx-auto px-6 pb-20">
+          <PricingCard
+            icon={FaBook}
+            title="Free Plan"
+            description="For Personal Use"
+            price="0.00"
+            features={[
+              'Unbegrenzte Umfragen',
+              'Unbegrenzte Antworten',
+              'Grundlegende Berichtsfunktionen',
+              'E-Mail-Support',
+            ]}
+            button="Register Now"
+          />
+          <PricingCard
+            icon={FaBook}
+            title="Free Plan"
+            description="For Personal Use"
+            price="0.00"
+            features={[
+              'Unbegrenzte Umfragen',
+              'Unbegrenzte Antworten',
+              'Grundlegende Berichtsfunktionen',
+              'E-Mail-Support',
+            ]}
+            button="Register Now"
+          />
+          <PricingCard
+            icon={FaBook}
+            title="Free Plan"
+            description="For Personal Use"
+            price="0.00"
+            features={[
+              'Unbegrenzte Umfragen',
+              'Unbegrenzte Antworten',
+              'Grundlegende Berichtsfunktionen',
+              'E-Mail-Support',
+            ]}
+            button="Register Now"
+          />
         </div>
       </section>
     </>
