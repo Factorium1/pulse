@@ -1,9 +1,10 @@
-import { Card } from '@/components/shared/web/card'
-import { PricingCard } from '@/components/shared/web/pricingCard'
+import { Card } from '@/components/shared/marketing/card'
+import { PricingCard } from '@/components/shared/marketing/pricingCard'
 import { FaBook, FaGlobe, FaMobile, FaPen, FaShare } from 'react-icons/fa'
 import { FaDiagramSuccessor } from 'react-icons/fa6'
 import Image from 'next/image'
 import Link from 'next/link'
+import getVersions from '@/components/shared/marketing/getVerions'
 
 export const metadata = {
   title: 'Home',
@@ -138,6 +139,18 @@ const Homepage = () => {
                 src="./download/GetItOnGooglePlay_Badge_Web_color_English.svg"
               />
             </Link>
+          </div>
+        </div>
+        <div className="flex-center flex-col">
+          <div className="flex-center">
+            <label htmlFor="select">Choose a version:</label>
+            <select name="version" id="select">
+              {getVersions().map((version) => (
+                <option key={version} value={version}>
+                  {version}
+                </option>
+              ))}
+            </select>
           </div>
         </div>
       </section>
