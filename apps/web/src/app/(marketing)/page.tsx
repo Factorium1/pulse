@@ -4,7 +4,7 @@ import { FaBook, FaGlobe, FaMobile, FaPen, FaShare } from 'react-icons/fa'
 import { FaDiagramSuccessor } from 'react-icons/fa6'
 import Image from 'next/image'
 import Link from 'next/link'
-import getVersions from '@/components/shared/marketing/getVerions'
+import SelectOS from '@/components/shared/marketing/selectOS'
 
 export const metadata = {
   title: 'Home',
@@ -115,7 +115,7 @@ const Homepage = () => {
           />
         </div>
       </section>
-      <section id="download" className="section-vh">
+      <section id="download" className="min-h-[110dvh] md:min-h-[100vh]">
         <div className="max-w-3xl mx-auto flex-center flex-col text-center gap-3 text-foreground px-6 pt-30 pb-20">
           <h2 className="text-2xl md:text-3xl font-bold">Download</h2>
           <p className="text-base md:text-lg max-w-2xl">
@@ -140,18 +140,7 @@ const Homepage = () => {
               />
             </Link>
           </div>
-        </div>
-        <div className="flex-center flex-col">
-          <div className="flex-center">
-            <label htmlFor="select">Choose a version:</label>
-            <select name="version" id="select">
-              {getVersions().map((version) => (
-                <option key={version} value={version}>
-                  {version}
-                </option>
-              ))}
-            </select>
-          </div>
+          <SelectOS />
         </div>
       </section>
     </>
