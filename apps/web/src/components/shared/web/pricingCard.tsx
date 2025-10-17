@@ -15,7 +15,7 @@ export const PricingCard = ({
   }
 
   return (
-    <div className="border rounded-lg p-6 shadow-lg hover:shadow-xl flex flex-col gap-4 bg-card text-card-foreground lg:min-w-sm">
+    <div className="border rounded-lg p-6 shadow-lg hover:shadow-xl flex flex-col gap-4 bg-card text-card-foreground lg:min-w-sm border-t-5 border-t-accent">
       <div className="flex items-center gap-2">
         {Icon && (
           <span className="bg-accent p-4 rounded-full flex-center">
@@ -31,10 +31,10 @@ export const PricingCard = ({
       )}
       {description && <p className="text-md text-muted-foreground">{description}</p>}
       {features && (
-        <ul className="items-start flex justify-start flex-col gap-4 mt-2">
+        <ul className="items-start flex justify-start flex-col gap-4 mt-2 border-t-2 pt-5 border-gray-300">
           {features.map((feature, index) => (
             <li key={index} className="text-md flex-center font-semibold">
-              <FaCheckCircle className="inline-block mr-2 size-6" />
+              <FaCheckCircle className="inline-block mr-2 size-6 text-accent-foreground" />
               {feature}
             </li>
           ))}
