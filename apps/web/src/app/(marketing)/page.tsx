@@ -2,6 +2,8 @@ import { Card } from '@/components/shared/web/card'
 import { PricingCard } from '@/components/shared/web/pricingCard'
 import { FaBook, FaGlobe, FaMobile, FaPen, FaShare } from 'react-icons/fa'
 import { FaDiagramSuccessor } from 'react-icons/fa6'
+import Image from 'next/image'
+import Link from 'next/link'
 
 export const metadata = {
   title: 'Home',
@@ -110,6 +112,33 @@ const Homepage = () => {
             ]}
             button="Register Now"
           />
+        </div>
+      </section>
+      <section id="download" className="section-vh">
+        <div className="max-w-3xl mx-auto flex-center flex-col text-center gap-3 text-foreground px-6 pt-30 pb-20">
+          <h2 className="text-2xl md:text-3xl font-bold">Download</h2>
+          <p className="text-base md:text-lg max-w-2xl">
+            Laden Sie Pulse herunter und beantworten Sie Umfragen mobil — Teilnehmende können
+            Antworten außerdem bequem direkt im Browser abgeben.
+          </p>
+          <div className="flex-center">
+            <Link href="#">
+              <Image
+                alt="AppStore Download"
+                width="160"
+                height="60"
+                src="./download/AppStore_Download_dark.svg"
+              />
+            </Link>
+            <Link href="#">
+              <Image
+                alt="Google Play Download"
+                width="200"
+                height="60"
+                src="./download/GetItOnGooglePlay_Badge_Web_color_English.svg"
+              />
+            </Link>
+          </div>
         </div>
       </section>
     </>

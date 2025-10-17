@@ -11,9 +11,15 @@ const Header = () => {
         <FaBars />
       </button>
       <nav className="hidden md:flex md:flex-center space-x-4 text-md">
-        <Link href="#features">Funktionen</Link>
-        <Link href="#price">Preise</Link>
-        <Link href="#download">Download</Link>
+        <Link href="#features" className="font-semibold">
+          Funktionen
+        </Link>
+        <Link href="#price" className="font-semibold">
+          Preise
+        </Link>
+        <Link href="#download" className="font-semibold">
+          Download
+        </Link>
         <Link href="#login" className="font-bold">
           Login
         </Link>
