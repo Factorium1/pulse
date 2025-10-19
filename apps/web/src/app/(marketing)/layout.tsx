@@ -1,4 +1,4 @@
-import Header from '@/components/marketing'
+import Header from '@/components/marketing/header'
 
 export default function RootLayout({
   children,
