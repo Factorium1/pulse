@@ -1,4 +1,5 @@
 import Link from 'next/link'
+import showVersions from './showVersions'
 
 export const VersionsCard = (os: string) => {
   return (
@@ -41,9 +42,11 @@ export const VersionsCard = (os: string) => {
                 id="version"
                 className="bg-slate-200 py-4 pl-5 rounded-md w-full font-medium text-foreground cursor-pointer text-sm shadow-md"
               >
-                <option value="ios">iOS -- Aktuelle</option>
-                <option value="android">Android -- Bald Verfuegbar</option>
-                <option value="windows">Windows -- Bald Verfuegbar</option>
+                {/* {showVersions(os)} */}
+                <option value="ios">iOS Aktuelle Version</option>
+                <option value="ios-beta">iOS Beta Version</option>
+                <option value="android">Android Aktuelle Version</option>
+                <option value="android-beta">Android Beta Version</option>
               </select>
               <p className="text-xs text-slate-500 font-normal">
                 Tipp: Wechsle zwischen Stable und Beta, um andere Builds zu sehen
