@@ -8,8 +8,10 @@ const Header = () => {
   const [isMenuOpen, setIsMenuOpen] = useState(false)
 
   return (
-    <>
-      <div className="w-[90%] fixed left-1/2 top-5 z-10 -translate-x-1/2 flex-between backdrop-blur-sm bg-opacity-30 bg-white/30 border border-gray-300 md:w-lg px-5 py-3 rounded-full">
+    <div
+      className={`w-[90%] fixed left-1/2 top-5 z-10 -translate-x-1/2 flex-center flex-col backdrop-blur-sm bg-opacity-30 bg-white/30 border border-gray-300 md:w-lg px-5 py-3 ${isMenuOpen ? 'rounded-4xl' : 'rounded-full'}`}
+    >
+      <div className="flex-between w-full">
         <Link href="#home">
           <h1 className="text-2xl font-bold cursor-pointer">Pulse</h1>
         </Link>
@@ -35,8 +37,8 @@ const Header = () => {
         </nav>
       </div>
       {isMenuOpen && (
-        <nav className="fixed inset-0 flex-center md:hidden">
-          <div className="flex-center flex-col gap-4 px-6 py-8 rounded-2xl backdrop-blur-sm bg-white/60 border border-gray-200 w-[90%] max-w-xs text-center">
+        <nav className="flex-center md:hidden">
+          <div className="flex-center flex-col gap-4 px-6 pt-8 pb-4 w-[90%] max-w-xs text-center rounded-0">
             <Link href="#features" className="font-semibold" onClick={() => setIsMenuOpen(false)}>
               Funktionen
             </Link>
@@ -52,7 +54,7 @@ const Header = () => {
           </div>
         </nav>
       )}
-    </>
+    </div>
   )
 }
 
