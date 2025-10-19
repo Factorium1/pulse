@@ -1,3 +1,4 @@
+import Footer from '@/components/marketing/footer'
 import Header from '@/components/marketing/header'
 
 export default function RootLayout({
@@ -9,6 +10,7 @@ export default function RootLayout({
     <div className="h-screen bg-gradient-to-br from-slate-950 via-slate-900 to-black">
       <Header />
       <main className="flex-1 wrapper">{children}</main>
+      <Footer />
     </div>
   )
 }
