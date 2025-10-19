@@ -1,10 +1,10 @@
-import { Card } from '@/components/shared/marketing/card'
-import { PricingCard } from '@/components/shared/marketing/pricingCard'
+import { Card } from '@/components/marketing/card'
+import { PricingCard } from '@/components/marketing/pricingCard'
 import { FaBook, FaGlobe, FaMobile, FaPen, FaShare } from 'react-icons/fa'
 import { FaDiagramSuccessor } from 'react-icons/fa6'
 import Image from 'next/image'
 import Link from 'next/link'
-import SelectOS from '@/components/shared/marketing/selectOS'
+import SelectOS from '@/components/marketing/selectOS'
 
 export const metadata = {
   title: 'Home',
