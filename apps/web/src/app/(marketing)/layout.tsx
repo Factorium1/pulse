@@ -1,5 +1,5 @@
-import Footer from '@/components/marketing/footer'
-import Header from '@/components/marketing/header'
+import Footer from '@/components/ui/marketing/footer'
+import Header from '@/components/ui/marketing/header'
 
 export default function RootLayout({
   children,
