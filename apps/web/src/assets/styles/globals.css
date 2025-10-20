@@ -109,11 +109,15 @@
 
 @layer utilities {
   .wrapper {
-    @apply max-w-7xl w-full p-5 md:px-10 mx-auto;
+    @apply max-w-7xl w-full p-0 md:px-10 mx-auto;
+  }
+
+  .section-vh {
+    @apply min-h-[100dvh] md:min-h-[100vh];
   }
 
   .flex-start {
-    @apply flex items-center justify-start;
+    @apply flex items-start justify-center;
   }
   .flex-center {
     @apply flex items-center justify-center;
