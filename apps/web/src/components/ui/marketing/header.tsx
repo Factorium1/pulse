@@ -16,7 +16,7 @@ const Header = () => {
     if (!containerRef.current || !wrapperRef.current) return
 
     gsap.set(containerRef.current, { height: 0, overflow: 'hidden' })
-    gsap.set(wrapperRef.current, { borderRadius: 20, opacity: 1 })
+    gsap.set(wrapperRef.current, { borderRadius: 20 })
 
     tl.current = gsap
       .timeline({ paused: true })
@@ -37,7 +37,7 @@ const Header = () => {
   return (
     <div
       ref={wrapperRef}
-      className={`w-[90%] fixed left-1/2 top-5 z-10 -translate-x-1/2 flex-center flex-col backdrop-blur-sm bg-opacity-30 bg-white/30 border border-gray-300 md:w-lg px-5 py-3 opacity-0`}
+      className={`w-[90%] fixed left-1/2 top-5 z-10 -translate-x-1/2 flex-center flex-col backdrop-blur-sm bg-opacity-30 bg-white/30 border border-gray-300 md:w-lg px-5 py-3 rounded-[20px]`}
     >
       <div className="flex-between w-full">
         <Link href="#home">
@@ -66,7 +66,7 @@ const Header = () => {
           </Link>
         </nav>
       </div>
-      <nav ref={containerRef} className="flex-center md:hidden overflow-hidden height-0">
+      <nav ref={containerRef} className="flex-center md:hidden overflow-hidden h-0">
         <div className="flex-center flex-col gap-4 px-6 pt-8 pb-4 w-[90%] max-w-xs text-center rounded-0">
           <Link href="#features" className="font-semibold" onClick={() => setIsMenuOpen(false)}>
             Funktionen
