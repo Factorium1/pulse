@@ -64,11 +64,6 @@ const items = [
     url: '#',
     icon: Store,
   },
-  {
-    title: 'Settings',
-    url: '#',
-    icon: Settings,
-  },
 ]
 
 export function AppSidebar() {
@@ -136,6 +131,14 @@ export function AppSidebar() {
         <SidebarMenu>
           <SidebarMenuItem>
             <ThemeToggle />
+          </SidebarMenuItem>
+          <SidebarMenuItem>
+            <SidebarMenuButton asChild>
+              <Link href="#">
+                <Settings />
+                <span>Settings</span>
+              </Link>
+            </SidebarMenuButton>
           </SidebarMenuItem>
           <SidebarMenuItem>
             <SidebarMenuButton asChild>
