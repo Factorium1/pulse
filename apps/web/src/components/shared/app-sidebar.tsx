@@ -1,14 +1,13 @@
 import {
-  Calendar,
   Home,
-  Inbox,
-  Search,
   Settings,
   ChevronDown,
   LogOut,
   PenSquare,
   ClipboardList,
   Command,
+  ClipboardType,
+  Store,
 } from 'lucide-react'
 import {
   Sidebar,
@@ -38,19 +37,14 @@ const items = [
     icon: Home,
   },
   {
-    title: 'Inbox',
+    title: 'Surveys',
     url: '#',
-    icon: Inbox,
+    icon: ClipboardType,
   },
   {
-    title: 'Calendar',
+    title: 'Marketplace',
     url: '#',
-    icon: Calendar,
-  },
-  {
-    title: 'Search',
-    url: '#',
-    icon: Search,
+    icon: Store,
   },
   {
     title: 'Settings',
