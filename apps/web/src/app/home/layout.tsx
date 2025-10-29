@@ -1,5 +1,5 @@
 import { cookies } from 'next/headers'
-import { SidebarProvider, SidebarTrigger } from '@/components/ui/sidebar'
+import { SidebarProvider } from '@/components/ui/sidebar'
 import Sidebar from '@/components/shared/app-sidebar'
 
 export default async function RootLayout({
@@ -12,7 +12,6 @@ export default async function RootLayout({
   return (
     <SidebarProvider defaultOpen={defaultOpen}>
       <Sidebar />
-      <SidebarTrigger />
       <main className="flex-1 wrapper">{children}</main>
     </SidebarProvider>
   )
