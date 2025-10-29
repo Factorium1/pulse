@@ -1,4 +1,15 @@
-import { Calendar, Home, Inbox, Search, Settings, ChevronDown } from 'lucide-react'
+import {
+  Calendar,
+  Home,
+  Inbox,
+  Search,
+  Settings,
+  ChevronDown,
+  LogOut,
+  PenSquare,
+  ClipboardList,
+  Command,
+} from 'lucide-react'
 import {
   Sidebar,
   SidebarContent,
@@ -9,6 +20,7 @@ import {
   SidebarMenuButton,
   SidebarMenuItem,
   SidebarHeader,
+  SidebarFooter,
 } from '@/components/ui/sidebar'
 
 import {
@@ -56,15 +68,18 @@ export function AppSidebar() {
             <DropdownMenu>
               <DropdownMenuTrigger asChild>
                 <SidebarMenuButton>
+                  <Command />
                   Modus
                   <ChevronDown className="ml-auto" />
                 </SidebarMenuButton>
               </DropdownMenuTrigger>
               <DropdownMenuContent className="w-[--radix-popper-anchor-width]">
                 <DropdownMenuItem>
+                  <ClipboardList />
                   <span>Teilnehmen</span>
                 </DropdownMenuItem>
                 <DropdownMenuItem>
+                  <PenSquare />
                   <span>Erstellen</span>
                 </DropdownMenuItem>
               </DropdownMenuContent>
@@ -91,6 +106,18 @@ export function AppSidebar() {
           </SidebarGroupContent>
         </SidebarGroup>
       </SidebarContent>
+      <SidebarFooter>
+        <SidebarMenu>
+          <SidebarMenuItem>
+            <SidebarMenuButton asChild>
+              <a href="#">
+                <LogOut />
+                <span>Logout</span>
+              </a>
+            </SidebarMenuButton>
+          </SidebarMenuItem>
+        </SidebarMenu>
+      </SidebarFooter>
     </Sidebar>
   )
 }
