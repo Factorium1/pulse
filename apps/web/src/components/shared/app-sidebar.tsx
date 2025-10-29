@@ -20,6 +20,9 @@ import {
   SidebarMenuItem,
   SidebarHeader,
   SidebarFooter,
+  SidebarMenuSub,
+  SidebarMenuSubItem,
+  SidebarMenuSubButton,
 } from '@/components/ui/sidebar'
 
 import {
@@ -40,6 +43,18 @@ const items = [
     title: 'Surveys',
     url: '#',
     icon: ClipboardType,
+    sub: [
+      {
+        title: 'Survey',
+        url: '#',
+        icon: ClipboardList,
+      },
+      {
+        title: 'EventSampling',
+        url: '#',
+        icon: PenSquare,
+      },
+    ],
   },
   {
     title: 'Marketplace',
@@ -89,11 +104,25 @@ export function AppSidebar() {
               {items.map((item) => (
                 <SidebarMenuItem key={item.title}>
                   <SidebarMenuButton asChild>
-                    <a href={item.url}>
+                    <a href={item.url || '#'}>
                       <item.icon />
                       <span>{item.title}</span>
                     </a>
                   </SidebarMenuButton>
+                  {item.sub && (
+                    <SidebarMenuSub>
+                      {item.sub.map((subItem) => (
+                        <SidebarMenuSubItem key={subItem.title}>
+                          <SidebarMenuSubButton asChild>
+                            <a href={subItem.url}>
+                              <subItem.icon />
+                              <span>{subItem.title}</span>
+                            </a>
+                          </SidebarMenuSubButton>
+                        </SidebarMenuSubItem>
+                      ))}
+                    </SidebarMenuSub>
+                  )}
                 </SidebarMenuItem>
               ))}
             </SidebarMenu>
