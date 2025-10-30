@@ -10,6 +10,7 @@ export function ThemeToggle() {
   return (
     <SidebarMenuButton asChild>
       <div
+        className="cursor-pointer"
         onClick={() => {
           setTheme(theme === 'dark' ? 'light' : 'dark')
         }}
