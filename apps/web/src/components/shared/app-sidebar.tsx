@@ -33,6 +33,7 @@ import {
   DropdownMenuItem,
   DropdownMenuTrigger,
 } from '@/components/ui/dropdown-menu'
+import { ThemeToggle } from '../ui/theme-toggle'
 
 // Menu items.
 const items = [
@@ -62,11 +63,6 @@ const items = [
     title: 'Marketplace',
     url: '#',
     icon: Store,
-  },
-  {
-    title: 'Settings',
-    url: '#',
-    icon: Settings,
   },
 ]
 
@@ -133,6 +129,17 @@ export function AppSidebar() {
       </SidebarContent>
       <SidebarFooter>
         <SidebarMenu>
+          <SidebarMenuItem>
+            <ThemeToggle />
+          </SidebarMenuItem>
+          <SidebarMenuItem>
+            <SidebarMenuButton asChild>
+              <Link href="#">
+                <Settings />
+                <span>Settings</span>
+              </Link>
+            </SidebarMenuButton>
+          </SidebarMenuItem>
           <SidebarMenuItem>
             <SidebarMenuButton asChild>
               <Link href="#">
