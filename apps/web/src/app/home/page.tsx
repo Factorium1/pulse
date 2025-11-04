@@ -6,27 +6,23 @@ const Home = () => {
     <div className="flex flex-col mt-10 gap-6 px-4 md:px-8 lg:px-12">
       <p className="h1-bold text-left mb-4">Willkommen zurueck, User!</p>
       <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
-        {/* Card Component */}
         <InfoCard
           title="Neue Umfrage verfuegbar"
           description='Es gibt eine neue Umfrage zum Thema "Mitarbeiterzufriedenheit". Bitte nehmen Sie sich ein paar Minuten Zeit, um daran teilzunehmen und uns Ihr Feedback zu geben.'
           href="/surveys/1"
           linkTitle="Zur Umfrage"
         />
-
-        <div className="col-span-1 md:col-span-2 lg:col-span-3 flex items-center flex-col md:flex-row bg-green-100 rounded-lg px-4 py-2 border-l-4 !border-green-400 border-solid shadow-sm">
-          <span className="text-green-500 text-3xl m-4 ml-2 rounded-full p-3 border-5 !border-green-300">
-            <FaBell />
-          </span>
-          <div className="flex flex-col text-center md:text-left ml-4">
-            <p className="text-lg font-semibold text-green-800">Eventsampling verfuegbar</p>
-            <p className="text-sm text-green-900/90 pr-5">
-              Ein neues Eventsampling steht bereit. Bitte nehmen Sie daran teil! Das Thema des
-              Eventsamplings ist "Produktfeedback". Klicken Sie auf den Button rechts fuer weitere
-              Informationen.
-            </p>
-          </div>
-        </div>
+        <InfoCard
+          title="Eventsampling verfuegbar"
+          description='Ein neues Eventsampling steht bereit. Bitte nehmen Sie daran teil! Das Thema des Eventsamplings ist "Produktfeedback". Klicken Sie auf den Button rechts fuer weitere Informationen.'
+          href="/samplings/1"
+          linkTitle="Zum Eventsampling"
+          icon={<FaBell />}
+          bgColor="bg-green-100"
+          textColor="text-green-600"
+          borderColor="!border-green-400"
+          borderSize="border-l-4"
+        />
       </div>
     </div>
   )
