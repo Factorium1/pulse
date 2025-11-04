@@ -14,11 +14,11 @@ const Home = () => {
           linkTitle="Zur Umfrage"
         />
 
-        <div className="col-span-1 md:col-span-2 lg:col-span-3 flex items-center flex-row bg-green-100 rounded-lg px-4 py-2 border-l-4 border-green-400 shadow-sm">
-          <span className="text-green-600">
+        <div className="col-span-1 md:col-span-2 lg:col-span-3 flex items-center flex-col md:flex-row bg-green-100 rounded-lg px-4 py-2 border-l-4 !border-green-400 border-solid shadow-sm">
+          <span className="text-green-500 text-3xl m-4 ml-2 rounded-full p-3 border-5 !border-green-300">
             <FaBell />
           </span>
-          <div className="flex flex-col text-left ml-4">
+          <div className="flex flex-col text-center md:text-left ml-4">
             <p className="text-lg font-semibold text-green-800">Eventsampling verfuegbar</p>
             <p className="text-sm text-green-900/90 pr-5">
               Ein neues Eventsampling steht bereit. Bitte nehmen Sie daran teil! Das Thema des
