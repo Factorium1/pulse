@@ -1,5 +1,5 @@
 import Link from 'next/link'
-import { FaArrowRight, FaInfo } from 'react-icons/fa'
+import { FaArrowRight, FaBell, FaInfo } from 'react-icons/fa'
 
 const Home = () => {
   return (
@@ -27,7 +27,19 @@ const Home = () => {
             Zur Umfrage <FaArrowRight />
           </Link>
         </div>
-        <div className="col-span-1 md:col-span-2 lg:col-span-3 flex flex-center flex-row bg-green-100 rounded-lg px-4 py-2"></div>
+        <div className="col-span-1 md:col-span-2 lg:col-span-3 flex items-center flex-row bg-green-100 rounded-lg px-4 py-2 border-l-4 border-green-400 shadow-sm">
+          <span className="text-green-600">
+            <FaBell />
+          </span>
+          <div className="flex flex-col text-left ml-4">
+            <p className="text-lg font-semibold text-green-800">Eventsampling verfuegbar</p>
+            <p className="text-sm text-green-900/90 pr-5">
+              Ein neues Eventsampling steht bereit. Bitte nehmen Sie daran teil! Das Thema des
+              Eventsamplings ist "Produktfeedback". Klicken Sie auf den Button rechts fuer weitere
+              Informationen.
+            </p>
+          </div>
+        </div>
       </div>
     </div>
   )
