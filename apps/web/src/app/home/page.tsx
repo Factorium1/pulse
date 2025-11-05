@@ -3,6 +3,7 @@ import InfoCard from '@/components/ui/infoCard'
 import { Progress } from '@/components/ui/progress'
 import { FaUserGroup } from 'react-icons/fa6'
 import Link from 'next/link'
+import CalenderCard from '@/components/ui/calender-card'
 
 const Home = () => {
   return (
@@ -30,30 +31,25 @@ const Home = () => {
       <div className="grid grid-cols-1 lg:grid-cols-2 gap-5">
         <div className="col-span-full shadow-md rounded-lg p-6 bg-card">
           <p className="h3-bold mb-2">Ablaufplan (Naechste 7 Tage)</p>
-          <div className="bg-gray-100 flex justify-start items-center gap-6 p-4 rounded-lg">
-            <div className="flex-center flex-col">
-              <p className="font-bold text-indigo-500">HEUTE</p>
-              <p className="font-bold text-3xl ">29.</p>
-              <p className="text-neutral-500">OKT</p>
-            </div>
-            <div className="border-l border-2 h-15 !border-indigo-500" />
-            <div className="">
-              <p className="font-semibold text-lg">Taegliche Befragung</p>
-              <p className="text-neutral-600">Studie "Alltagsstress" - 15:00Uhr bis 16:00Uhr</p>
-            </div>
-          </div>
-          <div className="flex justify-start items-center gap-6 p-4 rounded-lg">
-            <div className="flex-center flex-col">
-              <p className="font-bold text-neutral-500">FR</p>
-              <p className="font-bold text-3xl ">31.</p>
-              <p className="text-neutral-500">OKT</p>
-            </div>
-            <div className="border-l border-2 h-15 border-indigo-500" />
-            <div className="">
-              <p className="font-semibold text-lg text-black/70">Woechentliche Zusammenfassung</p>
-              <p className="text-neutral-600">Studie "Alltagsstress" - (ca. 15 Min.)</p>
-            </div>
-          </div>
+          <CalenderCard
+            type="today"
+            date={new Date()}
+            time="10:00 - 11:00"
+            title="Wöchentliche Zusammenfassung"
+            description="Studie 'Alltagsstress' - (ca. 15 Min.)"
+          />
+          <CalenderCard
+            date={new Date(new Date().setDate(new Date().getDate() + 2))}
+            time="14:00 - 15:00"
+            title="Eventsampling Erinnerung"
+            description="Studie 'Produktfeedback' - (ca. 5 Min.)"
+          />
+          <CalenderCard
+            date={new Date(new Date().setDate(new Date().getDate() + 5))}
+            time="09:00 - 10:00"
+            title="Monatliche Umfrage"
+            description="Studie 'Mitarbeiterzufriedenheit' - (ca. 10 Min.)"
+          />
         </div>
 
         <div className="cols-span-1 shadow-md rounded-lg p-6 bg-card">
