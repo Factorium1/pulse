@@ -6,7 +6,7 @@ import { FaUserGroup } from 'react-icons/fa6'
 const Home = () => {
   return (
     <div className="flex flex-col mt-10 gap-6 px-4 md:px-8 lg:px-12">
-      <p className="h1-bold text-left mb-4">Willkommen zurueck, User!</p>
+      <p className="h1-bold text-center md:text-left mb-4">Willkommen zurueck, User!</p>
       <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
         <InfoCard
           title="Neue Umfrage verfuegbar"
