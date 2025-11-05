@@ -7,11 +7,12 @@ import { cn } from '@/lib/utils'
 
 type ProgressProps = React.ComponentProps<typeof ProgressPrimitive.Root> & {
   bg?: string
+  fg?: string
 }
 
-function Progress({ className, value, bg, ...props }: ProgressProps) {
-  const bgBar = bg ? `bg-${bg}/20` : 'bg-primary/20'
-  const bgBarForeground = bg ? `bg-${bg}` : 'bg-primary'
+function Progress({ className, value, bg, fg, ...props }: ProgressProps) {
+  const bgBar = bg ?? 'bg-primary/20'
+  const fgBar = fg ?? 'bg-primary'
 
   return (
     <ProgressPrimitive.Root
@@ -21,7 +22,7 @@ function Progress({ className, value, bg, ...props }: ProgressProps) {
     >
       <ProgressPrimitive.Indicator
         data-slot="progress-indicator"
-        className={`${bgBarForeground} h-full w-full flex-1 transition-all`}
+        className={`${fgBar} h-full w-full flex-1 transition-all`}
         style={{ transform: `translateX(-${100 - (value || 0)}%)` }}
       />
     </ProgressPrimitive.Root>
