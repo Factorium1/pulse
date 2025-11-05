@@ -4,6 +4,7 @@ import { Progress } from '@/components/ui/progress'
 import { FaUserGroup } from 'react-icons/fa6'
 import Link from 'next/link'
 import CalenderCard from '@/components/ui/calender-card'
+import RessourceCard from '@/components/ui/ressource-card'
 
 const Home = () => {
   return (
@@ -63,42 +64,25 @@ const Home = () => {
         <div className="cols-span-1 shadow-md rounded-lg p-6 bg-card">
           <p className="h3-bold mb-2">Ressourcen & Hilfe</p>
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4">
-            <Link
-              href="/faq"
-              className="bg-indigo-200/20 rounded-lg flex-center flex-col p-4 gap-2"
-            >
-              <FaQuestion className="text-indigo-500 text-2xl" />
-              <p className="text-2xl">FAQ</p>
-              <p className="text-neutral-600 text-semibold text-center">Häufig gestellte Fragen</p>
-            </Link>
-            <Link
-              href="/support"
-              className="bg-indigo-200/20 rounded-lg flex-center flex-col p-4 gap-2"
-            >
-              <FaUserGroup className="text-indigo-500 text-2xl" />
-              <p className="text-2xl">Support</p>
-              <p className="text-neutral-600 text-semibold text-center">
-                Hilfe bei Problemen oder Fragen
-              </p>
-            </Link>
-            <Link
-              href="/feedback"
-              className="bg-indigo-200/20 rounded-lg flex-center flex-col p-4 gap-2"
-            >
-              <FaUserGroup className="text-indigo-500 text-2xl" />
-              <p className="text-2xl">Feedback</p>
-              <p className="text-neutral-600 text-semibold text-center">
-                Ihre Meinung ist uns wichtig
-              </p>
-            </Link>
-            <Link
-              href="/bugs"
-              className="bg-indigo-200/20 rounded-lg flex-center flex-col p-4 gap-2"
-            >
-              <FaEye className="text-indigo-500 text-2xl" />
-              <p className="text-2xl">Bugs</p>
-              <p className="text-neutral-600 text-semibold text-center">Melde ein Problem</p>
-            </Link>
+            <RessourceCard
+              title="FAQ"
+              description="Häufig gestellte Fragen"
+              icon={FaQuestion}
+              link="/faq"
+            />
+            <RessourceCard
+              title="Support"
+              description="Hilfe bei Problemen oder Fragen"
+              icon={FaUserGroup}
+              link="/support"
+            />
+            <RessourceCard
+              title="Feedback"
+              description="Ihre Meinung ist uns wichtig"
+              icon={FaUserGroup}
+              link="/feedback"
+            />
+            <RessourceCard title="Bugs" description="Melde ein Problem" icon={FaEye} link="/bugs" />
           </div>
         </div>
       </div>
