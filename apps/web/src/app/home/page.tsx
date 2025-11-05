@@ -1,5 +1,6 @@
 import { FaBell } from 'react-icons/fa'
 import InfoCard from '@/components/ui/infoCard'
+import { Progress } from '@/components/ui/progress'
 
 const Home = () => {
   return (
@@ -27,6 +28,7 @@ const Home = () => {
       <div className="grid grid-cols-1 lg:grid-cols-2">
         <div className="cols-span-1 shadow-md rounded-lg p-6 bg-card">
           <p className="h3-bold mb-2">Mein Fortschritt</p>
+          <Progress value={80} bg="green-500" />
         </div>
       </div>
     </div>
