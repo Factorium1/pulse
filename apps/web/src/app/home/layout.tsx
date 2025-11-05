@@ -16,7 +16,7 @@ export default async function RootLayout({
       <ThemeAnimation />
       <SidebarProvider defaultOpen={defaultOpen}>
         <Sidebar />
-        <SidebarTrigger />
+        <SidebarTrigger className="cursor-pointer fixed m-5 md:hidden md:m-0" />
         <main className="flex-1 wrapper">{children}</main>
       </SidebarProvider>
     </ThemeProvider>

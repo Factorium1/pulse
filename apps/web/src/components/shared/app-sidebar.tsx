@@ -34,6 +34,7 @@ import {
   DropdownMenuTrigger,
 } from '@/components/ui/dropdown-menu'
 import { ThemeToggle } from '../ui/theme-toggle'
+import ToggleSidebar from '../ui/toggle-sidebar'
 
 // Menu items.
 const items = [
@@ -131,6 +132,9 @@ export function AppSidebar() {
         <SidebarMenu>
           <SidebarMenuItem>
             <ThemeToggle />
+          </SidebarMenuItem>
+          <SidebarMenuItem className="hidden md:block">
+            <ToggleSidebar />
           </SidebarMenuItem>
           <SidebarMenuItem>
             <SidebarMenuButton asChild>
