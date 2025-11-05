@@ -2,9 +2,9 @@ import { FaBell, FaEye, FaQuestion } from 'react-icons/fa'
 import InfoCard from '@/components/ui/infoCard'
 import { Progress } from '@/components/ui/progress'
 import { FaUserGroup } from 'react-icons/fa6'
-import Link from 'next/link'
 import CalenderCard from '@/components/ui/calender-card'
 import RessourceCard from '@/components/ui/ressource-card'
+import HomeCard from '@/components/ui/home-card'
 
 const Home = () => {
   return (
@@ -30,8 +30,7 @@ const Home = () => {
         />
       </div>
       <div className="grid grid-cols-1 lg:grid-cols-2 gap-5">
-        <div className="col-span-full shadow-md rounded-lg p-6 bg-card">
-          <p className="h3-bold mb-2">Ablaufplan (Naechste 7 Tage)</p>
+        <HomeCard colSpan="full" title="Ablaufplan (Naechste 7 Tage)">
           <CalenderCard
             type="today"
             date={new Date()}
@@ -51,18 +50,15 @@ const Home = () => {
             title="Monatliche Umfrage"
             description="Studie 'Mitarbeiterzufriedenheit' - (ca. 10 Min.)"
           />
-        </div>
-
-        <div className="cols-span-1 shadow-md rounded-lg p-6 bg-card">
-          <p className="h3-bold mb-2">Mein Fortschritt</p>
+        </HomeCard>
+        <HomeCard colSpan="1" title="Mein Fortschritt">
           <div className="flex-between mb-1">
             <p className="">Studie "Alltagsstress"</p>
             <p className="font-semibold">Tag 3 von 14</p>
           </div>
           <Progress value={10} bg="bg-green-500/20" fg="bg-green-500" />
-        </div>
-        <div className="cols-span-1 shadow-md rounded-lg p-6 bg-card">
-          <p className="h3-bold mb-2">Ressourcen & Hilfe</p>
+        </HomeCard>
+        <HomeCard colSpan="1" title="Ressourcen & Hilfe">
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4">
             <RessourceCard
               title="FAQ"
@@ -84,7 +80,7 @@ const Home = () => {
             />
             <RessourceCard title="Bugs" description="Melde ein Problem" icon={FaEye} link="/bugs" />
           </div>
-        </div>
+        </HomeCard>
       </div>
     </div>
   )
