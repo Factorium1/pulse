@@ -15,7 +15,7 @@ const SurveyPage = () => {
         <div className="rounded-2xl border border-slate-200 bg-white p-6 shadow-sm transition hover:shadow-md">
           <div className="flex flex-col">
             <div className="h2-bold">Umfrage</div>
-            <span>Umfragen sind zeitlich begrenzt</span>
+            <span className="text-sm text-slate-700">Umfragen sind zeitlich begrenzt</span>
           </div>
 
           <div className="mt-4 rounded-xl border border-slate-100 bg-white p-6 text-center">
@@ -67,11 +67,17 @@ const SurveyPage = () => {
 
         <div className="rounded-2xl border border-slate-200 bg-white p-6 shadow-sm transition hover:shadow-md">
           <div className="flex flex-col">
-            <div className="h2-bold">Sampling</div>
-            <span>Sampling sind selbst gestartete Umfragen</span>
+            <div className="h2-bold">Eventbasierte Umfrage</div>
+            <span className="text-sm text-slate-700">
+              Sie starten diese kurzen Umfragen selbst, sobald das Ereignis eintritt.
+            </span>
+            <div className="mt-3 rounded-lg bg-slate-50 border border-slate-200 p-3 text-sm text-slate-700">
+              Beispiel: „Nach einem Kundengespräch“ oder „wenn Sie gerade Stress empfinden“ –
+              Sampling öffnen und starten.
+            </div>
           </div>
           <div className="mt-4 rounded-xl border border-slate-100 bg-white p-6 text-center">
-            <p className="h3-bold">„Wie fuehlen Sie sich?“</p>
+            <p className="h3-bold">„Ablenkung durch Handy Nutzung“</p>
             <span className="inline-flex items-center gap-2 rounded-full bg-slate-100 px-3 py-1 mt-2 text-sm font-medium text-slate-700">
               <FaClock aria-hidden />
               15:00 – 15:30 Uhr
@@ -89,7 +95,7 @@ const SurveyPage = () => {
             </button>
           </div>
           <div className="mt-4 rounded-xl border border-slate-100 bg-white p-6 text-center">
-            <p className="h3-bold">„Wie fuehlen Sie sich?“</p>
+            <p className="h3-bold">„Stress durch die Arbeit“</p>
             <span className="inline-flex items-center gap-2 rounded-full bg-slate-100 px-3 py-1 mt-2 text-sm font-medium text-slate-700">
               <FaClock aria-hidden />
               15:00 – 15:30 Uhr
