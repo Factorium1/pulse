@@ -30,7 +30,7 @@ const DashboardPage = () => {
         />
       </div>
       <div className="grid grid-cols-1 lg:grid-cols-2 gap-5">
-        <HomeCard colSpan="full" title="Ablaufplan (Naechste 7 Tage)">
+        <HomeCard className="col-span-full" title="Ablaufplan (Naechste 7 Tage)">
           <CalenderCard
             type="today"
             date={new Date()}
@@ -51,14 +51,14 @@ const DashboardPage = () => {
             description="Studie 'Mitarbeiterzufriedenheit' - (ca. 10 Min.)"
           />
         </HomeCard>
-        <HomeCard colSpan="1" title="Mein Fortschritt">
+        <HomeCard className="col-span-1" title="Mein Fortschritt">
           <div className="flex-between mb-1">
             <p className="">Studie "Alltagsstress"</p>
             <p className="font-semibold">Tag 3 von 14</p>
           </div>
           <Progress value={10} bg="bg-primary/20" fg="bg-primary" />
         </HomeCard>
-        <HomeCard colSpan="1" title="Ressourcen & Hilfe">
+        <HomeCard className="col-span-1" title="Ressourcen & Hilfe">
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
             <RessourceCard
               title="FAQ"
