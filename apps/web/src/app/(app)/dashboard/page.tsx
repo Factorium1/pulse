@@ -6,7 +6,7 @@ import CalenderCard from '@/components/ui/calender-card'
 import RessourceCard from '@/components/ui/ressource-card'
 import HomeCard from '@/components/ui/home-card'
 
-const Home = () => {
+const DashboardPage = () => {
   return (
     <div className="flex flex-col mt-10 gap-6 px-4 md:px-8 lg:px-12">
       <p className="h1-bold text-center md:text-left mb-4">Willkommen zurueck, User!</p>
@@ -80,4 +80,4 @@ const Home = () => {
   )
 }
 
-export default Home
+export default DashboardPage
