@@ -1,6 +1,4 @@
-import { FaArrowRight, FaCalendarAlt, FaClock } from 'react-icons/fa'
-import { FaClockRotateLeft } from 'react-icons/fa6'
-import Link from 'next/link'
+import SurveyCard from '@/components/ui/survey-card'
 
 const SurveyPage = () => {
   return (
@@ -19,51 +17,20 @@ const SurveyPage = () => {
             <span className="text-sm text-muted-foreground">Umfragen sind zeitlich begrenzt</span>
           </div>
 
-          <div className="mt-4 rounded-xl border border-border bg-card p-6 text-center">
-            <p className="h3-bold">„Mitarbeiterzufriedenheit“</p>
-            <div className="mt-2 flex-center flex-col gap-1">
-              <div className="flex-center gap-2">
-                <p className="text-sm text-muted-foreground">Verfuegbar:</p>
-                <span className="inline-flex items-center gap-2 rounded-full bg-muted px-3 py-1 text-sm font-medium text-muted-foreground">
-                  <FaCalendarAlt aria-hidden />
-                  01.01.2023 – 31.01.2023
-                </span>
-              </div>
-              <div className="flex-center gap-2">
-                <p className="text-sm text-muted-foreground">Geschätzte Dauer:</p>
-                <span className="flex-center gap-2 rounded-full bg-muted px-3 py-1 text-sm font-medium text-muted-foreground">
-                  <FaClockRotateLeft aria-hidden />
-                  15min
-                </span>
-              </div>
-            </div>
-            <Link
-              href="/survey/mitarbeiterzufriedenheit"
-              aria-label="Umfrage starten"
-              className="mt-4 inline-flex items-center justify-center gap-2 rounded-lg bg-primary px-4 py-2 font-bold text-primary-foreground transition hover:bg-primary/90 focus:outline-none focus-visible:ring-2 focus-visible:ring-primary cursor-pointer"
-            >
-              Umfrage starten
-              <FaArrowRight className="transition-transform group-hover:translate-x-0.5" />
-            </Link>
-          </div>
-          <div className="mt-4 rounded-xl border border-border bg-card p-6 text-center">
-            <p className="h3-bold">„Gedaechnis im Alltag“</p>
-            <span className="inline-flex items-center gap-2 rounded-full bg-muted px-3 py-1 mt-2 text-sm font-medium text-muted-foreground">
-              <FaCalendarAlt aria-hidden />
-              01.01.2023 – 31.01.2023
-            </span>
-            <p className="mt-1 text-sm text-muted-foreground">
-              Die Umfrage ist im oben genannten Zeitraum verfügbar.
-            </p>
-            <Link
-              href="/survey/gedaechtnis-im-alltag"
-              aria-label="Umfrage starten"
-              className="mt-4 inline-flex items-center justify-center gap-2 rounded-lg bg-primary px-4 py-2 font-bold text-primary-foreground transition hover:bg-primary/90 focus:outline-none focus-visible:ring-2 focus-visible:ring-primary cursor-pointer"
-            >
-              Umfrage starten
-              <FaArrowRight className="transition-transform group-hover:translate-x-0.5" />
-            </Link>
-          </div>
+          <SurveyCard
+            title="Mitarbeiterzufriedenheit"
+            availableFrom="01.01.2023"
+            availableTo="31.01.2023"
+            estimatedDuration="15min"
+            surveyID="mitarbeiterzufriedenheit"
+          />
+
+          <SurveyCard
+            title="Gedaechnis im Alltag"
+            availableFrom="01.01.2023"
+            availableTo="31.01.2023"
+            surveyID="gedaechtnis-im-alltag"
+          />
         </div>
 
         <div className="rounded-2xl border border-border bg-card p-6 shadow-sm transition hover:shadow-md">
@@ -77,42 +44,20 @@ const SurveyPage = () => {
               Sampling öffnen und starten.
             </div>
           </div>
-          <div className="mt-4 rounded-xl border border-border bg-card p-6 text-center">
-            <p className="h3-bold">„Ablenkung durch Handy Nutzung“</p>
-            <span className="inline-flex items-center gap-2 rounded-full bg-muted px-3 py-1 mt-2 text-sm font-medium text-muted-foreground">
-              <FaClock aria-hidden />
-              15:00 – 15:30 Uhr
-            </span>
-            <p className="mt-1 text-sm text-muted-foreground">
-              Die selbst Umfrage ist im oben genannten Zeitraum verfügbar.
-            </p>
-            <Link
-              href="/survey/ablenkung-durch-handy-nutzung"
-              aria-label="Umfrage starten"
-              className="mt-4 inline-flex items-center justify-center gap-2 rounded-lg bg-primary px-4 py-2 font-bold text-primary-foreground transition hover:bg-primary/90 focus:outline-none focus-visible:ring-2 focus-visible:ring-primary cursor-pointer"
-            >
-              Umfrage starten
-              <FaArrowRight className="transition-transform group-hover:translate-x-0.5" />
-            </Link>
-          </div>
-          <div className="mt-4 rounded-xl border border-border bg-card p-6 text-center">
-            <p className="h3-bold">„Stress durch die Arbeit“</p>
-            <span className="inline-flex items-center gap-2 rounded-full bg-muted px-3 py-1 mt-2 text-sm font-medium text-muted-foreground">
-              <FaClock aria-hidden />
-              15:00 – 15:30 Uhr
-            </span>
-            <p className="mt-1 text-sm text-muted-foreground">
-              Die selbst Umfrage ist im oben genannten Zeitraum verfügbar.
-            </p>
-            <Link
-              href="/survey/stress-durch-die-arbeit"
-              aria-label="Umfrage starten"
-              className="mt-4 inline-flex items-center justify-center gap-2 rounded-lg bg-primary px-4 py-2 font-bold text-primary-foreground transition hover:bg-primary/90 focus:outline-none focus-visible:ring-2 focus-visible:ring-primary cursor-pointer"
-            >
-              Umfrage starten
-              <FaArrowRight className="transition-transform group-hover:translate-x-0.5" />
-            </Link>
-          </div>
+
+          <SurveyCard
+            title="Ablenkung durch Handy Nutzung"
+            samplingFrom="15:00"
+            samplingTo="15:30 Uhr"
+            surveyID="ablenkung-durch-handy-nutzung"
+          />
+
+          <SurveyCard
+            title="Stress durch die Arbeit"
+            samplingFrom="15:00"
+            samplingTo="15:30 Uhr"
+            surveyID="stress-durch-die-arbeit"
+          />
         </div>
       </div>
     </div>
