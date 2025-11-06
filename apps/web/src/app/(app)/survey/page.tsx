@@ -1,5 +1,6 @@
 import { FaArrowRight, FaCalendarAlt, FaClock } from 'react-icons/fa'
 import { FaClockRotateLeft } from 'react-icons/fa6'
+import Link from 'next/link'
 
 const SurveyPage = () => {
   return (
@@ -36,14 +37,14 @@ const SurveyPage = () => {
                 </span>
               </div>
             </div>
-            <button
-              type="button"
+            <Link
+              href="/survey/mitarbeiterzufriedenheit"
               aria-label="Umfrage starten"
               className="mt-4 inline-flex items-center justify-center gap-2 rounded-lg bg-primary px-4 py-2 font-bold text-primary-foreground transition hover:bg-primary/90 focus:outline-none focus-visible:ring-2 focus-visible:ring-primary cursor-pointer"
             >
               Umfrage starten
               <FaArrowRight className="transition-transform group-hover:translate-x-0.5" />
-            </button>
+            </Link>
           </div>
           <div className="mt-4 rounded-xl border border-border bg-card p-6 text-center">
             <p className="h3-bold">„Gedaechnis im Alltag“</p>
@@ -54,14 +55,14 @@ const SurveyPage = () => {
             <p className="mt-1 text-sm text-muted-foreground">
               Die Umfrage ist im oben genannten Zeitraum verfügbar.
             </p>
-            <button
-              type="button"
+            <Link
+              href="/survey/gedaechtnis-im-alltag"
               aria-label="Umfrage starten"
               className="mt-4 inline-flex items-center justify-center gap-2 rounded-lg bg-primary px-4 py-2 font-bold text-primary-foreground transition hover:bg-primary/90 focus:outline-none focus-visible:ring-2 focus-visible:ring-primary cursor-pointer"
             >
               Umfrage starten
               <FaArrowRight className="transition-transform group-hover:translate-x-0.5" />
-            </button>
+            </Link>
           </div>
         </div>
 
@@ -85,14 +86,14 @@ const SurveyPage = () => {
             <p className="mt-1 text-sm text-muted-foreground">
               Die selbst Umfrage ist im oben genannten Zeitraum verfügbar.
             </p>
-            <button
-              type="button"
+            <Link
+              href="/survey/ablenkung-durch-handy-nutzung"
               aria-label="Umfrage starten"
               className="mt-4 inline-flex items-center justify-center gap-2 rounded-lg bg-primary px-4 py-2 font-bold text-primary-foreground transition hover:bg-primary/90 focus:outline-none focus-visible:ring-2 focus-visible:ring-primary cursor-pointer"
             >
               Umfrage starten
               <FaArrowRight className="transition-transform group-hover:translate-x-0.5" />
-            </button>
+            </Link>
           </div>
           <div className="mt-4 rounded-xl border border-border bg-card p-6 text-center">
             <p className="h3-bold">„Stress durch die Arbeit“</p>
@@ -103,14 +104,14 @@ const SurveyPage = () => {
             <p className="mt-1 text-sm text-muted-foreground">
               Die selbst Umfrage ist im oben genannten Zeitraum verfügbar.
             </p>
-            <button
-              type="button"
+            <Link
+              href="/survey/stress-durch-die-arbeit"
               aria-label="Umfrage starten"
               className="mt-4 inline-flex items-center justify-center gap-2 rounded-lg bg-primary px-4 py-2 font-bold text-primary-foreground transition hover:bg-primary/90 focus:outline-none focus-visible:ring-2 focus-visible:ring-primary cursor-pointer"
             >
               Umfrage starten
               <FaArrowRight className="transition-transform group-hover:translate-x-0.5" />
-            </button>
+            </Link>
           </div>
         </div>
       </div>
