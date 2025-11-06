@@ -40,29 +40,29 @@ import ToggleSidebar from '../ui/toggle-sidebar'
 const items = [
   {
     title: 'Home',
-    url: '/home',
+    url: '/dashboard',
     icon: Home,
   },
   {
     title: 'Surveys',
-    url: '#',
+    url: '/survey',
     icon: ClipboardType,
     sub: [
       {
         title: 'Survey',
-        url: '#',
+        url: '/survey/{id}',
         icon: ClipboardList,
       },
       {
         title: 'EventSampling',
-        url: '#',
+        url: '/sampling/{id}',
         icon: PenSquare,
       },
     ],
   },
   {
     title: 'Marketplace',
-    url: '#',
+    url: '/marketplace',
     icon: Store,
   },
 ]
