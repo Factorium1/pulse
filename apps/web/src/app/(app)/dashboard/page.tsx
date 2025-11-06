@@ -23,9 +23,9 @@ const DashboardPage = () => {
           href="/samplings/1"
           linkTitle="Zum Eventsampling"
           icon={<FaBell />}
-          bgColor="bg-green-100"
-          textColor="text-green-600"
-          borderColor="!border-green-400"
+          bgColor="bg-secondary"
+          textColor="text-secondary-foreground"
+          borderColor="border-primary"
           borderSize="border-l-4"
         />
       </div>
@@ -56,7 +56,7 @@ const DashboardPage = () => {
             <p className="">Studie "Alltagsstress"</p>
             <p className="font-semibold">Tag 3 von 14</p>
           </div>
-          <Progress value={10} bg="bg-green-500/20" fg="bg-green-500" />
+          <Progress value={10} bg="bg-primary/20" fg="bg-primary" />
         </HomeCard>
         <HomeCard colSpan="1" title="Ressourcen & Hilfe">
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
