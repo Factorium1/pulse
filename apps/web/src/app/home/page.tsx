@@ -1,10 +1,15 @@
-import { FaBell } from 'react-icons/fa'
+import { FaBell, FaEye, FaQuestion } from 'react-icons/fa'
 import InfoCard from '@/components/ui/infoCard'
+import { Progress } from '@/components/ui/progress'
+import { FaUserGroup } from 'react-icons/fa6'
+import CalenderCard from '@/components/ui/calender-card'
+import RessourceCard from '@/components/ui/ressource-card'
+import HomeCard from '@/components/ui/home-card'
 
 const Home = () => {
   return (
     <div className="flex flex-col mt-10 gap-6 px-4 md:px-8 lg:px-12">
-      <p className="h1-bold text-left mb-4">Willkommen zurueck, User!</p>
+      <p className="h1-bold text-center md:text-left mb-4">Willkommen zurueck, User!</p>
       <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
         <InfoCard
           title="Neue Umfrage verfuegbar"
@@ -13,7 +18,7 @@ const Home = () => {
           linkTitle="Zur Umfrage"
         />
         <InfoCard
-          title="Eventsampling verfuegbar"
+          title="Eventsampling aktiv"
           description='Ein neues Eventsampling steht bereit. Bitte nehmen Sie daran teil! Das Thema des Eventsamplings ist "Produktfeedback". Klicken Sie auf den Button rechts fuer weitere Informationen.'
           href="/samplings/1"
           linkTitle="Zum Eventsampling"
@@ -23,6 +28,59 @@ const Home = () => {
           borderColor="!border-green-400"
           borderSize="border-l-4"
         />
+      </div>
+      <div className="grid grid-cols-1 lg:grid-cols-2 gap-5">
+        <HomeCard colSpan="full" title="Ablaufplan (Naechste 7 Tage)">
+          <CalenderCard
+            type="today"
+            date={new Date()}
+            time="10:00 - 11:00"
+            title="Wöchentliche Zusammenfassung"
+            description="Studie 'Alltagsstress' - (ca. 15 Min.)"
+          />
+          <CalenderCard
+            date={new Date(new Date().setDate(new Date().getDate() + 2))}
+            time="14:00 - 15:00"
+            title="Eventsampling Erinnerung"
+            description="Studie 'Produktfeedback' - (ca. 5 Min.)"
+          />
+          <CalenderCard
+            date={new Date(new Date().setDate(new Date().getDate() + 5))}
+            time="09:00 - 10:00"
+            title="Monatliche Umfrage"
+            description="Studie 'Mitarbeiterzufriedenheit' - (ca. 10 Min.)"
+          />
+        </HomeCard>
+        <HomeCard colSpan="1" title="Mein Fortschritt">
+          <div className="flex-between mb-1">
+            <p className="">Studie "Alltagsstress"</p>
+            <p className="font-semibold">Tag 3 von 14</p>
+          </div>
+          <Progress value={10} bg="bg-green-500/20" fg="bg-green-500" />
+        </HomeCard>
+        <HomeCard colSpan="1" title="Ressourcen & Hilfe">
+          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4">
+            <RessourceCard
+              title="FAQ"
+              description="Häufig gestellte Fragen"
+              icon={FaQuestion}
+              link="/faq"
+            />
+            <RessourceCard
+              title="Support"
+              description="Hilfe bei Problemen oder Fragen"
+              icon={FaUserGroup}
+              link="/support"
+            />
+            <RessourceCard
+              title="Feedback"
+              description="Ihre Meinung ist uns wichtig"
+              icon={FaUserGroup}
+              link="/feedback"
+            />
+            <RessourceCard title="Bugs" description="Melde ein Problem" icon={FaEye} link="/bugs" />
+          </div>
+        </HomeCard>
       </div>
     </div>
   )
