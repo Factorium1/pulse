@@ -23,7 +23,9 @@ const CalenderCard = ({ type, date, time, title, description }: CalenderCardProp
             {new Date(date).toLocaleDateString('de-DE', { month: 'short' }).toUpperCase()}
           </p>
         </div>
-        <div className={`border-l border-2 h-15 ${type === 'today' ? '!border-indigo-500' : ''}`} />
+        <div
+          className={`border-l border-2 h-15 rounded-full ${type === 'today' ? '!border-indigo-500' : ''}`}
+        />
         <div className="">
           <p
             className={`font-semibold text-lg ${type === 'today' ? 'text-indigo-500' : 'text-black/70'}`}
