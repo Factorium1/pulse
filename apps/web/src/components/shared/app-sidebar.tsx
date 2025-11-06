@@ -45,12 +45,12 @@ const items = [
   },
   {
     title: 'Surveys',
-    url: '/surveys',
+    url: '/survey',
     icon: ClipboardType,
     sub: [
       {
         title: 'Survey',
-        url: '/surveys/{id}',
+        url: '/survey/{id}',
         icon: ClipboardList,
       },
       {
