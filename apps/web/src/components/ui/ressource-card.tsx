@@ -19,7 +19,7 @@ const RessourceCard = ({
       <Icon className="text-primary text-2xl" />
       <p className="text-xl font-bold">{title}</p>
       <div className="border-b border-2 w-full !border-primary/20 rounded-full"></div>
-      <p className="text-muted-foreground text-semibold text-center text-md">{description}</p>
+      <p className="text-foreground/80 text-semibold text-center text-md">{description}</p>
     </Link>
   )
 }
