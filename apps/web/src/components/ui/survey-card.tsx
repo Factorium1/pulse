@@ -53,7 +53,7 @@ const SurveyCard = ({
         <StudyBadge name={badgeName} emoji={badgeEmoji} color={badgeColor} />
         <Link
           href={`/survey/${slug}`}
-          className="text-sm px-4 py-2 bg-primary rounded-xl text-accent"
+          className="text-sm px-4 py-2 bg-primary rounded-xl text-accent font-semibold"
         >
           {sampling ? 'Jetzt protokollieren' : 'Starten'}
         </Link>
