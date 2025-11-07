@@ -59,7 +59,7 @@ const SurveyCard = ({
         </Link>
       </div>
       <p className="h3-bold">{title}</p>
-      <div className="flex justify-start flex-row text-sm text-muted-foreground">
+      <div className="flex justify-start flex-row text-sm text-muted-foreground flex-wrap">
         {Items.map((item, index) => (
           <div key={index} className="flex-center flex-row">
             {item}
