@@ -21,17 +21,17 @@ const SidebarItems = () => {
     },
     {
       title: 'Surveys',
-      url: '/survey',
+      url: '/studies',
       icon: ClipboardType,
       sub: [
         {
           title: 'Survey',
-          url: '/survey/{id}',
+          url: '/studies/surveys',
           icon: ClipboardList,
         },
         {
           title: 'EventSampling',
-          url: '/sampling/{id}',
+          url: '/studies/events',
           icon: PenSquare,
         },
       ],
