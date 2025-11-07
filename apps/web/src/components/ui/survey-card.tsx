@@ -29,6 +29,7 @@ const SurveyCard = ({
   badgeColor,
 }: SurveyCardProps) => {
   const Items = [
+    Info && <div>{Info}</div>,
     estimatedDuration && (
       <div>
         <span className="">ca. </span> {estimatedDuration} Min
@@ -39,7 +40,6 @@ const SurveyCard = ({
         <span className="">bis: </span> {availableTo}
       </div>
     ),
-    Info && <div>{Info}</div>,
     samplingLimit && (
       <div>
         <span className="">heute 1/{samplingLimit}</span>

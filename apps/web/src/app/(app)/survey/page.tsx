@@ -63,6 +63,7 @@ const SurveyPage = () => {
           badgeColor="violet"
           samplingLimit={1}
           sampling={true}
+          Info="Starte, sobald du aufwachst"
         />
 
         <SurveyCard
@@ -74,6 +75,7 @@ const SurveyPage = () => {
           badgeColor="emerald"
           samplingLimit={3}
           sampling={true}
+          Info="Protokolliere nach jedem Kaffee-Konsum"
         />
       </div>
     </div>
