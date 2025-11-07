@@ -5,17 +5,17 @@ import { useTheme } from 'next-themes'
 import { SidebarMenuButton } from './sidebar'
 
 export function ThemeToggle() {
-  const { setTheme, theme } = useTheme()
+  const { setTheme, resolvedTheme } = useTheme()
 
   return (
     <SidebarMenuButton asChild>
       <div
         className="cursor-pointer"
         onClick={() => {
-          setTheme(theme === 'dark' ? 'light' : 'dark')
+          setTheme(resolvedTheme === 'dark' ? 'light' : 'dark')
         }}
       >
-        {theme === 'dark' ? <Sun /> : <Moon />}
+        {resolvedTheme === 'dark' ? <Sun /> : <Moon />}
         <span>Toggle Theme</span>
       </div>
     </SidebarMenuButton>
