@@ -7,17 +7,22 @@ import { SidebarMenuButton } from './sidebar'
 export function ThemeToggle() {
   const { setTheme, resolvedTheme } = useTheme()
 
+  const toggle = () => {
+    setTheme(resolvedTheme === 'dark' ? 'light' : 'dark')
+  }
+
   return (
     <SidebarMenuButton asChild>
-      <div
-        className="cursor-pointer"
-        onClick={() => {
-          setTheme(resolvedTheme === 'dark' ? 'light' : 'dark')
-        }}
+      <button
+        type="button"
+        onClick={toggle}
+        className="cursor-pointer inline-flex items-center gap-2"
+        aria-label="Toggle theme"
       >
-        {resolvedTheme === 'dark' ? <Sun /> : <Moon />}
+        <Sun className="h-4 w-4 hidden dark:inline" aria-hidden />
+        <Moon className="h-4 w-4 inline dark:hidden" aria-hidden />
         <span>Toggle Theme</span>
-      </div>
+      </button>
     </SidebarMenuButton>
   )
 }
