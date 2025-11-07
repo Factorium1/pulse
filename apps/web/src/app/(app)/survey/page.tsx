@@ -33,7 +33,7 @@ const SurveyPage = () => {
         />
 
         <SurveyCard
-          title="Gedaechnis im Alltag"
+          title="Gedaechtnis im Alltag"
           availableTo="31.01.2025"
           slug="gedaechtnis-im-alltag"
           estimatedDuration="10min"
