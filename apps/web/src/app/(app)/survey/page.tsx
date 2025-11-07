@@ -4,9 +4,19 @@ const SurveyPage = () => {
   return (
     <div className="flex flex-col mt-10 gap-6 px-4 md:px-8 lg:px-12">
       <div className="rounded-2xl bg-gradient-to-r from-primary to-indigo-600 text-primary-foreground px-6 py-8 shadow-md">
-        <div className="h1-bold">Umfragen</div>
+        <div className="h1-bold">Umfragen - Eingang</div>
         <p className="mt-1 text-primary-foreground/90">
-          Beantworte aktuelle Umfragen und behalte den Überblick.
+          Alle offenen Aufgaben aus deinen Studien — filterbar & klar gruppiert. 📬✨
+        </p>
+      </div>
+      <div className="rounded-2xl border border-border bg-card text-foreground px-6 py-4 shadow-md">
+        <div className="h1-bold">So funktioniert’s</div>
+        <p className="mt-1 text-muted-foreground">
+          <span>Aufgaben sind planbare Umfragen mit Start/Ende.</span>
+          <span className="block">
+            Ereignis-Umfragen startest du selbst, sobald das Ereignis eintritt (z. B. nach einem
+            Gespräch oder wenn du Stress wahrnimmst).
+          </span>
         </p>
       </div>
 

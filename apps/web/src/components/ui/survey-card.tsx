@@ -3,34 +3,35 @@ import { FaClockRotateLeft } from 'react-icons/fa6'
 import Link from 'next/link'
 
 type SurveyCardProps = {
+  survey: string
   title: string
-  availableFrom?: string
   availableTo?: string
   estimatedDuration?: string
   surveyID: string
   samplingFrom?: string
   samplingTo?: string
+  samplingAmount?: number
 }
 
 const SurveyCard = ({
   title,
-  availableFrom,
   availableTo,
   estimatedDuration,
   surveyID,
   samplingFrom,
   samplingTo,
+  samplingAmount,
 }: SurveyCardProps) => {
   return (
     <div className="mt-4 rounded-xl border border-border bg-card p-6 text-center">
       <p className="h3-bold">„{title}“</p>
       <div className="mt-2 flex-center flex-col gap-1">
-        {availableFrom && availableTo && (
+        {availableTo && (
           <div className="flex-center gap-2">
             <p className="text-sm text-muted-foreground">Verfuegbar:</p>
             <span className="inline-flex items-center gap-2 rounded-full bg-muted px-3 py-1 text-sm font-medium text-muted-foreground">
               <FaCalendarAlt aria-hidden />
-              {availableFrom} – {availableTo}
+              {availableTo}
             </span>
           </div>
         )}
