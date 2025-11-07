@@ -14,12 +14,12 @@ const RessourceCard = ({
   return (
     <Link
       href={link}
-      className="bg-indigo-200/20 rounded-lg flex justify-start items-center flex-col p-4 gap-2"
+      className="bg-accent rounded-lg flex justify-start items-center flex-col p-4 gap-2"
     >
-      <Icon className="text-indigo-500 text-2xl" />
+      <Icon className="text-primary text-2xl" />
       <p className="text-xl font-bold">{title}</p>
-      <div className="border-b border-2 w-full !border-indigo-500/40 rounded-full"></div>
-      <p className="text-neutral-600 text-semibold text-center text-md">{description}</p>
+      <div className="border-b border-2 w-full !border-primary/20 rounded-full"></div>
+      <p className="text-foreground/80 text-semibold text-center text-md">{description}</p>
     </Link>
   )
 }
