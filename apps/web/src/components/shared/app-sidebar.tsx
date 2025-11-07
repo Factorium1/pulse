@@ -1,15 +1,5 @@
 import Link from 'next/link'
-import {
-  Home,
-  Settings,
-  ChevronDown,
-  LogOut,
-  PenSquare,
-  ClipboardList,
-  Command,
-  ClipboardType,
-  Store,
-} from 'lucide-react'
+import { Settings, ChevronDown, LogOut, PenSquare, ClipboardList, Command } from 'lucide-react'
 
 import {
   Sidebar,
@@ -22,9 +12,6 @@ import {
   SidebarMenuItem,
   SidebarHeader,
   SidebarFooter,
-  SidebarMenuSub,
-  SidebarMenuSubItem,
-  SidebarMenuSubButton,
 } from '@/components/ui/sidebar'
 
 import {
@@ -35,37 +22,7 @@ import {
 } from '@/components/ui/dropdown-menu'
 import { ThemeToggle } from '../ui/theme-toggle'
 import ToggleSidebar from '../ui/toggle-sidebar'
-
-// Menu items.
-const items = [
-  {
-    title: 'Home',
-    url: '/dashboard',
-    icon: Home,
-  },
-  {
-    title: 'Surveys',
-    url: '/survey',
-    icon: ClipboardType,
-    sub: [
-      {
-        title: 'Survey',
-        url: '/survey/{id}',
-        icon: ClipboardList,
-      },
-      {
-        title: 'EventSampling',
-        url: '/sampling/{id}',
-        icon: PenSquare,
-      },
-    ],
-  },
-  {
-    title: 'Marketplace',
-    url: '/marketplace',
-    icon: Store,
-  },
-]
+import SidebarItems from '../ui/sidebar-items'
 
 export function AppSidebar() {
   return (
@@ -100,30 +57,7 @@ export function AppSidebar() {
           <SidebarGroupLabel>Navigation</SidebarGroupLabel>
           <SidebarGroupContent>
             <SidebarMenu>
-              {items.map((item) => (
-                <SidebarMenuItem key={item.title}>
-                  <SidebarMenuButton asChild>
-                    <Link href={item.url || '#'}>
-                      <item.icon />
-                      <span>{item.title}</span>
-                    </Link>
-                  </SidebarMenuButton>
-                  {item.sub && (
-                    <SidebarMenuSub>
-                      {item.sub.map((subItem) => (
-                        <SidebarMenuSubItem key={subItem.title}>
-                          <SidebarMenuSubButton asChild>
-                            <Link href={subItem.url}>
-                              <subItem.icon />
-                              <span>{subItem.title}</span>
-                            </Link>
-                          </SidebarMenuSubButton>
-                        </SidebarMenuSubItem>
-                      ))}
-                    </SidebarMenuSub>
-                  )}
-                </SidebarMenuItem>
-              ))}
+              <SidebarItems />
             </SidebarMenu>
           </SidebarGroupContent>
         </SidebarGroup>
