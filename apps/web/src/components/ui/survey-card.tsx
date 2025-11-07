@@ -1,69 +1,72 @@
-import { FaArrowRight, FaCalendarAlt, FaClock } from 'react-icons/fa'
-import { FaClockRotateLeft } from 'react-icons/fa6'
 import Link from 'next/link'
+import { StudyBadge } from './studyBadge'
 
 type SurveyCardProps = {
-  survey: string
   title: string
+  availableFrom?: string
   availableTo?: string
   estimatedDuration?: string
-  surveyID: string
-  samplingFrom?: string
-  samplingTo?: string
-  samplingAmount?: number
+  slug: string
+  Info?: string
+  samplingLimit?: number
+  sampling?: boolean
+  badgeEmoji: string
+  badgeName: string
+  badgeColor: 'indigo' | 'emerald' | 'amber' | 'rose' | 'violet' //TODO: Badge soll am ende durch db kommen und im online editor auswählbar sein
 }
 
 const SurveyCard = ({
   title,
+  availableFrom,
   availableTo,
   estimatedDuration,
-  surveyID,
-  samplingFrom,
-  samplingTo,
-  samplingAmount,
+  slug,
+  Info,
+  samplingLimit,
+  sampling,
+  badgeEmoji,
+  badgeName,
+  badgeColor,
 }: SurveyCardProps) => {
-  return (
-    <div className="mt-4 rounded-xl border border-border bg-card p-6 text-center">
-      <p className="h3-bold">„{title}“</p>
-      <div className="mt-2 flex-center flex-col gap-1">
-        {availableTo && (
-          <div className="flex-center gap-2">
-            <p className="text-sm text-muted-foreground">Verfuegbar:</p>
-            <span className="inline-flex items-center gap-2 rounded-full bg-muted px-3 py-1 text-sm font-medium text-muted-foreground">
-              <FaCalendarAlt aria-hidden />
-              {availableTo}
-            </span>
-          </div>
-        )}
-        {estimatedDuration && (
-          <div className="flex-center gap-2">
-            <p className="text-sm text-muted-foreground">Geschätzte Dauer:</p>
-            <span className="flex-center gap-2 rounded-full bg-muted px-3 py-1 text-sm font-medium text-muted-foreground">
-              <FaClockRotateLeft aria-hidden />
-              {estimatedDuration}
-            </span>
-          </div>
-        )}
-        {samplingFrom && samplingTo && (
-          <>
-            <span className="inline-flex items-center gap-2 rounded-full bg-muted px-3 py-1 mt-2 text-sm font-medium text-muted-foreground">
-              <FaClock aria-hidden />
-              {samplingFrom} – {samplingTo}
-            </span>
-            <p className="mt-1 text-sm text-muted-foreground">
-              Die selbst Umfrage ist im oben genannten Zeitraum verfügbar.
-            </p>
-          </>
-        )}
+  const Items = [
+    estimatedDuration && (
+      <div>
+        <span className="">ca. </span> {estimatedDuration} Min
       </div>
-      <Link
-        href={`/survey/${surveyID}`}
-        aria-label="Umfrage starten"
-        className="mt-4 inline-flex items-center justify-center gap-2 rounded-lg bg-primary px-4 py-2 font-bold text-primary-foreground transition hover:bg-primary/90 focus:outline-none focus-visible:ring-2 focus-visible:ring-primary cursor-pointer"
-      >
-        Umfrage starten
-        <FaArrowRight className="transition-transform group-hover:translate-x-0.5" />
-      </Link>
+    ),
+    availableTo && (
+      <div>
+        <span className="">bis: </span> {availableTo}
+      </div>
+    ),
+    Info && <div>{Info}</div>,
+    samplingLimit && (
+      <div>
+        <span className="">heute 1/{samplingLimit}</span>
+      </div>
+    ),
+  ].filter(Boolean)
+
+  return (
+    <div className="rounded-xl border border-border bg-card px-4 py-3 shadow-sm text-start">
+      <div className="flex flex-between">
+        <StudyBadge name={badgeName} emoji={badgeEmoji} color={badgeColor} />
+        <Link
+          href={`/survey/${slug}`}
+          className="text-sm px-4 py-2 bg-primary rounded-xl text-accent"
+        >
+          {sampling ? 'Jetzt protokollieren' : 'Starten'}
+        </Link>
+      </div>
+      <p className="h3-bold">{title}</p>
+      <div className="flex justify-start flex-row text-sm text-muted-foreground">
+        {Items.map((item, index) => (
+          <div key={index} className="flex-center flex-row">
+            {item}
+            {index < Items.length - 1 && <div className="mx-2 flex-center">•</div>}
+          </div>
+        ))}
+      </div>
     </div>
   )
 }

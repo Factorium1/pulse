@@ -20,55 +20,61 @@ const SurveyPage = () => {
         </p>
       </div>
 
-      <div className="grid grid-cols-1 lg:grid-cols-2 gap-6">
-        <div className="rounded-2xl border border-border bg-card p-6 shadow-sm transition hover:shadow-md">
-          <div className="flex flex-col">
-            <div className="h2-bold">Umfrage</div>
-            <span className="text-sm text-muted-foreground">Umfragen sind zeitlich begrenzt</span>
-          </div>
+      <div className="grid grid-cols-1 lg:grid-cols-2 gap-4">
+        <p className="text-muted-foreground font-semibold col-span-full">HEUTE</p>
+        <SurveyCard
+          title="Mitarbeiterzufriedenheit"
+          availableTo="31.01.2023"
+          estimatedDuration="15min"
+          slug="mitarbeiterzufriedenheit"
+          badgeEmoji="💼"
+          badgeName="Arbeitsalltag"
+          badgeColor="amber"
+        />
 
-          <SurveyCard
-            title="Mitarbeiterzufriedenheit"
-            availableFrom="01.01.2023"
-            availableTo="31.01.2023"
-            estimatedDuration="15min"
-            surveyID="mitarbeiterzufriedenheit"
-          />
+        <SurveyCard
+          title="Gedaechnis im Alltag"
+          availableTo="31.01.2025"
+          slug="gedaechtnis-im-alltag"
+          estimatedDuration="10min"
+          badgeEmoji="🧠"
+          badgeName="Gedächtnis"
+          badgeColor="indigo"
+        />
 
-          <SurveyCard
-            title="Gedaechnis im Alltag"
-            availableFrom="01.01.2023"
-            availableTo="31.01.2023"
-            surveyID="gedaechtnis-im-alltag"
-          />
-        </div>
+        <p className="text-muted-foreground font-semibold col-span-full">MORGEN</p>
+        <SurveyCard
+          title="Stress im Alltag"
+          availableTo="01.02.2026"
+          slug="stress-im-alltag"
+          estimatedDuration="15min"
+          badgeEmoji="😰"
+          badgeName="Stress"
+          badgeColor="rose"
+        />
 
-        <div className="rounded-2xl border border-border bg-card p-6 shadow-sm transition hover:shadow-md">
-          <div className="flex flex-col">
-            <div className="h2-bold">Eventbasierte Umfrage</div>
-            <span className="text-sm text-muted-foreground">
-              Sie starten diese kurzen Umfragen selbst, sobald das Ereignis eintritt.
-            </span>
-            <div className="mt-3 rounded-lg bg-secondary border border-border p-3 text-sm text-secondary-foreground">
-              Beispiel: „Nach einem Kundengespräch“ oder „wenn Sie gerade Stress empfinden“ –
-              Sampling öffnen und starten.
-            </div>
-          </div>
+        <p className="text-muted-foreground font-semibold col-span-full">BELIEBIG</p>
+        <SurveyCard
+          title="Schlafprotokoll"
+          slug="schlafprotokoll"
+          estimatedDuration="5min"
+          badgeEmoji="😴"
+          badgeName="Schlaf"
+          badgeColor="violet"
+          samplingLimit={1}
+          sampling={true}
+        />
 
-          <SurveyCard
-            title="Ablenkung durch Handy Nutzung"
-            samplingFrom="15:00"
-            samplingTo="15:30 Uhr"
-            surveyID="ablenkung-durch-handy-nutzung"
-          />
-
-          <SurveyCard
-            title="Stress durch die Arbeit"
-            samplingFrom="15:00"
-            samplingTo="15:30 Uhr"
-            surveyID="stress-durch-die-arbeit"
-          />
-        </div>
+        <SurveyCard
+          title="Kaffee & Energie"
+          slug="kaffee-und-energie"
+          estimatedDuration="5min"
+          badgeEmoji="☕"
+          badgeName="Koffein"
+          badgeColor="emerald"
+          samplingLimit={3}
+          sampling={true}
+        />
       </div>
     </div>
   )
