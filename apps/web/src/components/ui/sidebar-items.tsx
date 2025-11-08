@@ -30,7 +30,7 @@ const SidebarItems = () => {
           icon: ClipboardList,
         },
         {
-          title: 'EventSampling',
+          title: 'Event Based',
           url: '/studies/events',
           icon: PenSquare,
         },
