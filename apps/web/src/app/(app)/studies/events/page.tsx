@@ -13,7 +13,6 @@ const StudiesPage = () => {
       <div className="rounded-2xl border border-border bg-card text-foreground px-6 py-4 shadow-md">
         <div className="h1-bold">So funktioniert’s</div>
         <p className="mt-1 text-muted-foreground">
-          <span>Aufgaben sind planbare Umfragen mit Start/Ende.</span>
           <span className="block">
             Ereignis-Umfragen startest du selbst, sobald das Ereignis eintritt (z. B. nach einem
             Gespräch oder wenn du Stress wahrnimmst).
