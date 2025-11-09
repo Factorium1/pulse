@@ -1,10 +1,10 @@
 import { FaBell, FaEye, FaQuestion } from 'react-icons/fa'
-import InfoCard from '@/components/ui/infoCard'
+import InfoCard from '@/components/features/dashboard/info-card'
 import { Progress } from '@/components/ui/progress'
 import { FaUserGroup } from 'react-icons/fa6'
-import CalenderCard from '@/components/ui/calender-card'
-import RessourceCard from '@/components/ui/ressource-card'
-import HomeCard from '@/components/ui/home-card'
+import CalendarCard from '@/components/features/dashboard/calendar-card'
+import ResourceCard from '@/components/features/dashboard/resource-card'
+import HomeCard from '@/components/features/dashboard/home-card'
 
 const DashboardPage = () => {
   return (
@@ -31,20 +31,20 @@ const DashboardPage = () => {
       </div>
       <div className="grid grid-cols-1 lg:grid-cols-2 gap-5">
         <HomeCard className="col-span-full" title="Ablaufplan (Naechste 7 Tage)">
-          <CalenderCard
+          <CalendarCard
             type="today"
             date={new Date()}
             time="10:00 - 11:00"
             title="Wöchentliche Zusammenfassung"
             description="Studie 'Alltagsstress' - (ca. 15 Min.)"
           />
-          <CalenderCard
+          <CalendarCard
             date={new Date(new Date().setDate(new Date().getDate() + 2))}
             time="14:00 - 15:00"
             title="Eventsampling Erinnerung"
             description="Studie 'Produktfeedback' - (ca. 5 Min.)"
           />
-          <CalenderCard
+          <CalendarCard
             date={new Date(new Date().setDate(new Date().getDate() + 5))}
             time="09:00 - 10:00"
             title="Monatliche Umfrage"
@@ -60,19 +60,19 @@ const DashboardPage = () => {
         </HomeCard>
         <HomeCard className="col-span-1" title="Ressourcen & Hilfe">
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
-            <RessourceCard
+            <ResourceCard
               title="FAQ"
               description="Häufig gestellte Fragen"
               icon={FaQuestion}
               link="/faq"
             />
-            <RessourceCard
+            <ResourceCard
               title="Feedback"
               description="Ihre Meinung ist uns wichtig"
               icon={FaUserGroup}
               link="/feedback"
             />
-            <RessourceCard title="Bugs" description="Melde ein Problem" icon={FaEye} link="/bugs" />
+            <ResourceCard title="Bugs" description="Melde ein Problem" icon={FaEye} link="/bugs" />
           </div>
         </HomeCard>
       </div>

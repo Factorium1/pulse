@@ -1,5 +1,5 @@
 import Link from 'next/link'
-import { StudyBadge } from './studyBadge'
+import { StudyBadge } from './study-badge'
 
 type SurveyCardProps = {
   title: string

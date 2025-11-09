@@ -1,6 +1,6 @@
 import Link from 'next/link'
 
-const RessourceCard = ({
+const ResourceCard = ({
   title,
   description,
   icon: Icon,
@@ -24,4 +24,4 @@ const RessourceCard = ({
   )
 }
 
-export default RessourceCard
+export default ResourceCard
