@@ -1,4 +1,4 @@
-import SurveyCard from '@/components/ui/survey-card'
+import SurveyCard from '@/components/features/studies/survey-card'
 
 const StudiesPage = () => {
   return (

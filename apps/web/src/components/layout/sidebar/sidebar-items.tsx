@@ -7,7 +7,7 @@ import {
   SidebarMenuSubButton,
   SidebarMenuSubItem,
   useSidebar,
-} from './sidebar'
+} from '@/components/ui/sidebar'
 
 import { Home, PenSquare, ClipboardList, ClipboardType, Store } from 'lucide-react'
 import { useCallback } from 'react'

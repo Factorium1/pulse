@@ -1,4 +1,4 @@
-type CalenderCardProps = {
+type CalendarCardProps = {
   type?: 'today' | 'upcoming'
   date: Date
   time: string
@@ -6,7 +6,7 @@ type CalenderCardProps = {
   description: string
 }
 
-const CalenderCard = ({ type, date, time, title, description }: CalenderCardProps) => {
+const CalendarCard = ({ type, date, time, title, description }: CalendarCardProps) => {
   return (
     <>
       <div
@@ -39,4 +39,4 @@ const CalenderCard = ({ type, date, time, title, description }: CalenderCardProp
   )
 }
 
-export default CalenderCard
+export default CalendarCard

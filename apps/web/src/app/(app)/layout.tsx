@@ -1,6 +1,6 @@
 import { cookies } from 'next/headers'
 import { SidebarProvider, SidebarTrigger } from '@/components/ui/sidebar'
-import Sidebar from '@/components/shared/app-sidebar'
+import Sidebar from '@/components/layout/app-sidebar'
 import { ThemeProvider } from '@/components/ui/theme-provider'
 import ThemeAnimation from '@/components/ui/animation/theme-animation'
 

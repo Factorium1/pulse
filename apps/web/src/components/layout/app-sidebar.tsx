@@ -20,9 +20,9 @@ import {
   DropdownMenuItem,
   DropdownMenuTrigger,
 } from '@/components/ui/dropdown-menu'
-import { ThemeToggle } from '../ui/theme-toggle'
-import ToggleSidebar from '../ui/toggle-sidebar'
-import SidebarItems from '../ui/sidebar-items'
+import { ThemeToggle } from '@/components/layout/sidebar/theme-toggle'
+import ToggleSidebar from '@/components/layout/sidebar/toggle-sidebar'
+import SidebarItems from '@/components/layout/sidebar/sidebar-items'
 
 export function AppSidebar() {
   return (

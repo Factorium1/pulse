@@ -2,7 +2,7 @@
 
 import { Moon, Sun } from 'lucide-react'
 import { useTheme } from 'next-themes'
-import { SidebarMenuButton } from './sidebar'
+import { SidebarMenuButton } from '@/components/ui/sidebar'
 
 export function ThemeToggle() {
   const { setTheme, resolvedTheme } = useTheme()
