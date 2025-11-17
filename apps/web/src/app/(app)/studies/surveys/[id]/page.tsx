@@ -27,6 +27,24 @@ const Survey = () => {
               entspannt" und 5 "extrem gestresst" bedeutet.
             </p>
           </div>
+          <div className="flex-start gap-4 flex-col w-full">
+            {[1, 2, 3, 4, 5].map((option) => (
+              <button
+                key={option}
+                className="cursor-pointer w-full border-2 border-muted-foreground rounded-md p-4 hover:bg-accent hover:border-accent-foreground transition"
+              >
+                <p className="text-center text-lg font-medium">{option}</p>
+              </button>
+            ))}
+          </div>
+          <div className="flex-between w-full">
+            <button className="text-sm text-muted-foreground font-medium cursor-pointer border-2 px-6 py-2 rounded-md">
+              Zurück
+            </button>
+            <button className="bg-primary text-primary-foreground px-6 py-2 rounded-md text-sm font-medium cursor-pointer">
+              Weiter
+            </button>
+          </div>
         </div>
       </div>
     </div>
