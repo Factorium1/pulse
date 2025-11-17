@@ -17,8 +17,18 @@ const Survey = () => {
         </Link>
       </header>
       <Progress value={45} className="rounded-none md:rounded-full" />
-      <h1>Survey Page</h1>
-      <p>This is the survey page content.</p>
+      <div className="flex-center">
+        <div className="flex-start bg-card rounded-md p-6 shadow-md mt-10 flex-col gap-4 w-full mx-10">
+          <p className="text-primary font-semibold text-sm">Frage 1 von 10</p>
+          <div className="flex-start gap-2 flex-col">
+            <h2 className="h2-bold">Wie gestresst fühlen Sie sich momentan?</h2>
+            <p className="text-muted-foreground text-sm">
+              Bitte wählen Sie die Option, die am besten zu Ihrer Empfindung passt, wobei 1 "sehr
+              entspannt" und 5 "extrem gestresst" bedeutet.
+            </p>
+          </div>
+        </div>
+      </div>
     </div>
   )
 }
