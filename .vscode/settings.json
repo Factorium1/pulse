@@ -71,5 +71,8 @@
   "workbench.tree.indent": 16,
   "conventionalCommits.scopes": [
     "navbar"
-  ]
+  ],
+  "[prisma]": {
+    "editor.defaultFormatter": "Prisma.prisma"
+  }
 }
