@@ -11,8 +11,7 @@
     "lint": "turbo run lint",
     "check-types": "turbo run check-types",
     "format": "prettier . --write",
-    "prepare": "husky",
-    "preinstall": "if [ \"$npm_execpath\" != *pnpm* ]; then echo '\\n❌ Dieses Projekt verwendet pnpm!\\n'; exit 1; fi"
+    "prepare": "husky"
   },
   "devDependencies": {
     "eslint": "^9.37.0",
