@@ -6,7 +6,7 @@
     "dev": "turbo run dev",
     "dev-db:up": "docker compose -f docker-compose.dev.yml up -d",
     "dev-db:down": "docker compose -f docker-compose.dev.yml down",
-    "dev-db:reset": "docker compose -f docker-compose.dev.yml down && docker compose -f docker-compose.dev.yml up -d",
+    "dev-db:reset": "docker compose -f docker-compose.dev.yml down -v && docker compose -f docker-compose.dev.yml up -d",
     "build": "turbo run build",
     "lint": "turbo run lint",
     "check-types": "turbo run check-types",
