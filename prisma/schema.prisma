@@ -45,7 +45,7 @@ model Question {
   title         String
   description   String?
   type          QuestionType
-  options       String[] // For single/multiple-choice questions
+  options       String[]? // For single/multiple-choice questions
   survey        Survey             @relation(fields: [surveyId], references: [id])
   surveyId      String
   timingType    QuestionTimingType @default(IMMEDIATE)
