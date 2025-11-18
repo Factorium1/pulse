@@ -81,7 +81,6 @@ model SurveyParticipation {
   surveyId    String
   status      ParticipationStatus @default(ACTIVE)
   currentStep Int?
-  completed   Boolean             @default(false)
   startedAt   DateTime            @default(now())
   completedAt DateTime?
   answers     Answer[]
