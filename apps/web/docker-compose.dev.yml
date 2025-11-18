@@ -1,3 +1,4 @@
+name: pulse
 services:
   postgres:
     image: postgres:latest
