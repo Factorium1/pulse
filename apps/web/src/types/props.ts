@@ -14,3 +14,10 @@ export type PricingCardProps = {
   icon?: IconType
   button: string
 }
+
+export type InputFieldProps = {
+  label: string
+  type: string
+  placeholder?: string
+  required?: boolean
+}
