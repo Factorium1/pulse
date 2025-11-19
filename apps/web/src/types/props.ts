@@ -17,6 +17,7 @@ export type PricingCardProps = {
 
 export type InputFieldProps = {
   label: string
+  name: string
   type: string
   placeholder?: string
   required?: boolean

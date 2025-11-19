@@ -57,12 +57,14 @@ const LoginPage = () => {
                 <form className="flex flex-col gap-4">
                   <InputField
                     label="E-Mail"
+                    name="email"
                     type="email"
                     placeholder="max@mustermann.de"
                     required={true}
                   />
                   <InputField
                     label="Passwort"
+                    name="password"
                     type="password"
                     placeholder="••••••••"
                     required={true}
@@ -112,24 +114,28 @@ const LoginPage = () => {
                 <form className="flex flex-col gap-4">
                   <InputField
                     label="Name"
+                    name="name"
                     type="text"
                     placeholder="Max Mustermann"
                     required={true}
                   />
                   <InputField
                     label="E-Mail"
+                    name="email"
                     type="email"
                     placeholder="max@mustermann.de"
                     required={true}
                   />
                   <InputField
                     label="Passwort"
+                    name="password"
                     type="password"
                     placeholder="••••••••"
                     required={true}
                   />
                   <InputField
                     label="Passwort bestätigen"
+                    name="confirmPassword"
                     type="password"
                     placeholder="••••••••"
                     required={true}
