@@ -9,7 +9,9 @@ const LoginPage = () => {
   return (
     <div className="flex-center flex-col lg:flex-row bg-primary/20 h-screen w-screen lg:gap-10">
       <div className="flex-center flex-col gap-2">
-        <p className="h1-bold">{isLogin ? 'Willkommen zurück 👋' : 'Erstelle dein Konto ✨'}</p>
+        <p className="h1-bold">
+          {isLogin ? 'Willkommen zurück 👋' : 'Erstelle dein Pulse-Konto ✨'}
+        </p>
         <p className="text-center text-muted-foreground max-w-md mt-4 tracking-tight px-2 sm:px-0">
           {isLogin
             ? 'Melde dich an, um an Studien teilzunehmen, Fortschritte zu sehen und deine Daten sicher zu verwalten.'
