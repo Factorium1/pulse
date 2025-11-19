@@ -1,5 +1,6 @@
 'use client'
 
+import InputField from '@/components/features/login/input-field'
 import { useState } from 'react'
 
 const LoginPage = () => {
@@ -54,31 +55,18 @@ const LoginPage = () => {
               <>
                 <p className="h3-bold">Melde dich bei Pulse an</p>
                 <form className="flex flex-col gap-4">
-                  <div className="">
-                    <label htmlFor="email" className="font-semibold text-muted-foreground text-sm">
-                      E-Mail
-                      <input
-                        id="email"
-                        type="email"
-                        placeholder="max@mustermann.de"
-                        className="input w-full bg-muted rounded-xl p-3 shadow-sm text-xs md:text-sm"
-                      />
-                    </label>
-                  </div>
-                  <div className="">
-                    <label
-                      htmlFor="password"
-                      className="font-semibold text-muted-foreground text-sm"
-                    >
-                      Passwort
-                      <input
-                        id="password"
-                        type="password"
-                        placeholder="••••••••"
-                        className="input w-full bg-muted rounded-xl p-3 shadow-sm text-xs md:text-sm"
-                      />
-                    </label>
-                  </div>
+                  <InputField
+                    label="E-Mail"
+                    type="email"
+                    placeholder="max@mustermann.de"
+                    required={true}
+                  />
+                  <InputField
+                    label="Passwort"
+                    type="password"
+                    placeholder="••••••••"
+                    required={true}
+                  />
                   <div className="flex-between flex-row">
                     <label className="inline-flex items-center gap-2">
                       <input
@@ -117,6 +105,56 @@ const LoginPage = () => {
                   </div>
                 </form>
               </>
+            )}
+            {!isLogin && (
+              <div className="flex flex-col gap-4">
+                <p className="h3-bold">Erstelle dein Pulse-Konto</p>
+                <form className="flex flex-col gap-4">
+                  <InputField
+                    label="Name"
+                    type="text"
+                    placeholder="Max Mustermann"
+                    required={true}
+                  />
+                  <InputField
+                    label="E-Mail"
+                    type="email"
+                    placeholder="max@mustermann.de"
+                    required={true}
+                  />
+                  <InputField
+                    label="Passwort"
+                    type="password"
+                    placeholder="••••••••"
+                    required={true}
+                  />
+                  <InputField
+                    label="Passwort bestätigen"
+                    type="password"
+                    placeholder="••••••••"
+                    required={true}
+                  />
+                  <button
+                    type="button"
+                    onClick={() => setMode('register')}
+                    className={`flex-1 px-3 py-2 text-sm md:text-sm font-medium rounded-lg cursor-pointer bg-primary text-primary-foreground hover:bg-primary/90`}
+                  >
+                    Konto erstellen
+                  </button>
+                </form>
+                <div className="flex-center flex-row">
+                  <span className="text-xs text-muted-foreground">
+                    Bereits ein Konto?{' '}
+                    <button
+                      type="button"
+                      onClick={() => setMode('login')}
+                      className="text-primary font-medium hover:text-primary/90 cursor-pointer"
+                    >
+                      Anmelden
+                    </button>
+                  </span>
+                </div>
+              </div>
             )}
           </div>
         </div>
