@@ -5,6 +5,7 @@ import AuthSwitchHint from '@/components/features/login/auth-switch-hint'
 import InputField from '@/components/features/login/input-field'
 import { authClient } from '../../../../../../auth-client'
 import { useState } from 'react'
+import { useRouter } from 'next/navigation'
 
 type LoginFormProps = {
   onSwitchToRegister: () => void
@@ -13,6 +14,7 @@ type LoginFormProps = {
 const LoginForm = ({ onSwitchToRegister }: LoginFormProps) => {
   const [error, setError] = useState<string | null>(null)
   const [loading, setLoading] = useState(false)
+  const router = useRouter()
 
   async function handleLogin(e: React.FormEvent<HTMLFormElement>) {
     e.preventDefault()
@@ -24,12 +26,19 @@ const LoginForm = ({ onSwitchToRegister }: LoginFormProps) => {
     const password = form.get('password') as string
     const rememberMe = form.get('rememberMe') === 'on'
 
-    const { error } = await authClient.signIn.email({
-      email,
-      password,
-      callbackURL: '/dashboard',
-      rememberMe,
-    })
+    const { error } = await authClient.signIn.email(
+      {
+        email,
+        password,
+        callbackURL: '/dashboard',
+        rememberMe,
+      },
+      {
+        onSuccess() {
+          router.push('/dashboard')
+        },
+      },
+    )
 
     if (error) {
       setError(error?.message ?? null)
