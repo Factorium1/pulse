@@ -1,10 +1,12 @@
 'use client'
 
-import InputField from '@/components/features/login/input-field'
+import AuthModeToggle, { type AuthMode } from '@/components/features/login/auth-mode-toggle'
+import LoginForm from '@/components/features/login/login-form'
+import RegisterForm from '@/components/features/login/register-form'
 import { useState } from 'react'
 
 const LoginPage = () => {
-  const [mode, setMode] = useState<'login' | 'register'>('login')
+  const [mode, setMode] = useState<AuthMode>('login')
   const isLogin = mode === 'login'
 
   return (
@@ -26,141 +28,12 @@ const LoginPage = () => {
 
       <div className="w-full max-w-md">
         <div className="rounded-2xl bg-card/80 backdrop-blur-xl border border-border/80 shadow-xl shadow-primary/10 p-6 md:p-8 mt-10 mx-2 sm:mx-0">
-          <div className="flex items-center rounded-full bg-muted/60 p-1 mb-6 border border-border/60">
-            <button
-              type="button"
-              onClick={() => setMode('login')}
-              className={`flex-1 px-3 py-2 text-sm md:text-sm font-medium rounded-full ${
-                isLogin
-                  ? 'bg-card text-foreground shadow-sm'
-                  : 'text-muted-foreground hover:text-foreground cursor-pointer'
-              }`}
-            >
-              Anmelden
-            </button>
-            <button
-              type="button"
-              onClick={() => setMode('register')}
-              className={`flex-1 px-3 py-2 text-sm md:text-sm font-medium rounded-full ${
-                !isLogin
-                  ? 'bg-card text-foreground shadow-sm'
-                  : 'text-muted-foreground hover:text-foreground cursor-pointer'
-              }`}
-            >
-              Registrieren
-            </button>
-          </div>
+          <AuthModeToggle mode={mode} onChange={setMode} />
           <div className="flex flex-col gap-4 text-start">
-            {isLogin && (
-              <>
-                <p className="h3-bold">Melde dich bei Pulse an</p>
-                <form className="flex flex-col gap-4">
-                  <InputField
-                    label="E-Mail"
-                    name="email"
-                    type="email"
-                    placeholder="max@mustermann.de"
-                    required={true}
-                  />
-                  <InputField
-                    label="Passwort"
-                    name="password"
-                    type="password"
-                    placeholder="••••••••"
-                    required={true}
-                  />
-                  <div className="flex-between flex-row">
-                    <label className="inline-flex items-center gap-2">
-                      <input
-                        type="checkbox"
-                        className="h-4 w-4 rounded border border-border bg-background text-primary focus-visible:ring-ring cursor-pointer"
-                      />
-                      <span className="text-xs md:text-sm text-muted-foreground">
-                        Eingeloggt bleiben
-                      </span>
-                    </label>
-                    <button
-                      type="button"
-                      className="text-xs md:text-sm font-medium text-primary hover:text-primary/90 cursor-pointer"
-                    >
-                      Passwort vergessen?
-                    </button>
-                  </div>
-                  <button
-                    type="button"
-                    onClick={() => setMode('login')}
-                    className={`flex-1 px-3 py-2 text-sm md:text-sm font-medium rounded-lg cursor-pointer bg-primary text-primary-foreground hover:bg-primary/90`}
-                  >
-                    Anmelden
-                  </button>
-                  <div className="flex-center flex-row">
-                    <span className="text-xs text-muted-foreground">
-                      Noch kein Konto?{' '}
-                      <button
-                        type="button"
-                        onClick={() => setMode('register')}
-                        className="text-primary font-medium hover:text-primary/90 cursor-pointer"
-                      >
-                        Registrieren
-                      </button>
-                    </span>
-                  </div>
-                </form>
-              </>
-            )}
-            {!isLogin && (
-              <div className="flex flex-col gap-4">
-                <p className="h3-bold">Erstelle dein Pulse-Konto</p>
-                <form className="flex flex-col gap-4">
-                  <InputField
-                    label="Name"
-                    name="name"
-                    type="text"
-                    placeholder="Max Mustermann"
-                    required={true}
-                  />
-                  <InputField
-                    label="E-Mail"
-                    name="email"
-                    type="email"
-                    placeholder="max@mustermann.de"
-                    required={true}
-                  />
-                  <InputField
-                    label="Passwort"
-                    name="password"
-                    type="password"
-                    placeholder="••••••••"
-                    required={true}
-                  />
-                  <InputField
-                    label="Passwort bestätigen"
-                    name="confirmPassword"
-                    type="password"
-                    placeholder="••••••••"
-                    required={true}
-                  />
-                  <button
-                    type="button"
-                    onClick={() => setMode('register')}
-                    className={`flex-1 px-3 py-2 text-sm md:text-sm font-medium rounded-lg cursor-pointer bg-primary text-primary-foreground hover:bg-primary/90`}
-                  >
-                    Konto erstellen
-                  </button>
-                </form>
-                <div className="flex-center flex-row">
-                  <span className="text-xs text-muted-foreground">
-                    Bereits ein Konto?{' '}
-                    <button
-                      type="button"
-                      onClick={() => setMode('login')}
-                      className="text-primary font-medium hover:text-primary/90 cursor-pointer"
-                    >
-                      Anmelden
-                    </button>
-                  </span>
-                </div>
-              </div>
+            {isLogin ? (
+              <LoginForm onSwitchToRegister={() => setMode('register')} />
+            ) : (
+              <RegisterForm onSwitchToLogin={() => setMode('login')} />
             )}
           </div>
         </div>
