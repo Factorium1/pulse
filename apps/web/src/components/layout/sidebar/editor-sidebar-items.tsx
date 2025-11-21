@@ -9,7 +9,7 @@ import {
   useSidebar,
 } from '@/components/ui/sidebar'
 
-import { Home, Pen, Plus } from 'lucide-react'
+import { Home, Pen, Plane, Plus } from 'lucide-react'
 
 const SidebarItems = () => {
   const items = [
@@ -27,6 +27,11 @@ const SidebarItems = () => {
       title: 'Aendern',
       url: '/editor/modify',
       icon: Pen,
+    },
+    {
+      title: 'Manage',
+      url: '/editor/manage',
+      icon: Plane,
     },
   ]
 
