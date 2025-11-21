@@ -10,7 +10,6 @@ import {
 } from '@/components/ui/sidebar'
 
 import { Home, PenSquare, ClipboardList, ClipboardType, Store } from 'lucide-react'
-import { useCallback } from 'react'
 
 const SidebarItems = () => {
   const items = [

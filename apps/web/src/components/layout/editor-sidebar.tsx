@@ -22,9 +22,9 @@ import {
 } from '@/components/ui/dropdown-menu'
 import { ThemeToggle } from '@/components/layout/sidebar/theme-toggle'
 import ToggleSidebar from '@/components/layout/sidebar/toggle-sidebar'
-import SidebarItems from '@/components/layout/sidebar/sidebar-items'
+import SidebarItems from '@/components/layout/sidebar/editor-sidebar-items'
 
-export function AppSidebar() {
+export function EditorSidebar() {
   return (
     <Sidebar side="left" variant="floating" collapsible="icon">
       <SidebarHeader>
@@ -45,7 +45,7 @@ export function AppSidebar() {
                 </DropdownMenuItem>
                 <DropdownMenuItem>
                   <PenSquare />
-                  <Link href={'/editor/dashboard'}>Erstellen</Link>
+                  <Link href={'/editor'}>Erstellen</Link>
                 </DropdownMenuItem>
               </DropdownMenuContent>
             </DropdownMenu>
@@ -92,4 +92,4 @@ export function AppSidebar() {
   )
 }
 
-export default AppSidebar
+export default EditorSidebar
