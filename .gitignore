@@ -81,3 +81,7 @@ postcss.config.js.backup
 Thumbs.db
 desktop.ini
 *.local
+
+/generated/prisma
+
+/generated/prisma

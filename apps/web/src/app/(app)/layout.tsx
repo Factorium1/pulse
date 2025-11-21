@@ -3,6 +3,9 @@ import { SidebarProvider, SidebarTrigger } from '@/components/ui/sidebar'
 import Sidebar from '@/components/layout/app-sidebar'
 import { ThemeProvider } from '@/components/ui/theme-provider'
 import ThemeAnimation from '@/components/ui/animation/theme-animation'
+import { auth } from '../../../../../auth'
+import { redirect } from 'next/navigation'
+import { headers } from 'next/headers'
 
 export default async function RootLayout({
   children,
@@ -11,6 +14,15 @@ export default async function RootLayout({
 }>) {
   const cookieStore = await cookies()
   const defaultOpen = cookieStore.get('sidebar_state')?.value === 'true'
+
+  const session = await auth.api.getSession({
+    headers: await headers(),
+  })
+
+  if (!session) {
+    redirect('/login')
+  }
+
   return (
     <ThemeProvider attribute="class" defaultTheme="system" enableSystem disableTransitionOnChange>
       <ThemeAnimation />
