@@ -9,6 +9,50 @@ import HomeCard from '@/components/features/dashboard/home-card'
 const DashboardPage = () => {
   return (
     <div className="flex flex-col mt-10 gap-6 px-4 md:px-8 lg:px-12">
+      <div className="rounded-2xl bg-gradient-to-r from-primary to-indigo-600 text-primary-foreground px-6 py-8 shadow-md flex-between flex-col lg:flex-row gap-6">
+        <div className="flex align-middle justify-center flex-col max-w-3xl gap-2">
+          <p className="text-sm uppercase tracking-[0.25em] text-primary-foreground/80 mb-2">
+            Dashboard
+          </p>
+          <p className="h1-bold">Willkommen zurück, User!</p>
+          <p className="text-primary-foreground/80">
+            Schneller Blick auf laufende Studien, naechste Schritte und deine Ressourcen. Bleib
+            fokussiert mit klaren Prioritaeten und kurzen Wegen.
+          </p>
+          <div className="flex flex-row align-middle justify-start mt-4 gap-4 flex-wrap">
+            <span className="rounded-full bg-primary-foreground/10 px-3 py-2 text-sm font-semibold text-primary-foreground min-w-fit">
+              3 offene Aufgaben
+            </span>
+            <span className="rounded-full bg-primary-foreground/10 px-3 py-2 text-sm font-semibold text-primary-foreground w-fit">
+              Naechster Slot: heute 10:00
+            </span>
+            <span className="rounded-full bg-primary-foreground/10 px-3 py-2 text-sm font-semibold text-primary-foreground min-w-fit">
+              Letztes Update vor 2 Std.
+            </span>
+          </div>
+        </div>
+        <div className="w-full max-w-md space-y-3 rounded-2xl border border-primary-foreground/15 bg-primary-foreground/10 p-5 shadow-inner">
+          <div className="flex-between gap-2">
+            <p className="text-sm text-primary-foreground/85">Wochenziel</p>
+            <span className="rounded-full bg-primary-foreground/10 px-3 py-1 text-xs font-semibold text-primary-foreground">
+              Fokus
+            </span>
+          </div>
+          <div className="flex items-center gap-4">
+            <div className="text-4xl font-semibold leading-none">10%</div>
+            <div className="flex-1 space-y-2">
+              <Progress value={10} bg="bg-primary/30" fg="bg-primary-foreground" />
+              <div className="flex-between text-[12px] text-primary-foreground/80">
+                <span>2 von 14 erledigt</span>
+                <span>+1 heute</span>
+              </div>
+            </div>
+          </div>
+          <p className="text-sm text-primary-foreground/75">
+            Bleib dran: kleine Schritte sichern den groessten Effekt.
+          </p>
+        </div>
+      </div>
       <p className="h1-bold text-center md:text-left mb-4">Willkommen zurueck, User!</p>
       <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
         <InfoCard
