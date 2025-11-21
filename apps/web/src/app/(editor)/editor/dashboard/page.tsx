@@ -3,7 +3,7 @@ import { Download, Filter, Play } from 'lucide-react'
 
 const EditorDashboardPage = () => {
   return (
-    <div className="space-y-8 py-6">
+    <div className="p-6 md:py-6 md:px-0">
       <div className="rounded-3xl border border-border/60 bg-gradient-to-r from-primary/10 via-accent/20 to-background/80 p-6 shadow-sm backdrop-blur-2xl">
         <div className="flex flex-col gap-4 md:flex-row md:items-center md:justify-between">
           <div className="space-y-2">
@@ -16,7 +16,7 @@ const EditorDashboardPage = () => {
               Klar priorisiert für schnelles Handeln.
             </p>
           </div>
-          <div className="flex flex-wrap gap-2">
+          <div className="flex-center md:flex flex-wrap gap-2">
             <Button variant="outline" size="sm" className="bg-background/60 backdrop-blur">
               <Filter className="h-4 w-4" />
               Filtern
