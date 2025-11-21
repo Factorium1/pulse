@@ -53,7 +53,6 @@ const DashboardPage = () => {
           </p>
         </div>
       </div>
-      <p className="h1-bold text-center md:text-left mb-4">Willkommen zurueck, User!</p>
       <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
         <InfoCard
           title="Neue Umfrage verfuegbar"
