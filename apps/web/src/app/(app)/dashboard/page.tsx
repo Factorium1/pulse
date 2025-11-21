@@ -55,10 +55,7 @@ const DashboardPage = () => {
       </div>
 
       <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
-        <HomeCard
-          className="homecard border-border-border/80 bg-card/80 shadow-sm backdrop-blur"
-          title="Aktive Studien"
-        >
+        <HomeCard title="Aktive Studien">
           <div className="flex flex-col gap-3">
             <p className="text-muted-foreground">Alltagsstress</p>
             <div className="flex-between gap-5">
@@ -69,20 +66,14 @@ const DashboardPage = () => {
             </div>
           </div>
         </HomeCard>
-        <HomeCard
-          className="border border-border/80 bg-card/80 shadow-sm backdrop-blur"
-          title="Naechster Termin"
-        >
+        <HomeCard title="Naechster Termin">
           <p className="text-muted-foreground">Woechentliche Zusammenfassung</p>
           <div className="mt-3 flex items-center gap-2 text-sm font-semibold text-foreground/80">
             <FaClock className="text-primary" />
             <span>Heute, 10:00 - 11:00</span>
           </div>
         </HomeCard>
-        <HomeCard
-          className="border border-border/80 bg-card/80 shadow-sm backdrop-blur"
-          title="Eventsampling"
-        >
+        <HomeCard title="Eventsampling">
           <p className="text-muted-foreground">Produktfeedback</p>
           <div className="mt-3 flex items-center gap-2 text-sm font-semibold text-foreground/80">
             <FaBell className="text-primary" />
@@ -91,8 +82,8 @@ const DashboardPage = () => {
         </HomeCard>
       </div>
 
-      <div className="grid grid-cols-1 lg:grid-cols-2 gap-5">
-        <HomeCard className="col-span-full" title="Ablaufplan (Naechste 7 Tage)">
+      <div className="grid grid-cols-1 md:grid-cols-2 xl:grid-cols-3 gap-5">
+        <HomeCard className="col-span-2 lg:row-span-2" title="Ablaufplan (Naechste 7 Tage)">
           <CalendarCard
             type="today"
             date={new Date()}
@@ -113,26 +104,20 @@ const DashboardPage = () => {
             description="Studie 'Mitarbeiterzufriedenheit' - (ca. 10 Min.)"
           />
         </HomeCard>
-        <HomeCard className="col-span-1" title="Mein Fortschritt">
+        <HomeCard className="col-span-2 md:col-span-1" title="Mein Fortschritt">
           <div className="flex-between mb-1">
             <p className="">Studie "Alltagsstress"</p>
             <p className="font-semibold">Tag 3 von 14</p>
           </div>
           <Progress value={10} bg="bg-primary/20" fg="bg-primary" />
         </HomeCard>
-        <HomeCard className="col-span-1" title="Ressourcen & Hilfe">
-          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
+        <HomeCard className="col-span-2 md:col-span-1" title="Ressourcen & Hilfe">
+          <div className="grid grid-cols-2 gap-4">
             <ResourceCard
               title="FAQ"
               description="Häufig gestellte Fragen"
               icon={FaQuestion}
               link="/faq"
-            />
-            <ResourceCard
-              title="Feedback"
-              description="Ihre Meinung ist uns wichtig"
-              icon={FaUserGroup}
-              link="/feedback"
             />
             <ResourceCard title="Bugs" description="Melde ein Problem" icon={FaEye} link="/bugs" />
           </div>

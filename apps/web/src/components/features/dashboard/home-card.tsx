@@ -8,7 +8,9 @@ const HomeCard = ({
   title: string
 }) => {
   return (
-    <div className={`shadow-md rounded-lg p-6 bg-card ${className ?? ''}`}>
+    <div
+      className={`border border-border/80 bg-card/80 shadow-sm rounded-lg p-6 ${className ?? ''}`}
+    >
       <p className="h3-bold mb-2">{title}</p>
       {children}
     </div>
