@@ -3,7 +3,7 @@ import EventCard from '@/components/features/editor-dashboard/event-card'
 import { ArrowUpRight, Clock3, Download, Filter, Play } from 'lucide-react'
 import StatusPill from '@/components/features/editor-dashboard/status-pill'
 import { Progress } from '@/components/ui/progress'
-import Link from 'next/link'
+import OverviewCard from '@/components/features/editor-dashboard/overview-card'
 
 type StudyStatus = 'live' | 'scheduled' | 'paused'
 
@@ -198,21 +198,24 @@ const EditorDashboardPage = () => {
               <ArrowUpRight className="h-4 w-4" />
             </Button>
           </div>
-          <div className="mt-4 space-y-4">
-            <div className="rounded-xl border border-border/60 bg-muted/60 p-3">
-              <div className="flex items-center justify-between text-sm">
-                <span className="text-muted-foreground">Ø Abschlussrate</span>
-                <span className="text-xs text-primary">+4% Woche</span>
-              </div>
-              <div className="mt-2 flex items-end justify-between">
-                <p className="text-2xl font-semibold text-foreground">72%</p>
-                <Link href="#" className="text-xs text-primary">
-                  <ArrowUpRight className="h-4 w-4" />
-                </Link>
-              </div>
-              <Progress value={72} />
-            </div>
-          </div>
+          <OverviewCard
+            label="Ø Abschlussrate"
+            delta="+5% seit letzter Woche"
+            value={72}
+            icon={<ArrowUpRight />}
+          />
+          <OverviewCard
+            label="Ø Antwortzeit"
+            delta="+8% diesen Monat"
+            value={45}
+            icon={<ArrowUpRight />}
+          />
+          <OverviewCard
+            label="Mobile Anteil"
+            delta="+2% vs Desktop"
+            value={88}
+            icon={<ArrowUpRight />}
+          />
         </div>
       </div>
     </div>
