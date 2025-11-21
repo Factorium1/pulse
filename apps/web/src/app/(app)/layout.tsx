@@ -29,7 +29,7 @@ export default async function RootLayout({
       <SidebarProvider defaultOpen={defaultOpen}>
         <Sidebar />
         <SidebarTrigger className="cursor-pointer fixed m-5 md:hidden md:m-0" />
-        <main className="flex-1 wrapper">{children}</main>
+        <main className="flex-1 wrapper mb-10">{children}</main>
       </SidebarProvider>
     </ThemeProvider>
   )
