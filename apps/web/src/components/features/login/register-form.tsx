@@ -15,6 +15,7 @@ const RegisterForm = ({ onSwitchToLogin }: RegisterFormProps) => {
   const [error, setError] = useState<string | null>(null)
   const [loading, setLoading] = useState(false)
   const router = useRouter()
+  //TODO: Missing loading state and better error handling
 
   const handleRegister = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault()
