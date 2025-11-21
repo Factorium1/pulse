@@ -1,7 +1,7 @@
 import { FaBell, FaEye, FaQuestion } from 'react-icons/fa'
 import InfoCard from '@/components/features/dashboard/info-card'
 import { Progress } from '@/components/ui/progress'
-import { FaUserGroup } from 'react-icons/fa6'
+import { FaClock, FaRocket, FaUserGroup } from 'react-icons/fa6'
 import CalendarCard from '@/components/features/dashboard/calendar-card'
 import ResourceCard from '@/components/features/dashboard/resource-card'
 import HomeCard from '@/components/features/dashboard/home-card'
@@ -53,25 +53,44 @@ const DashboardPage = () => {
           </p>
         </div>
       </div>
+
       <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
-        <InfoCard
-          title="Neue Umfrage verfuegbar"
-          description='Es gibt eine neue Umfrage zum Thema "Mitarbeiterzufriedenheit". Bitte nehmen Sie sich ein paar Minuten Zeit, um daran teilzunehmen und uns Ihr Feedback zu geben.'
-          href="/surveys/1"
-          linkTitle="Zur Umfrage"
-        />
-        <InfoCard
-          title="Eventsampling aktiv"
-          description='Ein neues Eventsampling steht bereit. Bitte nehmen Sie daran teil! Das Thema des Eventsamplings ist "Produktfeedback". Klicken Sie auf den Button rechts fuer weitere Informationen.'
-          href="/samplings/1"
-          linkTitle="Zum Eventsampling"
-          icon={<FaBell />}
-          bgColor="bg-secondary"
-          textColor="text-secondary-foreground"
-          borderColor="border-primary"
-          borderSize="border-l-4"
-        />
+        <HomeCard
+          className="homecard border-border-border/80 bg-card/80 shadow-sm backdrop-blur"
+          title="Aktive Studien"
+        >
+          <div className="flex flex-col gap-3">
+            <p className="text-muted-foreground">Alltagsstress</p>
+            <div className="flex-between gap-5">
+              <span className="text-sm font-semibold text-foreground/80">Tag 3 / 14</span>
+              <span className="rounded-full bg-muted px-3 py-1 text-xs text-muted-foreground">
+                10% abgeschlossen
+              </span>
+            </div>
+          </div>
+        </HomeCard>
+        <HomeCard
+          className="border border-border/80 bg-card/80 shadow-sm backdrop-blur"
+          title="Naechster Termin"
+        >
+          <p className="text-muted-foreground">Woechentliche Zusammenfassung</p>
+          <div className="mt-3 flex items-center gap-2 text-sm font-semibold text-foreground/80">
+            <FaClock className="text-primary" />
+            <span>Heute, 10:00 - 11:00</span>
+          </div>
+        </HomeCard>
+        <HomeCard
+          className="border border-border/80 bg-card/80 shadow-sm backdrop-blur"
+          title="Eventsampling"
+        >
+          <p className="text-muted-foreground">Produktfeedback</p>
+          <div className="mt-3 flex items-center gap-2 text-sm font-semibold text-foreground/80">
+            <FaBell className="text-primary" />
+            <span>Jetzt offen</span>
+          </div>
+        </HomeCard>
       </div>
+
       <div className="grid grid-cols-1 lg:grid-cols-2 gap-5">
         <HomeCard className="col-span-full" title="Ablaufplan (Naechste 7 Tage)">
           <CalendarCard
@@ -118,6 +137,25 @@ const DashboardPage = () => {
             <ResourceCard title="Bugs" description="Melde ein Problem" icon={FaEye} link="/bugs" />
           </div>
         </HomeCard>
+      </div>
+      <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+        <InfoCard
+          title="Neue Umfrage verfuegbar"
+          description='Es gibt eine neue Umfrage zum Thema "Mitarbeiterzufriedenheit". Bitte nehmen Sie sich ein paar Minuten Zeit, um daran teilzunehmen und uns Ihr Feedback zu geben.'
+          href="/surveys/1"
+          linkTitle="Zur Umfrage"
+        />
+        <InfoCard
+          title="Eventsampling aktiv"
+          description='Ein neues Eventsampling steht bereit. Bitte nehmen Sie daran teil! Das Thema des Eventsamplings ist "Produktfeedback". Klicken Sie auf den Button rechts fuer weitere Informationen.'
+          href="/samplings/1"
+          linkTitle="Zum Eventsampling"
+          icon={<FaBell />}
+          bgColor="bg-secondary"
+          textColor="text-secondary-foreground"
+          borderColor="border-primary"
+          borderSize="border-l-4"
+        />
       </div>
     </div>
   )
