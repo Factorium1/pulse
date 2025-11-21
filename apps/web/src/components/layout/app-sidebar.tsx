@@ -41,11 +41,11 @@ export function AppSidebar() {
               <DropdownMenuContent className="w-[--radix-popper-anchor-width]">
                 <DropdownMenuItem>
                   <ClipboardList />
-                  <span>Teilnehmen</span>
+                  <Link href={'/dashboard'}>Teilnehmen</Link>
                 </DropdownMenuItem>
                 <DropdownMenuItem>
                   <PenSquare />
-                  <span>Erstellen</span>
+                  <Link href={'/editor/dashboard'}>Erstellen</Link>
                 </DropdownMenuItem>
               </DropdownMenuContent>
             </DropdownMenu>
