@@ -1,6 +1,64 @@
 import { Button } from '@/components/ui/button'
 import EventCard from '@/components/features/editor-dashboard/event-card'
 import { ArrowUpRight, Clock3, Download, Filter, Play } from 'lucide-react'
+import StatusPill from '@/components/features/editor-dashboard/status-pill'
+import { Progress } from '@/components/ui/progress'
+
+type StudyStatus = 'live' | 'scheduled' | 'paused'
+
+type Study = {
+  id: string
+  name: string
+  status: StudyStatus
+  participants: number
+  target: number
+  completion: number
+  conversion: number
+  updated: string
+}
+
+const studies: Study[] = [
+  {
+    id: 'CX-2412',
+    name: 'Kundenzufriedenheit 2024',
+    status: 'live',
+    participants: 482,
+    target: 600,
+    completion: 76,
+    conversion: 54,
+    updated: 'vor 2 Std.',
+  },
+  {
+    id: 'PR-2309',
+    name: 'Preis-Sensitivität Retail',
+    status: 'scheduled',
+    participants: 0,
+    target: 350,
+    completion: 0,
+    conversion: 0,
+    updated: 'geplant für morgen',
+  },
+  {
+    id: 'FM-2403',
+    name: 'Finanz-App Onboarding',
+    status: 'live',
+    participants: 198,
+    target: 250,
+    completion: 64,
+    conversion: 38,
+    updated: 'vor 40 Min.',
+  },
+  {
+    id: 'HX-2311',
+    name: 'UX Benchmark Checkout',
+    status: 'paused',
+    participants: 122,
+    target: 200,
+    completion: 41,
+    conversion: 22,
+    updated: 'wird überprüft',
+  },
+]
 
 const EditorDashboardPage = () => {
   return (
@@ -62,6 +120,69 @@ const EditorDashboardPage = () => {
           statusText="Überprüfung erforderlich"
           statusColorClass="text-red-500"
         />
+      </div>
+
+      <div className="grid grid-cols-1 gap-6 xl:grid-cols-3">
+        <div className="rounded-2xl border border-border/80 bg-card/80 p-5 shadow-cm xl:col-span-2">
+          <div className="flex-between gap-4">
+            <div className="">
+              <p className="h3-bold">Studienpipeline</p>
+              <p className="text-sm text-muted-foreground">
+                Status, Fortschritte und Engagement pro Studie.
+              </p>
+            </div>
+            <Button variant="ghost" size="sm" className="text-xs">
+              Alle ansehen <ArrowUpRight className="h-4 w-4" />
+            </Button>
+          </div>
+          <div className="mt-4 space-y-3">
+            {studies.map((study) => {
+              const utilization = Math.min(
+                100,
+                Math.round((study.participants / study.target) * 100),
+              )
+              return (
+                <div
+                  key={study.id}
+                  className="flex flex-col gap-3 rounded-xl border border-border/70 bg-muted/60 p-4 text-sm shadow-xs lg:flex-row lg:items-center lg:gap-6"
+                >
+                  <div className="flex flex-1 items-center gap-3">
+                    <StatusPill status={study.status} />
+                    <div>
+                      <p className="font-semibold text-foreground">{study.name}</p>
+                      <p className="text-xs text-muted-foreground">
+                        {study.id} • {study.updated}
+                      </p>
+                    </div>
+                  </div>
+                  <div className="grid flex-1 grid-cols-2 items-center gap-3 md:grid-cols-4">
+                    <div>
+                      <p className="text-xs text-muted-foreground">Teilnehmende</p>
+                      <p className="text-base font-semibold text-foreground">
+                        {study.participants}
+                      </p>
+                    </div>
+                    <div>
+                      <p className="text-xs text-muted-foreground">Abschlussrate</p>
+                      <p className="text-base font-semibold text-foreground">{study.completion}%</p>
+                    </div>
+                    <div>
+                      <p className="text-xs text-muted-foreground">Conversion</p>
+                      <p className="text-base font-semibold text-foreground">{study.conversion}%</p>
+                    </div>
+                    <div>
+                      <p className="text-xs text-muted-foreground">Zielerreichung</p>
+                      <Progress value={utilization} />
+                      <p className="mt-1 text-xs text-muted-foreground">
+                        {utilization}% von {study.target}
+                      </p>
+                    </div>
+                  </div>
+                </div>
+              )
+            })}
+          </div>
+        </div>
       </div>
     </div>
   )
