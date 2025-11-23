@@ -1,0 +1,20 @@
+const StatusPill = ({ status }: { status: 'live' | 'scheduled' | 'paused' }) => {
+  const isLive = status === 'live'
+  const isScheduled = status === 'scheduled'
+  const baseColor = isLive ? 'bg-emerald-500' : isScheduled ? 'bg-amber-500' : 'bg-rose-500'
+  const label = isLive ? 'Live' : isScheduled ? 'Geplant' : 'Pausiert'
+
+  return (
+    <span className="inline-flex items-center gap-2 rounded-full bg-muted px-3 py-1 text-xs font-medium text-muted-foreground">
+      <span className="relative flex h-2.5 w-2.5">
+        <span
+          className={`absolute inline-flex h-full w-full rounded-full ${baseColor} opacity-60 animate-ping`}
+        />
+        <span className={`relative inline-flex h-2.5 w-2.5 rounded-full ${baseColor}`} />
+      </span>
+      {label}
+    </span>
+  )
+}
+
+export default StatusPill
