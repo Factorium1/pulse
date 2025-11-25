@@ -1,15 +1,18 @@
 import {
+  Bell,
   CalendarRange,
   ChartColumnIncreasing,
   Download,
   Filter,
   Pause,
+  PenBox,
   Play,
   SearchIcon,
   Settings2,
 } from 'lucide-react'
 import { Button } from '@/components/ui/button'
 import EventCard from '@/components/features/editor-dashboard/event-card'
+import StatusPill from '@/components/features/editor-dashboard/status-pill'
 
 const ManagePage = () => {
   return (
@@ -121,6 +124,33 @@ const ManagePage = () => {
             <button className="rounded-full border border-border/60 bg-muted/50 px-3 py-1 text-xs text-foreground cursor-pointer">
               Abgeschlossen
             </button>
+          </div>
+        </div>
+        <div className="rounded-2xl border border-border/60 bg-muted/80 p-5 text-sm shadow-xs w-full">
+          <div className="flex-center">
+            <div className="flex-between w-full">
+              <div className="flex-center gap-2">
+                <StatusPill status="live" />
+                <p className="text-base font-semibold text-foreground">Kundenzufriedenheit 2024</p>
+                <p className="rounded-full px-3 py-1 border border-border/60 bg-background/80 font-medium text-xs">
+                  CX-2412
+                </p>
+              </div>
+              <div className="flex-center flex-wrap gap-2">
+                <Button variant="outline" size="sm" className="bg-background/60 backdrop-blur">
+                  <Bell className="h-4 w-4" />
+                  Alerts
+                </Button>
+                <Button variant="outline" size="sm" className="bg-background/60 backdrop-blur">
+                  <Download className="h-4 w-4" />
+                  Export
+                </Button>
+                <Button variant="outline" size="sm" className="bg-background/60 backdrop-blur">
+                  <PenBox className="h-4 w-4" />
+                  Editieren
+                </Button>
+              </div>
+            </div>
           </div>
         </div>
       </div>
