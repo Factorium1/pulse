@@ -128,7 +128,7 @@ const ManagePage = () => {
         </div>
         <div className="rounded-2xl border border-border/60 bg-muted/80 p-5 text-sm shadow-xs w-full">
           <div className="flex-center">
-            <div className="flex-between w-full">
+            <div className="flex justify-center align-center flex-col gap-2 lg:flex-row lg:justify-between w-full">
               <div className="flex-center gap-2">
                 <StatusPill status="live" />
                 <p className="text-base font-semibold text-foreground">Kundenzufriedenheit 2024</p>
