@@ -1,4 +1,6 @@
 import {
+  ArrowUp,
+  ArrowUpRight,
   Bell,
   CalendarRange,
   ChartColumnIncreasing,
@@ -9,6 +11,7 @@ import {
   Play,
   SearchIcon,
   Settings2,
+  Trash,
 } from 'lucide-react'
 import { Button } from '@/components/ui/button'
 import EventCard from '@/components/features/editor-dashboard/event-card'
@@ -142,6 +145,10 @@ const ManagePage = () => {
                   Alerts
                 </Button>
                 <Button variant="outline" size="sm" className="bg-background/60 backdrop-blur">
+                  <ChartColumnIncreasing className="h-4 w-4" />
+                  Stats
+                </Button>
+                <Button variant="outline" size="sm" className="bg-background/60 backdrop-blur">
                   <Download className="h-4 w-4" />
                   Export
                 </Button>
@@ -172,6 +179,26 @@ const ManagePage = () => {
               <p className="text-xs text-muted-foreground">Teilnehmende</p>
               <p className="text-lg font-semibold text-foreground">482</p>
               <p className="text-xs text-muted-foreground">Ziel 600</p>
+            </div>
+          </div>
+          <div className="flex-between">
+            <div className="flex-start flex-col">
+              <p className="font-semibold text-foreground">Letzte Aktivität: 12. Juni 2024</p>
+              <p className="text-xs text-muted-foreground">
+                Letzte Änderung am Studiendesign und Versand der Einladung
+              </p>
+            </div>
+            <div className="flex-center gap-2">
+              <Button variant="outline" size="sm" className="text-xs">
+                <Pause className="h-4 w-4" />
+                Pause
+              </Button>
+              <Button variant="outline" size="sm" className="text-xs">
+                Freigeben <ArrowUpRight className="h-4 w-4" />
+              </Button>
+              <Button variant="outline" size="sm" className="text-xs">
+                Loeschen <Trash className="h-4 w-4" />
+              </Button>
             </div>
           </div>
         </div>
