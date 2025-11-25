@@ -126,9 +126,9 @@ const ManagePage = () => {
             </button>
           </div>
         </div>
-        <div className="rounded-2xl border border-border/60 bg-muted/80 p-5 text-sm shadow-xs w-full">
+        <div className="rounded-2xl border border-border/60 bg-muted/80 p-5 text-sm shadow-xs w-full flex flex-col gap-4">
           <div className="flex-center">
-            <div className="flex justify-center align-center flex-col gap-2 lg:flex-row lg:justify-between w-full">
+            <div className="flex justify-center align-center flex-col gap-2 lg:flex-row lg:justify-between w-full items-center sm:items-start">
               <div className="flex-center gap-2">
                 <StatusPill status="live" />
                 <p className="text-base font-semibold text-foreground">Kundenzufriedenheit 2024</p>
@@ -149,6 +149,13 @@ const ManagePage = () => {
                   <PenBox className="h-4 w-4" />
                   Editieren
                 </Button>
+              </div>
+            </div>
+          </div>
+          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4">
+            <div className="border border-border bg-muted shadow-xs p-2 rounded-2xl">
+              <div className="flex-between">
+                <p className="text-base font-semibold">Teilnehmer</p>
               </div>
             </div>
           </div>
