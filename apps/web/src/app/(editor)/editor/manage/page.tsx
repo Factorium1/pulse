@@ -5,6 +5,7 @@ import {
   Filter,
   Pause,
   Play,
+  SearchIcon,
   Settings2,
 } from 'lucide-react'
 import { Button } from '@/components/ui/button'
@@ -95,6 +96,32 @@ const ManagePage = () => {
                 <Play className="h-4 w-4" />
                 Neue Studie starten
               </Button>
+            </div>
+          </div>
+          <div className="flex-between mb-4 w-full gap-4">
+            <form action="">
+              <div className="flex items-center gap-2 rounded-md border border-border/60 bg-background/60 w-full py-1 px-3 backdrop-blur">
+                <SearchIcon className="h-4 w-4 text-muted-foreground" />
+                <input
+                  type="text"
+                  placeholder="Studie suchen..."
+                  className="w-full bg-transparent outline-none placeholder:text-muted-foreground"
+                />
+              </div>
+            </form>
+            <div className="flex-center flex-wrap gap-2">
+              <button className="rounded-full border border-border/60 bg-muted/50 px-3 py-1 text-xs text-foreground cursor-pointer">
+                Live
+              </button>
+              <button className="rounded-full border border-border/60 bg-muted/50 px-3 py-1 text-xs text-foreground cursor-pointer">
+                Pausiert
+              </button>
+              <button className="rounded-full border border-border/60 bg-muted/50 px-3 py-1 text-xs text-foreground cursor-pointer">
+                Geplant
+              </button>
+              <button className="rounded-full border border-border/60 bg-muted/50 px-3 py-1 text-xs text-foreground cursor-pointer">
+                Abgeschlossen
+              </button>
             </div>
           </div>
         </div>
