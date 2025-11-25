@@ -76,7 +76,7 @@ const ManagePage = () => {
       </div>
       <div className="rounded-2xl border border-border/80 bg-card/80 p-5 shadow-xs">
         <div className="flex-center flex-col">
-          <div className="flex-between mb-4 w-full gap-4">
+          <div className="flex flex-col gap-4 mb-4 md:flex-row md:items-center md:justify-between w-full">
             <div className="">
               <p className="h3-bold">Allgemeine Studienverwaltung</p>
               <p className="text-sm text-muted-foreground">
@@ -98,7 +98,7 @@ const ManagePage = () => {
               </Button>
             </div>
           </div>
-          <div className="flex-between mb-4 w-full gap-4">
+          <div className="flex flex-col gap-4 mb-4 md:flex-row md:items-center md:justify-between w-full">
             <form action="">
               <div className="flex items-center gap-2 rounded-md border border-border/60 bg-background/60 w-full py-1 px-3 backdrop-blur">
                 <SearchIcon className="h-4 w-4 text-muted-foreground" />
