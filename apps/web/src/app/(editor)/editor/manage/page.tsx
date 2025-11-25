@@ -152,11 +152,26 @@ const ManagePage = () => {
               </div>
             </div>
           </div>
-          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4">
-            <div className="border border-border bg-muted shadow-xs p-2 rounded-2xl">
-              <div className="flex-between">
-                <p className="text-base font-semibold">Teilnehmer</p>
-              </div>
+          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4">
+            <div className="rounded-xl border border-border/60 bg-background/70 p-3">
+              <p className="text-xs text-muted-foreground">Teilnehmende</p>
+              <p className="text-lg font-semibold text-foreground">482</p>
+              <p className="text-xs text-muted-foreground">Ziel 600</p>
+            </div>
+            <div className="rounded-xl border border-border/60 bg-background/70 p-3">
+              <p className="text-xs text-muted-foreground">Teilnehmende</p>
+              <p className="text-lg font-semibold text-foreground">482</p>
+              <p className="text-xs text-muted-foreground">Ziel 600</p>
+            </div>
+            <div className="rounded-xl border border-border/60 bg-background/70 p-3">
+              <p className="text-xs text-muted-foreground">Teilnehmende</p>
+              <p className="text-lg font-semibold text-foreground">482</p>
+              <p className="text-xs text-muted-foreground">Ziel 600</p>
+            </div>
+            <div className="rounded-xl border border-border/60 bg-background/70 p-3">
+              <p className="text-xs text-muted-foreground">Teilnehmende</p>
+              <p className="text-lg font-semibold text-foreground">482</p>
+              <p className="text-xs text-muted-foreground">Ziel 600</p>
             </div>
           </div>
         </div>
