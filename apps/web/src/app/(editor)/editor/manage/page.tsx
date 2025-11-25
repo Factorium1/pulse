@@ -2,6 +2,7 @@ import {
   CalendarRange,
   ChartColumnIncreasing,
   Download,
+  Filter,
   Pause,
   Play,
   Settings2,
@@ -70,6 +71,32 @@ const ManagePage = () => {
             statusText="Daten exportiert"
             statusColorClass="text-purple-500"
           />
+        </div>
+      </div>
+      <div className="rounded-2xl border border-border/80 bg-card/80 p-5 shadow-xs">
+        <div className="flex-center flex-col">
+          <div className="flex-between mb-4 w-full gap-4">
+            <div className="">
+              <p className="h3-bold">Allgemeine Studienverwaltung</p>
+              <p className="text-sm text-muted-foreground">
+                Aktionen für Statuswechsel, Launchplanung, Kommunikation und Qualitätssicherung.
+              </p>
+            </div>
+            <div className="flex-center flex-wrap gap-2">
+              <Button variant="outline" size="sm" className="bg-background/60 backdrop-blur">
+                <Filter className="h-4 w-4" />
+                Filtern
+              </Button>
+              <Button variant="outline" size="sm" className="bg-background/60 backdrop-blur">
+                <Download className="h-4 w-4" />
+                Export
+              </Button>
+              <Button size="sm" className="shadow-md">
+                <Play className="h-4 w-4" />
+                Neue Studie starten
+              </Button>
+            </div>
+          </div>
         </div>
       </div>
     </div>
