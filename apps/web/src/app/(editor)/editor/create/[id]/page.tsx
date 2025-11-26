@@ -72,6 +72,33 @@ const CreateSurveyPage = () => {
               placeholder="z.B. Kundenzufriedenheitsumfrage Q2 2024"
             />
           </div>
+          <div className="w-full flex-between gap-4 md:flex-row flex-col">
+            <div className="w-full">
+              <label htmlFor="short-form" className="text-sm text-muted-foreground">
+                Kurzform
+              </label>
+              <input
+                type="text"
+                id="short-form"
+                name="short-form"
+                className="w-full rounded-lg border border-border/70 bg-background/70 px-3 py-2 text-sm text-foreground shadow-xs outline-none"
+                placeholder="z.B. Gedächtnis"
+              />
+            </div>
+            <div className="w-full">
+              <label htmlFor="emoji">Emoji</label>
+              <select
+                id="emoji"
+                name="emoji"
+                className="w-full rounded-lg border border-border/70 bg-background/70 px-3 py-2 text-sm text-foreground shadow-xs outline-none"
+              >
+                <option value="smile">😊</option>
+                <option value="chart">📊</option>
+                <option value="brain">🧠</option>
+                <option value="idea">💡</option>
+              </select>
+            </div>
+          </div>
           <div className="w-full">
             <label htmlFor="beschreibung" className="text-sm text-muted-foreground">
               Beschreibung
