@@ -83,7 +83,7 @@ const CreateSurveyPage = () => {
               </Button>
             </div>
             <div className="flex-center flex-wrap gap-2">
-              <span className="flex-center gap-1 rounded-full border border-border/70 bg-muted/60 px-3 py-1 text-xs text-foreground">
+              <span className="flex-center gap-1 rounded-full border border-border/70 bg-muted/60 px-3 py-1 text-xs text-foreground font-semibold">
                 Kundenzufriedenheit
                 <span className="text-muted-foreground cursor-pointer">✕</span>
               </span>
