@@ -1,6 +1,6 @@
 import { Button } from '@/components/ui/button'
 import { Input } from '@/components/ui/input'
-import { CheckCircle2, LayoutGrid, Plus, Sparkles, Tag, X } from 'lucide-react'
+import { CheckCircle2, LayoutGrid, Plus, Sparkles, Tag, Target, Users2, X } from 'lucide-react'
 
 const CreateSurveyPage = () => {
   return (
@@ -87,6 +87,36 @@ const CreateSurveyPage = () => {
                 Kundenzufriedenheit
                 <span className="text-muted-foreground cursor-pointer">✕</span>
               </span>
+            </div>
+          </div>
+          <div className="w-full grid gap-4 md:grid-cols-2">
+            <div className="flex-start flex-col gap-2 rounded-xl border border-border/70 bg-background/80 p-4">
+              <div className="flex-center flex-row gap-2">
+                <Target className="h-4 w-4 text-primary" />
+                <p className="font-semibold text-sm">Ziel-Teilnehmer</p>
+              </div>
+              <Input
+                type="number"
+                placeholder="Anzahl der Teilnehmer"
+                className="bg-transparent outline-none text-muted-foreground px-3 py-2 text-sm rounded-lg border border-border/70 flex-1"
+              />
+              <p className="text-muted-foreground text-xs">
+                Anzahl gplanter Teilnehmer für die Studie.
+              </p>
+            </div>
+            <div className="flex-start flex-col gap-2 rounded-xl border border-border/70 bg-background/80 p-4">
+              <div className="flex-center flex-row gap-2">
+                <Users2 className="h-4 w-4 text-primary" />
+                <p className="font-semibold text-sm">Zielgruppe</p>
+              </div>
+              <Input
+                type="text"
+                placeholder="Beschreibung der Zielgruppe"
+                className="bg-transparent outline-none text-muted-foreground px-3 py-2 text-sm rounded-lg border border-border/70 flex-1"
+              />
+              <p className="rounded-full bg-muted/60 border border-border/70 px-3 py-1 text-xs">
+                Deutschland
+              </p>
             </div>
           </div>
         </div>
