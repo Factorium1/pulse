@@ -86,7 +86,9 @@ const CreateSurveyPage = () => {
               />
             </div>
             <div className="w-full">
-              <label htmlFor="emoji">Emoji</label>
+              <label htmlFor="emoji" className="text-sm text-muted-foreground">
+                Emoji
+              </label>
               <select
                 id="emoji"
                 name="emoji"
