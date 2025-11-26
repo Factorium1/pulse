@@ -1,10 +1,11 @@
 import { Button } from '@/components/ui/button'
-import { CheckCircle2, LayoutGrid, Sparkles } from 'lucide-react'
+import { Input } from '@/components/ui/input'
+import { CheckCircle2, LayoutGrid, Plus, Sparkles, Tag, X } from 'lucide-react'
 
 const CreateSurveyPage = () => {
   return (
     <div className="flex-center flex-col w-full p-4 gap-4">
-      <div className="rounded-3xl border border-border/70 bg-gradient-to-r from-primary/10 via-accent/20 to-background/80 p-6 shadow-sm backdrop-blur-2xl">
+      <div className="rounded-3xl border border-border/70 bg-gradient-to-r from-primary/10 via-accent/20 to-background/80 p-6 shadow-sm backdrop-blur-2xl w-full">
         <div className="flex flex-col gap-3 md:flex-row md:items-center md:justify-between">
           <div className="space-y-2">
             <p className="text-xs uppercase tracking-[0.2em] text-muted-foreground">
@@ -28,6 +29,65 @@ const CreateSurveyPage = () => {
               <CheckCircle2 className="h-4 w-4" />
               Entwurf sichern
             </Button>
+          </div>
+        </div>
+      </div>
+
+      <div className="w-full grid grid-cols-1 gap-6 items-start lg:grid-cols-3">
+        <div className="lg:col-span-2 rounded-2xl border border-border/80 bg-card/80 p-6 shadow-sm flex-start flex-col gap-4">
+          <div className="">
+            <p className="text-xs uppercase text-muted-foreground tracking-widest">Grunddaten</p>
+            <h2 className="text-xl font-semibold text-foreground">Survey Details</h2>
+            <p className="text-sm text-muted-foreground">
+              Titel, Beschreibung, Fragen & Optionen für dein Survey konfigurieren.
+            </p>
+          </div>
+          <div className="w-full">
+            <label htmlFor="titel" className="text-sm text-muted-foreground">
+              Titel der Studie
+            </label>
+            <input
+              type="text"
+              id="titel"
+              name="titel"
+              className="w-full rounded-lg border border-border/70 bg-background/70 px-3 py-2 text-sm text-foreground shadow-xs outline-none"
+              placeholder="z.B. Kundenzufriedenheitsumfrage Q2 2024"
+            />
+          </div>
+          <div className="w-full">
+            <label htmlFor="beschreibung" className="text-sm text-muted-foreground">
+              Beschreibung
+            </label>
+            <textarea
+              id="beschreibung"
+              name="beschreibung"
+              rows={4}
+              className="w-full rounded-lg border border-border/70 bg-background/70 px-3 py-2 text-sm text-foreground shadow-xs outline-none"
+              placeholder="Worum geht es, was erwartet die Teilnehmer?"
+            />
+          </div>
+          <div className="flex flex-col gap-2 w-full">
+            <div className="w-full flex items-center justify-start gap-2">
+              <Tag className="h-4 w-4 text-primary" />
+              <p className="text-muted-foreground">Tags</p>
+            </div>
+            <div className="flex items-center gap-2">
+              <Input
+                type="text"
+                placeholder="Tags hinzufügen..."
+                className="bg-transparent outline-none text-muted-foreground px-3 text-sm rounded-lg border border-border/70"
+              />
+              <Button variant="outline" size="sm" className="text-xs">
+                <Plus className="h-4 w-4" />
+                Hinzufügen
+              </Button>
+            </div>
+            <div className="flex-center flex-wrap gap-2">
+              <span className="flex-center gap-1 rounded-full border border-border/70 bg-muted/60 px-3 py-1 text-xs text-foreground">
+                Kundenzufriedenheit
+                <span className="text-muted-foreground cursor-pointer">✕</span>
+              </span>
+            </div>
           </div>
         </div>
       </div>
