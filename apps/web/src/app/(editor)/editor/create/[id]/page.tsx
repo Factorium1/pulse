@@ -121,6 +121,25 @@ const CreateSurveyPage = () => {
           </div>
         </div>
       </div>
+
+      <div className="w-full grid grid-cols-1 gap-6 items-start lg:grid-cols-3">
+        <div className="lg:col-span-2 rounded-2xl border border-border/80 bg-card/80 p-6 shadow-sm flex-start flex-col gap-4">
+          <div className="flex-between w-full">
+            <div className="">
+              <p className="text-xs uppercase text-muted-foreground tracking-widest">Fragen</p>
+              <h2 className="text-xl font-semibold text-foreground">Fragebogen</h2>
+              <p className="text-sm text-muted-foreground">
+                Titel, Beschreibung, Fragetyp & Optionen und Timing je Frage. Die aktive frage
+                erscheint in der Vorschau.
+              </p>
+            </div>
+            <Button variant="outline" size="sm" className="text-xs">
+              <Plus className="h-4 w-4" />
+              Frage hinzufügen
+            </Button>
+          </div>
+        </div>
+      </div>
     </div>
   )
 }
