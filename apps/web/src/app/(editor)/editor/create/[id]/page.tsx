@@ -230,7 +230,7 @@ const CreateSurveyPage = () => {
                       17:30 Uhr
                     </span>
                   </div>
-                  <div className="">
+                  <div className="flex gap-2 flex-wrap justify-end">
                     <Button variant="outline" size="sm" className="text-xs">
                       <Plus className="h-4 w-4" />
                       Frage hinzufügen
