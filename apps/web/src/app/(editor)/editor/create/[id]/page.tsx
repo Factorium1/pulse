@@ -168,7 +168,7 @@ const CreateSurveyPage = () => {
             </div>
             <Button variant="outline" size="sm" className="text-xs">
               <Plus className="h-4 w-4" />
-              Frage hinzufügen
+              {type === 'short' ? 'Frage hinzufügen' : 'Block hinzufügen'}
             </Button>
           </div>
           {type === 'short' ? (
