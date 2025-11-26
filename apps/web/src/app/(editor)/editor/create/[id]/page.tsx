@@ -66,6 +66,19 @@ const CreateSurveyPage = () => {
               placeholder="Worum geht es, was erwartet die Teilnehmer?"
             />
           </div>
+          <div className="w-full">
+            <label htmlFor="suvey-typ" className="text-sm text-muted-foreground">
+              Survey-Typ
+            </label>
+            <select
+              id="survey-typ"
+              name="survey-typ"
+              className="w-full rounded-lg border border-border/70 bg-background/70 px-3 py-2 text-sm text-foreground shadow-xs outline-none"
+            >
+              <option value="short">Umfrage</option>
+              <option value="long">Mehrtägige Studie</option>
+            </select>
+          </div>
           <div className="flex flex-col gap-2 w-full">
             <div className="w-full flex items-center justify-start gap-2">
               <Tag className="h-4 w-4 text-primary" />
@@ -124,19 +137,13 @@ const CreateSurveyPage = () => {
 
       <div className="w-full grid grid-cols-1 gap-6 items-start lg:grid-cols-3">
         <div className="lg:col-span-2 rounded-2xl border border-border/80 bg-card/80 p-6 shadow-sm flex-start flex-col gap-4">
-          <div className="flex-between w-full">
-            <div className="">
-              <p className="text-xs uppercase text-muted-foreground tracking-widest">Fragen</p>
-              <h2 className="text-xl font-semibold text-foreground">Fragebogen</h2>
-              <p className="text-sm text-muted-foreground">
-                Titel, Beschreibung, Fragetyp & Optionen und Timing je Frage. Die aktive frage
-                erscheint in der Vorschau.
-              </p>
-            </div>
-            <Button variant="outline" size="sm" className="text-xs">
-              <Plus className="h-4 w-4" />
-              Frage hinzufügen
-            </Button>
+          <div className="flex-start flex-col w-full">
+            <p className="text-xs uppercase text-muted-foreground tracking-widest">Fragen</p>
+            <h2 className="text-xl font-semibold text-foreground">Fragebogen</h2>
+            <p className="text-sm text-muted-foreground">
+              Titel, Beschreibung, Fragetyp & Optionen und Timing je Frage. Die aktive frage
+              erscheint in der Vorschau.
+            </p>
           </div>
         </div>
       </div>
