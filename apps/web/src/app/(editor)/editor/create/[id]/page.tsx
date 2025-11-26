@@ -1,8 +1,26 @@
+'use client'
+
 import { Button } from '@/components/ui/button'
 import { Input } from '@/components/ui/input'
-import { CheckCircle2, LayoutGrid, Plus, Sparkles, Tag, Target, Users2, X } from 'lucide-react'
+import {
+  CheckCircle2,
+  LayoutGrid,
+  Plus,
+  Smartphone,
+  Sparkles,
+  Tag,
+  Target,
+  Users2,
+  X,
+} from 'lucide-react'
+import { useState } from 'react'
 
 const CreateSurveyPage = () => {
+  const [type, setType] = useState<'short' | 'long'>('short')
+  function handleTypeChange(newType: 'short' | 'long') {
+    setType(newType)
+  }
+
   return (
     <div className="flex-center flex-col w-full p-4 gap-4">
       <div className="rounded-3xl border border-border/70 bg-gradient-to-r from-primary/10 via-accent/20 to-background/80 p-6 shadow-sm backdrop-blur-2xl w-full">
@@ -74,6 +92,8 @@ const CreateSurveyPage = () => {
               id="survey-typ"
               name="survey-typ"
               className="w-full rounded-lg border border-border/70 bg-background/70 px-3 py-2 text-sm text-foreground shadow-xs outline-none"
+              value={type}
+              onChange={(e) => handleTypeChange(e.target.value as 'short' | 'long')}
             >
               <option value="short">Umfrage</option>
               <option value="long">Mehrtägige Studie</option>
@@ -137,14 +157,78 @@ const CreateSurveyPage = () => {
 
       <div className="w-full grid grid-cols-1 gap-6 items-start lg:grid-cols-3">
         <div className="lg:col-span-2 rounded-2xl border border-border/80 bg-card/80 p-6 shadow-sm flex-start flex-col gap-4">
-          <div className="flex-start flex-col w-full">
-            <p className="text-xs uppercase text-muted-foreground tracking-widest">Fragen</p>
-            <h2 className="text-xl font-semibold text-foreground">Fragebogen</h2>
-            <p className="text-sm text-muted-foreground">
-              Titel, Beschreibung, Fragetyp & Optionen und Timing je Frage. Die aktive frage
-              erscheint in der Vorschau.
-            </p>
+          <div className="flex-between w-full">
+            <div className="">
+              <p className="text-xs uppercase text-muted-foreground tracking-widest">Fragen</p>
+              <h2 className="text-xl font-semibold text-foreground">Fragebogen</h2>
+              <p className="text-sm text-muted-foreground">
+                Titel, Beschreibung, Fragetyp & Optionen und Timing je Frage. Die aktive frage
+                erscheint in der Vorschau.
+              </p>
+            </div>
+            <Button variant="outline" size="sm" className="text-xs">
+              <Plus className="h-4 w-4" />
+              Frage hinzufügen
+            </Button>
           </div>
+          {type === 'short' ? (
+            <div className="w-full flex-center flex-col gap-4 p-4 border border-border/70 rounded-lg bg-background/70">
+              <div className="flex-between w-full">
+                <div className="flex-center gap-4">
+                  <p className="text-muted-foreground text-xs">Frage 1</p>
+                  <span className="border border-border/70 bg-card/60 px-4 py-1 rounded-full text-xs text-foreground">
+                    Freitext
+                  </span>
+                </div>
+                <Button variant="ghost" size="sm" className="text-xs">
+                  <Smartphone className="h-4 w-4" />
+                  In Vorschau
+                </Button>
+              </div>
+              <input
+                type="text"
+                id="frage-titel"
+                name="frage-titel"
+                className="w-full rounded-lg border border-border/70 bg-background/70 px-3 py-2 text-sm text-foreground shadow-xs outline-none"
+                placeholder="z.B. Wie zufrieden sind Sie mit unserem Produkt?"
+              />
+              <textarea
+                id="frage-beschreibung"
+                name="frage-beschreibung"
+                rows={2}
+                className="w-full rounded-lg border border-border/70 bg-background/70 px-3 py-2 text-sm text-foreground shadow-xs outline-none"
+                placeholder="Optionale Beschreibung oder Anweisungen zur Frage"
+              />
+              <div className="w-full flex-center flex-col gap-2">
+                <div className="text-sm text-muted-foreground w-full flex-start flex-col gap-2">
+                  <label htmlFor="frage-typ" className="text-xs text-muted-foreground">
+                    Fragetyp
+                  </label>
+                  <select
+                    id="frage-typ"
+                    name="frage-typ"
+                    className="rounded-lg border border-border/70 bg-background/70 px-3 py-2 text-sm text-foreground shadow-xs outline-none"
+                  >
+                    <option value="freetext">Freitext</option>
+                    <option value="multiple-choice">Multiple Choice</option>
+                    <option value="single-choice">Single Choice</option>
+                    <option value="rating">Bewertungsskala</option>
+                  </select>
+                </div>
+              </div>
+            </div>
+          ) : (
+            <div className="w-full flex-center flex-col gap-4 py-10">
+              <div className="flex-center flex-col gap-2">
+                <p className="text-sm text-muted-foreground">Mehrtägige Studie ausgewählt</p>
+                <CheckCircle2 className="h-8 w-8 text-green-500" />
+              </div>
+              <Button variant="outline" size="sm" className="text-xs">
+                <Plus className="h-4 w-4" />
+                Frage hinzufügen
+              </Button>
+            </div>
+          )}
         </div>
       </div>
     </div>
