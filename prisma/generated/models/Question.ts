@@ -27,11 +27,11 @@ export type AggregateQuestion = {
 }
 
 export type QuestionAvgAggregateOutputType = {
-  offsetMinutes: number | null
+  order: number | null
 }
 
 export type QuestionSumAggregateOutputType = {
-  offsetMinutes: number | null
+  order: number | null
 }
 
 export type QuestionMinAggregateOutputType = {
@@ -40,9 +40,9 @@ export type QuestionMinAggregateOutputType = {
   description: string | null
   type: $Enums.QuestionType | null
   surveyId: string | null
-  timingType: $Enums.QuestionTimingType | null
-  fixedAt: Date | null
-  offsetMinutes: number | null
+  blockId: string | null
+  order: number | null
+  isEventQuestion: boolean | null
   createdAt: Date | null
   updatedAt: Date | null
 }
@@ -53,9 +53,9 @@ export type QuestionMaxAggregateOutputType = {
   description: string | null
   type: $Enums.QuestionType | null
   surveyId: string | null
-  timingType: $Enums.QuestionTimingType | null
-  fixedAt: Date | null
-  offsetMinutes: number | null
+  blockId: string | null
+  order: number | null
+  isEventQuestion: boolean | null
   createdAt: Date | null
   updatedAt: Date | null
 }
@@ -67,9 +67,9 @@ export type QuestionCountAggregateOutputType = {
   type: number
   options: number
   surveyId: number
-  timingType: number
-  fixedAt: number
-  offsetMinutes: number
+  blockId: number
+  order: number
+  isEventQuestion: number
   createdAt: number
   updatedAt: number
   _all: number
@@ -77,11 +77,11 @@ export type QuestionCountAggregateOutputType = {
 
 
 export type QuestionAvgAggregateInputType = {
-  offsetMinutes?: true
+  order?: true
 }
 
 export type QuestionSumAggregateInputType = {
-  offsetMinutes?: true
+  order?: true
 }
 
 export type QuestionMinAggregateInputType = {
@@ -90,9 +90,9 @@ export type QuestionMinAggregateInputType = {
   description?: true
   type?: true
   surveyId?: true
-  timingType?: true
-  fixedAt?: true
-  offsetMinutes?: true
+  blockId?: true
+  order?: true
+  isEventQuestion?: true
   createdAt?: true
   updatedAt?: true
 }
@@ -103,9 +103,9 @@ export type QuestionMaxAggregateInputType = {
   description?: true
   type?: true
   surveyId?: true
-  timingType?: true
-  fixedAt?: true
-  offsetMinutes?: true
+  blockId?: true
+  order?: true
+  isEventQuestion?: true
   createdAt?: true
   updatedAt?: true
 }
@@ -117,9 +117,9 @@ export type QuestionCountAggregateInputType = {
   type?: true
   options?: true
   surveyId?: true
-  timingType?: true
-  fixedAt?: true
-  offsetMinutes?: true
+  blockId?: true
+  order?: true
+  isEventQuestion?: true
   createdAt?: true
   updatedAt?: true
   _all?: true
@@ -218,9 +218,9 @@ export type QuestionGroupByOutputType = {
   type: $Enums.QuestionType
   options: string[]
   surveyId: string
-  timingType: $Enums.QuestionTimingType
-  fixedAt: Date | null
-  offsetMinutes: number | null
+  blockId: string | null
+  order: number
+  isEventQuestion: boolean
   createdAt: Date
   updatedAt: Date
   _count: QuestionCountAggregateOutputType | null
@@ -255,12 +255,13 @@ export type QuestionWhereInput = {
   type?: Prisma.EnumQuestionTypeFilter<"Question"> | $Enums.QuestionType
   options?: Prisma.StringNullableListFilter<"Question">
   surveyId?: Prisma.StringFilter<"Question"> | string
-  timingType?: Prisma.EnumQuestionTimingTypeFilter<"Question"> | $Enums.QuestionTimingType
-  fixedAt?: Prisma.DateTimeNullableFilter<"Question"> | Date | string | null
-  offsetMinutes?: Prisma.IntNullableFilter<"Question"> | number | null
+  blockId?: Prisma.StringNullableFilter<"Question"> | string | null
+  order?: Prisma.IntFilter<"Question"> | number
+  isEventQuestion?: Prisma.BoolFilter<"Question"> | boolean
   createdAt?: Prisma.DateTimeFilter<"Question"> | Date | string
   updatedAt?: Prisma.DateTimeFilter<"Question"> | Date | string
   survey?: Prisma.XOR<Prisma.SurveyScalarRelationFilter, Prisma.SurveyWhereInput>
+  block?: Prisma.XOR<Prisma.SurveyBlockNullableScalarRelationFilter, Prisma.SurveyBlockWhereInput> | null
   answers?: Prisma.AnswerListRelationFilter
 }
 
@@ -271,12 +272,13 @@ export type QuestionOrderByWithRelationInput = {
   type?: Prisma.SortOrder
   options?: Prisma.SortOrder
   surveyId?: Prisma.SortOrder
-  timingType?: Prisma.SortOrder
-  fixedAt?: Prisma.SortOrderInput | Prisma.SortOrder
-  offsetMinutes?: Prisma.SortOrderInput | Prisma.SortOrder
+  blockId?: Prisma.SortOrderInput | Prisma.SortOrder
+  order?: Prisma.SortOrder
+  isEventQuestion?: Prisma.SortOrder
   createdAt?: Prisma.SortOrder
   updatedAt?: Prisma.SortOrder
   survey?: Prisma.SurveyOrderByWithRelationInput
+  block?: Prisma.SurveyBlockOrderByWithRelationInput
   answers?: Prisma.AnswerOrderByRelationAggregateInput
 }
 
@@ -290,12 +292,13 @@ export type QuestionWhereUniqueInput = Prisma.AtLeast<{
   type?: Prisma.EnumQuestionTypeFilter<"Question"> | $Enums.QuestionType
   options?: Prisma.StringNullableListFilter<"Question">
   surveyId?: Prisma.StringFilter<"Question"> | string
-  timingType?: Prisma.EnumQuestionTimingTypeFilter<"Question"> | $Enums.QuestionTimingType
-  fixedAt?: Prisma.DateTimeNullableFilter<"Question"> | Date | string | null
-  offsetMinutes?: Prisma.IntNullableFilter<"Question"> | number | null
+  blockId?: Prisma.StringNullableFilter<"Question"> | string | null
+  order?: Prisma.IntFilter<"Question"> | number
+  isEventQuestion?: Prisma.BoolFilter<"Question"> | boolean
   createdAt?: Prisma.DateTimeFilter<"Question"> | Date | string
   updatedAt?: Prisma.DateTimeFilter<"Question"> | Date | string
   survey?: Prisma.XOR<Prisma.SurveyScalarRelationFilter, Prisma.SurveyWhereInput>
+  block?: Prisma.XOR<Prisma.SurveyBlockNullableScalarRelationFilter, Prisma.SurveyBlockWhereInput> | null
   answers?: Prisma.AnswerListRelationFilter
 }, "id">
 
@@ -306,9 +309,9 @@ export type QuestionOrderByWithAggregationInput = {
   type?: Prisma.SortOrder
   options?: Prisma.SortOrder
   surveyId?: Prisma.SortOrder
-  timingType?: Prisma.SortOrder
-  fixedAt?: Prisma.SortOrderInput | Prisma.SortOrder
-  offsetMinutes?: Prisma.SortOrderInput | Prisma.SortOrder
+  blockId?: Prisma.SortOrderInput | Prisma.SortOrder
+  order?: Prisma.SortOrder
+  isEventQuestion?: Prisma.SortOrder
   createdAt?: Prisma.SortOrder
   updatedAt?: Prisma.SortOrder
   _count?: Prisma.QuestionCountOrderByAggregateInput
@@ -328,9 +331,9 @@ export type QuestionScalarWhereWithAggregatesInput = {
   type?: Prisma.EnumQuestionTypeWithAggregatesFilter<"Question"> | $Enums.QuestionType
   options?: Prisma.StringNullableListFilter<"Question">
   surveyId?: Prisma.StringWithAggregatesFilter<"Question"> | string
-  timingType?: Prisma.EnumQuestionTimingTypeWithAggregatesFilter<"Question"> | $Enums.QuestionTimingType
-  fixedAt?: Prisma.DateTimeNullableWithAggregatesFilter<"Question"> | Date | string | null
-  offsetMinutes?: Prisma.IntNullableWithAggregatesFilter<"Question"> | number | null
+  blockId?: Prisma.StringNullableWithAggregatesFilter<"Question"> | string | null
+  order?: Prisma.IntWithAggregatesFilter<"Question"> | number
+  isEventQuestion?: Prisma.BoolWithAggregatesFilter<"Question"> | boolean
   createdAt?: Prisma.DateTimeWithAggregatesFilter<"Question"> | Date | string
   updatedAt?: Prisma.DateTimeWithAggregatesFilter<"Question"> | Date | string
 }
@@ -341,12 +344,12 @@ export type QuestionCreateInput = {
   description?: string | null
   type: $Enums.QuestionType
   options?: Prisma.QuestionCreateoptionsInput | string[]
-  timingType?: $Enums.QuestionTimingType
-  fixedAt?: Date | string | null
-  offsetMinutes?: number | null
+  order: number
+  isEventQuestion?: boolean
   createdAt?: Date | string
   updatedAt?: Date | string
   survey: Prisma.SurveyCreateNestedOneWithoutQuestionsInput
+  block?: Prisma.SurveyBlockCreateNestedOneWithoutQuestionsInput
   answers?: Prisma.AnswerCreateNestedManyWithoutQuestionInput
 }
 
@@ -357,9 +360,9 @@ export type QuestionUncheckedCreateInput = {
   type: $Enums.QuestionType
   options?: Prisma.QuestionCreateoptionsInput | string[]
   surveyId: string
-  timingType?: $Enums.QuestionTimingType
-  fixedAt?: Date | string | null
-  offsetMinutes?: number | null
+  blockId?: string | null
+  order: number
+  isEventQuestion?: boolean
   createdAt?: Date | string
   updatedAt?: Date | string
   answers?: Prisma.AnswerUncheckedCreateNestedManyWithoutQuestionInput
@@ -371,12 +374,12 @@ export type QuestionUpdateInput = {
   description?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   type?: Prisma.EnumQuestionTypeFieldUpdateOperationsInput | $Enums.QuestionType
   options?: Prisma.QuestionUpdateoptionsInput | string[]
-  timingType?: Prisma.EnumQuestionTimingTypeFieldUpdateOperationsInput | $Enums.QuestionTimingType
-  fixedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
-  offsetMinutes?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
+  order?: Prisma.IntFieldUpdateOperationsInput | number
+  isEventQuestion?: Prisma.BoolFieldUpdateOperationsInput | boolean
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   survey?: Prisma.SurveyUpdateOneRequiredWithoutQuestionsNestedInput
+  block?: Prisma.SurveyBlockUpdateOneWithoutQuestionsNestedInput
   answers?: Prisma.AnswerUpdateManyWithoutQuestionNestedInput
 }
 
@@ -387,9 +390,9 @@ export type QuestionUncheckedUpdateInput = {
   type?: Prisma.EnumQuestionTypeFieldUpdateOperationsInput | $Enums.QuestionType
   options?: Prisma.QuestionUpdateoptionsInput | string[]
   surveyId?: Prisma.StringFieldUpdateOperationsInput | string
-  timingType?: Prisma.EnumQuestionTimingTypeFieldUpdateOperationsInput | $Enums.QuestionTimingType
-  fixedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
-  offsetMinutes?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
+  blockId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  order?: Prisma.IntFieldUpdateOperationsInput | number
+  isEventQuestion?: Prisma.BoolFieldUpdateOperationsInput | boolean
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   answers?: Prisma.AnswerUncheckedUpdateManyWithoutQuestionNestedInput
@@ -402,9 +405,9 @@ export type QuestionCreateManyInput = {
   type: $Enums.QuestionType
   options?: Prisma.QuestionCreateoptionsInput | string[]
   surveyId: string
-  timingType?: $Enums.QuestionTimingType
-  fixedAt?: Date | string | null
-  offsetMinutes?: number | null
+  blockId?: string | null
+  order: number
+  isEventQuestion?: boolean
   createdAt?: Date | string
   updatedAt?: Date | string
 }
@@ -415,9 +418,8 @@ export type QuestionUpdateManyMutationInput = {
   description?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   type?: Prisma.EnumQuestionTypeFieldUpdateOperationsInput | $Enums.QuestionType
   options?: Prisma.QuestionUpdateoptionsInput | string[]
-  timingType?: Prisma.EnumQuestionTimingTypeFieldUpdateOperationsInput | $Enums.QuestionTimingType
-  fixedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
-  offsetMinutes?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
+  order?: Prisma.IntFieldUpdateOperationsInput | number
+  isEventQuestion?: Prisma.BoolFieldUpdateOperationsInput | boolean
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
 }
@@ -429,9 +431,9 @@ export type QuestionUncheckedUpdateManyInput = {
   type?: Prisma.EnumQuestionTypeFieldUpdateOperationsInput | $Enums.QuestionType
   options?: Prisma.QuestionUpdateoptionsInput | string[]
   surveyId?: Prisma.StringFieldUpdateOperationsInput | string
-  timingType?: Prisma.EnumQuestionTimingTypeFieldUpdateOperationsInput | $Enums.QuestionTimingType
-  fixedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
-  offsetMinutes?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
+  blockId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  order?: Prisma.IntFieldUpdateOperationsInput | number
+  isEventQuestion?: Prisma.BoolFieldUpdateOperationsInput | boolean
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
 }
@@ -461,15 +463,15 @@ export type QuestionCountOrderByAggregateInput = {
   type?: Prisma.SortOrder
   options?: Prisma.SortOrder
   surveyId?: Prisma.SortOrder
-  timingType?: Prisma.SortOrder
-  fixedAt?: Prisma.SortOrder
-  offsetMinutes?: Prisma.SortOrder
+  blockId?: Prisma.SortOrder
+  order?: Prisma.SortOrder
+  isEventQuestion?: Prisma.SortOrder
   createdAt?: Prisma.SortOrder
   updatedAt?: Prisma.SortOrder
 }
 
 export type QuestionAvgOrderByAggregateInput = {
-  offsetMinutes?: Prisma.SortOrder
+  order?: Prisma.SortOrder
 }
 
 export type QuestionMaxOrderByAggregateInput = {
@@ -478,9 +480,9 @@ export type QuestionMaxOrderByAggregateInput = {
   description?: Prisma.SortOrder
   type?: Prisma.SortOrder
   surveyId?: Prisma.SortOrder
-  timingType?: Prisma.SortOrder
-  fixedAt?: Prisma.SortOrder
-  offsetMinutes?: Prisma.SortOrder
+  blockId?: Prisma.SortOrder
+  order?: Prisma.SortOrder
+  isEventQuestion?: Prisma.SortOrder
   createdAt?: Prisma.SortOrder
   updatedAt?: Prisma.SortOrder
 }
@@ -491,15 +493,15 @@ export type QuestionMinOrderByAggregateInput = {
   description?: Prisma.SortOrder
   type?: Prisma.SortOrder
   surveyId?: Prisma.SortOrder
-  timingType?: Prisma.SortOrder
-  fixedAt?: Prisma.SortOrder
-  offsetMinutes?: Prisma.SortOrder
+  blockId?: Prisma.SortOrder
+  order?: Prisma.SortOrder
+  isEventQuestion?: Prisma.SortOrder
   createdAt?: Prisma.SortOrder
   updatedAt?: Prisma.SortOrder
 }
 
 export type QuestionSumOrderByAggregateInput = {
-  offsetMinutes?: Prisma.SortOrder
+  order?: Prisma.SortOrder
 }
 
 export type QuestionScalarRelationFilter = {
@@ -562,20 +564,54 @@ export type QuestionUpdateoptionsInput = {
   push?: string | string[]
 }
 
-export type EnumQuestionTimingTypeFieldUpdateOperationsInput = {
-  set?: $Enums.QuestionTimingType
-}
-
-export type NullableDateTimeFieldUpdateOperationsInput = {
-  set?: Date | string | null
-}
-
-export type NullableIntFieldUpdateOperationsInput = {
-  set?: number | null
+export type IntFieldUpdateOperationsInput = {
+  set?: number
   increment?: number
   decrement?: number
   multiply?: number
   divide?: number
+}
+
+export type QuestionCreateNestedManyWithoutBlockInput = {
+  create?: Prisma.XOR<Prisma.QuestionCreateWithoutBlockInput, Prisma.QuestionUncheckedCreateWithoutBlockInput> | Prisma.QuestionCreateWithoutBlockInput[] | Prisma.QuestionUncheckedCreateWithoutBlockInput[]
+  connectOrCreate?: Prisma.QuestionCreateOrConnectWithoutBlockInput | Prisma.QuestionCreateOrConnectWithoutBlockInput[]
+  createMany?: Prisma.QuestionCreateManyBlockInputEnvelope
+  connect?: Prisma.QuestionWhereUniqueInput | Prisma.QuestionWhereUniqueInput[]
+}
+
+export type QuestionUncheckedCreateNestedManyWithoutBlockInput = {
+  create?: Prisma.XOR<Prisma.QuestionCreateWithoutBlockInput, Prisma.QuestionUncheckedCreateWithoutBlockInput> | Prisma.QuestionCreateWithoutBlockInput[] | Prisma.QuestionUncheckedCreateWithoutBlockInput[]
+  connectOrCreate?: Prisma.QuestionCreateOrConnectWithoutBlockInput | Prisma.QuestionCreateOrConnectWithoutBlockInput[]
+  createMany?: Prisma.QuestionCreateManyBlockInputEnvelope
+  connect?: Prisma.QuestionWhereUniqueInput | Prisma.QuestionWhereUniqueInput[]
+}
+
+export type QuestionUpdateManyWithoutBlockNestedInput = {
+  create?: Prisma.XOR<Prisma.QuestionCreateWithoutBlockInput, Prisma.QuestionUncheckedCreateWithoutBlockInput> | Prisma.QuestionCreateWithoutBlockInput[] | Prisma.QuestionUncheckedCreateWithoutBlockInput[]
+  connectOrCreate?: Prisma.QuestionCreateOrConnectWithoutBlockInput | Prisma.QuestionCreateOrConnectWithoutBlockInput[]
+  upsert?: Prisma.QuestionUpsertWithWhereUniqueWithoutBlockInput | Prisma.QuestionUpsertWithWhereUniqueWithoutBlockInput[]
+  createMany?: Prisma.QuestionCreateManyBlockInputEnvelope
+  set?: Prisma.QuestionWhereUniqueInput | Prisma.QuestionWhereUniqueInput[]
+  disconnect?: Prisma.QuestionWhereUniqueInput | Prisma.QuestionWhereUniqueInput[]
+  delete?: Prisma.QuestionWhereUniqueInput | Prisma.QuestionWhereUniqueInput[]
+  connect?: Prisma.QuestionWhereUniqueInput | Prisma.QuestionWhereUniqueInput[]
+  update?: Prisma.QuestionUpdateWithWhereUniqueWithoutBlockInput | Prisma.QuestionUpdateWithWhereUniqueWithoutBlockInput[]
+  updateMany?: Prisma.QuestionUpdateManyWithWhereWithoutBlockInput | Prisma.QuestionUpdateManyWithWhereWithoutBlockInput[]
+  deleteMany?: Prisma.QuestionScalarWhereInput | Prisma.QuestionScalarWhereInput[]
+}
+
+export type QuestionUncheckedUpdateManyWithoutBlockNestedInput = {
+  create?: Prisma.XOR<Prisma.QuestionCreateWithoutBlockInput, Prisma.QuestionUncheckedCreateWithoutBlockInput> | Prisma.QuestionCreateWithoutBlockInput[] | Prisma.QuestionUncheckedCreateWithoutBlockInput[]
+  connectOrCreate?: Prisma.QuestionCreateOrConnectWithoutBlockInput | Prisma.QuestionCreateOrConnectWithoutBlockInput[]
+  upsert?: Prisma.QuestionUpsertWithWhereUniqueWithoutBlockInput | Prisma.QuestionUpsertWithWhereUniqueWithoutBlockInput[]
+  createMany?: Prisma.QuestionCreateManyBlockInputEnvelope
+  set?: Prisma.QuestionWhereUniqueInput | Prisma.QuestionWhereUniqueInput[]
+  disconnect?: Prisma.QuestionWhereUniqueInput | Prisma.QuestionWhereUniqueInput[]
+  delete?: Prisma.QuestionWhereUniqueInput | Prisma.QuestionWhereUniqueInput[]
+  connect?: Prisma.QuestionWhereUniqueInput | Prisma.QuestionWhereUniqueInput[]
+  update?: Prisma.QuestionUpdateWithWhereUniqueWithoutBlockInput | Prisma.QuestionUpdateWithWhereUniqueWithoutBlockInput[]
+  updateMany?: Prisma.QuestionUpdateManyWithWhereWithoutBlockInput | Prisma.QuestionUpdateManyWithWhereWithoutBlockInput[]
+  deleteMany?: Prisma.QuestionScalarWhereInput | Prisma.QuestionScalarWhereInput[]
 }
 
 export type QuestionCreateNestedOneWithoutAnswersInput = {
@@ -598,11 +634,11 @@ export type QuestionCreateWithoutSurveyInput = {
   description?: string | null
   type: $Enums.QuestionType
   options?: Prisma.QuestionCreateoptionsInput | string[]
-  timingType?: $Enums.QuestionTimingType
-  fixedAt?: Date | string | null
-  offsetMinutes?: number | null
+  order: number
+  isEventQuestion?: boolean
   createdAt?: Date | string
   updatedAt?: Date | string
+  block?: Prisma.SurveyBlockCreateNestedOneWithoutQuestionsInput
   answers?: Prisma.AnswerCreateNestedManyWithoutQuestionInput
 }
 
@@ -612,9 +648,9 @@ export type QuestionUncheckedCreateWithoutSurveyInput = {
   description?: string | null
   type: $Enums.QuestionType
   options?: Prisma.QuestionCreateoptionsInput | string[]
-  timingType?: $Enums.QuestionTimingType
-  fixedAt?: Date | string | null
-  offsetMinutes?: number | null
+  blockId?: string | null
+  order: number
+  isEventQuestion?: boolean
   createdAt?: Date | string
   updatedAt?: Date | string
   answers?: Prisma.AnswerUncheckedCreateNestedManyWithoutQuestionInput
@@ -656,11 +692,65 @@ export type QuestionScalarWhereInput = {
   type?: Prisma.EnumQuestionTypeFilter<"Question"> | $Enums.QuestionType
   options?: Prisma.StringNullableListFilter<"Question">
   surveyId?: Prisma.StringFilter<"Question"> | string
-  timingType?: Prisma.EnumQuestionTimingTypeFilter<"Question"> | $Enums.QuestionTimingType
-  fixedAt?: Prisma.DateTimeNullableFilter<"Question"> | Date | string | null
-  offsetMinutes?: Prisma.IntNullableFilter<"Question"> | number | null
+  blockId?: Prisma.StringNullableFilter<"Question"> | string | null
+  order?: Prisma.IntFilter<"Question"> | number
+  isEventQuestion?: Prisma.BoolFilter<"Question"> | boolean
   createdAt?: Prisma.DateTimeFilter<"Question"> | Date | string
   updatedAt?: Prisma.DateTimeFilter<"Question"> | Date | string
+}
+
+export type QuestionCreateWithoutBlockInput = {
+  id?: string
+  title: string
+  description?: string | null
+  type: $Enums.QuestionType
+  options?: Prisma.QuestionCreateoptionsInput | string[]
+  order: number
+  isEventQuestion?: boolean
+  createdAt?: Date | string
+  updatedAt?: Date | string
+  survey: Prisma.SurveyCreateNestedOneWithoutQuestionsInput
+  answers?: Prisma.AnswerCreateNestedManyWithoutQuestionInput
+}
+
+export type QuestionUncheckedCreateWithoutBlockInput = {
+  id?: string
+  title: string
+  description?: string | null
+  type: $Enums.QuestionType
+  options?: Prisma.QuestionCreateoptionsInput | string[]
+  surveyId: string
+  order: number
+  isEventQuestion?: boolean
+  createdAt?: Date | string
+  updatedAt?: Date | string
+  answers?: Prisma.AnswerUncheckedCreateNestedManyWithoutQuestionInput
+}
+
+export type QuestionCreateOrConnectWithoutBlockInput = {
+  where: Prisma.QuestionWhereUniqueInput
+  create: Prisma.XOR<Prisma.QuestionCreateWithoutBlockInput, Prisma.QuestionUncheckedCreateWithoutBlockInput>
+}
+
+export type QuestionCreateManyBlockInputEnvelope = {
+  data: Prisma.QuestionCreateManyBlockInput | Prisma.QuestionCreateManyBlockInput[]
+  skipDuplicates?: boolean
+}
+
+export type QuestionUpsertWithWhereUniqueWithoutBlockInput = {
+  where: Prisma.QuestionWhereUniqueInput
+  update: Prisma.XOR<Prisma.QuestionUpdateWithoutBlockInput, Prisma.QuestionUncheckedUpdateWithoutBlockInput>
+  create: Prisma.XOR<Prisma.QuestionCreateWithoutBlockInput, Prisma.QuestionUncheckedCreateWithoutBlockInput>
+}
+
+export type QuestionUpdateWithWhereUniqueWithoutBlockInput = {
+  where: Prisma.QuestionWhereUniqueInput
+  data: Prisma.XOR<Prisma.QuestionUpdateWithoutBlockInput, Prisma.QuestionUncheckedUpdateWithoutBlockInput>
+}
+
+export type QuestionUpdateManyWithWhereWithoutBlockInput = {
+  where: Prisma.QuestionScalarWhereInput
+  data: Prisma.XOR<Prisma.QuestionUpdateManyMutationInput, Prisma.QuestionUncheckedUpdateManyWithoutBlockInput>
 }
 
 export type QuestionCreateWithoutAnswersInput = {
@@ -669,12 +759,12 @@ export type QuestionCreateWithoutAnswersInput = {
   description?: string | null
   type: $Enums.QuestionType
   options?: Prisma.QuestionCreateoptionsInput | string[]
-  timingType?: $Enums.QuestionTimingType
-  fixedAt?: Date | string | null
-  offsetMinutes?: number | null
+  order: number
+  isEventQuestion?: boolean
   createdAt?: Date | string
   updatedAt?: Date | string
   survey: Prisma.SurveyCreateNestedOneWithoutQuestionsInput
+  block?: Prisma.SurveyBlockCreateNestedOneWithoutQuestionsInput
 }
 
 export type QuestionUncheckedCreateWithoutAnswersInput = {
@@ -684,9 +774,9 @@ export type QuestionUncheckedCreateWithoutAnswersInput = {
   type: $Enums.QuestionType
   options?: Prisma.QuestionCreateoptionsInput | string[]
   surveyId: string
-  timingType?: $Enums.QuestionTimingType
-  fixedAt?: Date | string | null
-  offsetMinutes?: number | null
+  blockId?: string | null
+  order: number
+  isEventQuestion?: boolean
   createdAt?: Date | string
   updatedAt?: Date | string
 }
@@ -713,12 +803,12 @@ export type QuestionUpdateWithoutAnswersInput = {
   description?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   type?: Prisma.EnumQuestionTypeFieldUpdateOperationsInput | $Enums.QuestionType
   options?: Prisma.QuestionUpdateoptionsInput | string[]
-  timingType?: Prisma.EnumQuestionTimingTypeFieldUpdateOperationsInput | $Enums.QuestionTimingType
-  fixedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
-  offsetMinutes?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
+  order?: Prisma.IntFieldUpdateOperationsInput | number
+  isEventQuestion?: Prisma.BoolFieldUpdateOperationsInput | boolean
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   survey?: Prisma.SurveyUpdateOneRequiredWithoutQuestionsNestedInput
+  block?: Prisma.SurveyBlockUpdateOneWithoutQuestionsNestedInput
 }
 
 export type QuestionUncheckedUpdateWithoutAnswersInput = {
@@ -728,9 +818,9 @@ export type QuestionUncheckedUpdateWithoutAnswersInput = {
   type?: Prisma.EnumQuestionTypeFieldUpdateOperationsInput | $Enums.QuestionType
   options?: Prisma.QuestionUpdateoptionsInput | string[]
   surveyId?: Prisma.StringFieldUpdateOperationsInput | string
-  timingType?: Prisma.EnumQuestionTimingTypeFieldUpdateOperationsInput | $Enums.QuestionTimingType
-  fixedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
-  offsetMinutes?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
+  blockId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  order?: Prisma.IntFieldUpdateOperationsInput | number
+  isEventQuestion?: Prisma.BoolFieldUpdateOperationsInput | boolean
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
 }
@@ -741,9 +831,9 @@ export type QuestionCreateManySurveyInput = {
   description?: string | null
   type: $Enums.QuestionType
   options?: Prisma.QuestionCreateoptionsInput | string[]
-  timingType?: $Enums.QuestionTimingType
-  fixedAt?: Date | string | null
-  offsetMinutes?: number | null
+  blockId?: string | null
+  order: number
+  isEventQuestion?: boolean
   createdAt?: Date | string
   updatedAt?: Date | string
 }
@@ -754,11 +844,11 @@ export type QuestionUpdateWithoutSurveyInput = {
   description?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   type?: Prisma.EnumQuestionTypeFieldUpdateOperationsInput | $Enums.QuestionType
   options?: Prisma.QuestionUpdateoptionsInput | string[]
-  timingType?: Prisma.EnumQuestionTimingTypeFieldUpdateOperationsInput | $Enums.QuestionTimingType
-  fixedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
-  offsetMinutes?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
+  order?: Prisma.IntFieldUpdateOperationsInput | number
+  isEventQuestion?: Prisma.BoolFieldUpdateOperationsInput | boolean
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  block?: Prisma.SurveyBlockUpdateOneWithoutQuestionsNestedInput
   answers?: Prisma.AnswerUpdateManyWithoutQuestionNestedInput
 }
 
@@ -768,9 +858,9 @@ export type QuestionUncheckedUpdateWithoutSurveyInput = {
   description?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   type?: Prisma.EnumQuestionTypeFieldUpdateOperationsInput | $Enums.QuestionType
   options?: Prisma.QuestionUpdateoptionsInput | string[]
-  timingType?: Prisma.EnumQuestionTimingTypeFieldUpdateOperationsInput | $Enums.QuestionTimingType
-  fixedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
-  offsetMinutes?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
+  blockId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  order?: Prisma.IntFieldUpdateOperationsInput | number
+  isEventQuestion?: Prisma.BoolFieldUpdateOperationsInput | boolean
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   answers?: Prisma.AnswerUncheckedUpdateManyWithoutQuestionNestedInput
@@ -782,9 +872,63 @@ export type QuestionUncheckedUpdateManyWithoutSurveyInput = {
   description?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   type?: Prisma.EnumQuestionTypeFieldUpdateOperationsInput | $Enums.QuestionType
   options?: Prisma.QuestionUpdateoptionsInput | string[]
-  timingType?: Prisma.EnumQuestionTimingTypeFieldUpdateOperationsInput | $Enums.QuestionTimingType
-  fixedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
-  offsetMinutes?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
+  blockId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  order?: Prisma.IntFieldUpdateOperationsInput | number
+  isEventQuestion?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+}
+
+export type QuestionCreateManyBlockInput = {
+  id?: string
+  title: string
+  description?: string | null
+  type: $Enums.QuestionType
+  options?: Prisma.QuestionCreateoptionsInput | string[]
+  surveyId: string
+  order: number
+  isEventQuestion?: boolean
+  createdAt?: Date | string
+  updatedAt?: Date | string
+}
+
+export type QuestionUpdateWithoutBlockInput = {
+  id?: Prisma.StringFieldUpdateOperationsInput | string
+  title?: Prisma.StringFieldUpdateOperationsInput | string
+  description?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  type?: Prisma.EnumQuestionTypeFieldUpdateOperationsInput | $Enums.QuestionType
+  options?: Prisma.QuestionUpdateoptionsInput | string[]
+  order?: Prisma.IntFieldUpdateOperationsInput | number
+  isEventQuestion?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  survey?: Prisma.SurveyUpdateOneRequiredWithoutQuestionsNestedInput
+  answers?: Prisma.AnswerUpdateManyWithoutQuestionNestedInput
+}
+
+export type QuestionUncheckedUpdateWithoutBlockInput = {
+  id?: Prisma.StringFieldUpdateOperationsInput | string
+  title?: Prisma.StringFieldUpdateOperationsInput | string
+  description?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  type?: Prisma.EnumQuestionTypeFieldUpdateOperationsInput | $Enums.QuestionType
+  options?: Prisma.QuestionUpdateoptionsInput | string[]
+  surveyId?: Prisma.StringFieldUpdateOperationsInput | string
+  order?: Prisma.IntFieldUpdateOperationsInput | number
+  isEventQuestion?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  answers?: Prisma.AnswerUncheckedUpdateManyWithoutQuestionNestedInput
+}
+
+export type QuestionUncheckedUpdateManyWithoutBlockInput = {
+  id?: Prisma.StringFieldUpdateOperationsInput | string
+  title?: Prisma.StringFieldUpdateOperationsInput | string
+  description?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  type?: Prisma.EnumQuestionTypeFieldUpdateOperationsInput | $Enums.QuestionType
+  options?: Prisma.QuestionUpdateoptionsInput | string[]
+  surveyId?: Prisma.StringFieldUpdateOperationsInput | string
+  order?: Prisma.IntFieldUpdateOperationsInput | number
+  isEventQuestion?: Prisma.BoolFieldUpdateOperationsInput | boolean
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
 }
@@ -827,12 +971,13 @@ export type QuestionSelect<ExtArgs extends runtime.Types.Extensions.InternalArgs
   type?: boolean
   options?: boolean
   surveyId?: boolean
-  timingType?: boolean
-  fixedAt?: boolean
-  offsetMinutes?: boolean
+  blockId?: boolean
+  order?: boolean
+  isEventQuestion?: boolean
   createdAt?: boolean
   updatedAt?: boolean
   survey?: boolean | Prisma.SurveyDefaultArgs<ExtArgs>
+  block?: boolean | Prisma.Question$blockArgs<ExtArgs>
   answers?: boolean | Prisma.Question$answersArgs<ExtArgs>
   _count?: boolean | Prisma.QuestionCountOutputTypeDefaultArgs<ExtArgs>
 }, ExtArgs["result"]["question"]>
@@ -844,12 +989,13 @@ export type QuestionSelectCreateManyAndReturn<ExtArgs extends runtime.Types.Exte
   type?: boolean
   options?: boolean
   surveyId?: boolean
-  timingType?: boolean
-  fixedAt?: boolean
-  offsetMinutes?: boolean
+  blockId?: boolean
+  order?: boolean
+  isEventQuestion?: boolean
   createdAt?: boolean
   updatedAt?: boolean
   survey?: boolean | Prisma.SurveyDefaultArgs<ExtArgs>
+  block?: boolean | Prisma.Question$blockArgs<ExtArgs>
 }, ExtArgs["result"]["question"]>
 
 export type QuestionSelectUpdateManyAndReturn<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetSelect<{
@@ -859,12 +1005,13 @@ export type QuestionSelectUpdateManyAndReturn<ExtArgs extends runtime.Types.Exte
   type?: boolean
   options?: boolean
   surveyId?: boolean
-  timingType?: boolean
-  fixedAt?: boolean
-  offsetMinutes?: boolean
+  blockId?: boolean
+  order?: boolean
+  isEventQuestion?: boolean
   createdAt?: boolean
   updatedAt?: boolean
   survey?: boolean | Prisma.SurveyDefaultArgs<ExtArgs>
+  block?: boolean | Prisma.Question$blockArgs<ExtArgs>
 }, ExtArgs["result"]["question"]>
 
 export type QuestionSelectScalar = {
@@ -874,30 +1021,34 @@ export type QuestionSelectScalar = {
   type?: boolean
   options?: boolean
   surveyId?: boolean
-  timingType?: boolean
-  fixedAt?: boolean
-  offsetMinutes?: boolean
+  blockId?: boolean
+  order?: boolean
+  isEventQuestion?: boolean
   createdAt?: boolean
   updatedAt?: boolean
 }
 
-export type QuestionOmit<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetOmit<"id" | "title" | "description" | "type" | "options" | "surveyId" | "timingType" | "fixedAt" | "offsetMinutes" | "createdAt" | "updatedAt", ExtArgs["result"]["question"]>
+export type QuestionOmit<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetOmit<"id" | "title" | "description" | "type" | "options" | "surveyId" | "blockId" | "order" | "isEventQuestion" | "createdAt" | "updatedAt", ExtArgs["result"]["question"]>
 export type QuestionInclude<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
   survey?: boolean | Prisma.SurveyDefaultArgs<ExtArgs>
+  block?: boolean | Prisma.Question$blockArgs<ExtArgs>
   answers?: boolean | Prisma.Question$answersArgs<ExtArgs>
   _count?: boolean | Prisma.QuestionCountOutputTypeDefaultArgs<ExtArgs>
 }
 export type QuestionIncludeCreateManyAndReturn<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
   survey?: boolean | Prisma.SurveyDefaultArgs<ExtArgs>
+  block?: boolean | Prisma.Question$blockArgs<ExtArgs>
 }
 export type QuestionIncludeUpdateManyAndReturn<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
   survey?: boolean | Prisma.SurveyDefaultArgs<ExtArgs>
+  block?: boolean | Prisma.Question$blockArgs<ExtArgs>
 }
 
 export type $QuestionPayload<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
   name: "Question"
   objects: {
     survey: Prisma.$SurveyPayload<ExtArgs>
+    block: Prisma.$SurveyBlockPayload<ExtArgs> | null
     answers: Prisma.$AnswerPayload<ExtArgs>[]
   }
   scalars: runtime.Types.Extensions.GetPayloadResult<{
@@ -907,9 +1058,9 @@ export type $QuestionPayload<ExtArgs extends runtime.Types.Extensions.InternalAr
     type: $Enums.QuestionType
     options: string[]
     surveyId: string
-    timingType: $Enums.QuestionTimingType
-    fixedAt: Date | null
-    offsetMinutes: number | null
+    blockId: string | null
+    order: number
+    isEventQuestion: boolean
     createdAt: Date
     updatedAt: Date
   }, ExtArgs["result"]["question"]>
@@ -1307,6 +1458,7 @@ readonly fields: QuestionFieldRefs;
 export interface Prisma__QuestionClient<T, Null = never, ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs, GlobalOmitOptions = {}> extends Prisma.PrismaPromise<T> {
   readonly [Symbol.toStringTag]: "PrismaPromise"
   survey<T extends Prisma.SurveyDefaultArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.SurveyDefaultArgs<ExtArgs>>): Prisma.Prisma__SurveyClient<runtime.Types.Result.GetResult<Prisma.$SurveyPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | Null, Null, ExtArgs, GlobalOmitOptions>
+  block<T extends Prisma.Question$blockArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.Question$blockArgs<ExtArgs>>): Prisma.Prisma__SurveyBlockClient<runtime.Types.Result.GetResult<Prisma.$SurveyBlockPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | null, null, ExtArgs, GlobalOmitOptions>
   answers<T extends Prisma.Question$answersArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.Question$answersArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$AnswerPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
   /**
    * Attaches callbacks for the resolution and/or rejection of the Promise.
@@ -1343,9 +1495,9 @@ export interface QuestionFieldRefs {
   readonly type: Prisma.FieldRef<"Question", 'QuestionType'>
   readonly options: Prisma.FieldRef<"Question", 'String[]'>
   readonly surveyId: Prisma.FieldRef<"Question", 'String'>
-  readonly timingType: Prisma.FieldRef<"Question", 'QuestionTimingType'>
-  readonly fixedAt: Prisma.FieldRef<"Question", 'DateTime'>
-  readonly offsetMinutes: Prisma.FieldRef<"Question", 'Int'>
+  readonly blockId: Prisma.FieldRef<"Question", 'String'>
+  readonly order: Prisma.FieldRef<"Question", 'Int'>
+  readonly isEventQuestion: Prisma.FieldRef<"Question", 'Boolean'>
   readonly createdAt: Prisma.FieldRef<"Question", 'DateTime'>
   readonly updatedAt: Prisma.FieldRef<"Question", 'DateTime'>
 }
@@ -1741,6 +1893,25 @@ export type QuestionDeleteManyArgs<ExtArgs extends runtime.Types.Extensions.Inte
    * Limit how many Questions to delete.
    */
   limit?: number
+}
+
+/**
+ * Question.block
+ */
+export type Question$blockArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+  /**
+   * Select specific fields to fetch from the SurveyBlock
+   */
+  select?: Prisma.SurveyBlockSelect<ExtArgs> | null
+  /**
+   * Omit specific fields from the SurveyBlock
+   */
+  omit?: Prisma.SurveyBlockOmit<ExtArgs> | null
+  /**
+   * Choose, which related nodes to fetch as well
+   */
+  include?: Prisma.SurveyBlockInclude<ExtArgs> | null
+  where?: Prisma.SurveyBlockWhereInput
 }
 
 /**

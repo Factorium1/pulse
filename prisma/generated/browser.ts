@@ -33,6 +33,11 @@ export type Survey = Prisma.SurveyModel
  */
 export type Question = Prisma.QuestionModel
 /**
+ * Model SurveyBlock
+ * 
+ */
+export type SurveyBlock = Prisma.SurveyBlockModel
+/**
  * Model SurveyParticipation
  * 
  */
@@ -42,3 +47,18 @@ export type SurveyParticipation = Prisma.SurveyParticipationModel
  * 
  */
 export type Answer = Prisma.AnswerModel
+/**
+ * Model Session
+ * 
+ */
+export type Session = Prisma.SessionModel
+/**
+ * Model Account
+ * 
+ */
+export type Account = Prisma.AccountModel
+/**
+ * Model Verification
+ * 
+ */
+export type Verification = Prisma.VerificationModel

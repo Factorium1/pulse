@@ -42,7 +42,7 @@ export { Prisma }
 
 // file annotations for bundling tools to include these files
 path.join(__dirname, "libquery_engine-darwin-arm64.dylib.node")
-path.join(process.cwd(), "generated/prisma/libquery_engine-darwin-arm64.dylib.node")
+path.join(process.cwd(), "prisma/generated/libquery_engine-darwin-arm64.dylib.node")
 
 /**
  * Model User
@@ -60,6 +60,11 @@ export type Survey = Prisma.SurveyModel
  */
 export type Question = Prisma.QuestionModel
 /**
+ * Model SurveyBlock
+ * 
+ */
+export type SurveyBlock = Prisma.SurveyBlockModel
+/**
  * Model SurveyParticipation
  * 
  */
@@ -69,3 +74,18 @@ export type SurveyParticipation = Prisma.SurveyParticipationModel
  * 
  */
 export type Answer = Prisma.AnswerModel
+/**
+ * Model Session
+ * 
+ */
+export type Session = Prisma.SessionModel
+/**
+ * Model Account
+ * 
+ */
+export type Account = Prisma.AccountModel
+/**
+ * Model Verification
+ * 
+ */
+export type Verification = Prisma.VerificationModel

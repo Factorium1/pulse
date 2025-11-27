@@ -5,7 +5,8 @@
 // Try Prisma Accelerate: https://pris.ly/cli/accelerate-init
 
 generator client {
-  provider = "prisma-client-js"
+  provider = "prisma-client"
+  output = "generated"
 }
 
 datasource db {
@@ -32,35 +33,76 @@ model User {
 model Survey {
   id           String                @id @default(cuid())
   title        String
+  shortLabel   String?               @unique
+  emoji        String?
+  status       SurveyStatus          @default(PLANNED)
   description  String?
+  type         SurveyType            @default(ONE_SHOT)
   creator      User                  @relation("SurveyCreator", fields: [creatorId], references: [id])
   creatorId    String
   questions    Question[]
+  blocks       SurveyBlock[]
   participants SurveyParticipation[]
   createdAt    DateTime              @default(now())
   updatedAt    DateTime              @updatedAt
 }
 
-model Question {
-  id            String             @id @default(cuid())
-  title         String
-  description   String?
-  type          QuestionType
-  options       String[] // For single/multiple-choice questions
-  survey        Survey             @relation(fields: [surveyId], references: [id])
-  surveyId      String
-  timingType    QuestionTimingType @default(IMMEDIATE)
-  fixedAt       DateTime?
-  offsetMinutes Int?
-  createdAt     DateTime           @default(now())
-  updatedAt     DateTime           @updatedAt
-  answers       Answer[]
+enum SurveyType {
+  ONE_SHOT
+  MULTI_DAY
 }
 
-enum QuestionTimingType {
-  IMMEDIATE
-  DELAYED
-  SCHEDULED
+enum SurveyStatus {
+  PLANNED
+  ACTIVE
+  COMPLETED
+  ARCHIVED
+  PAUSED
+}
+
+model Question {
+  id              String       @id @default(cuid())
+  title           String
+  description     String?
+  type            QuestionType
+  options         String[] // For single/multiple-choice questions
+  survey          Survey       @relation(fields: [surveyId], references: [id])
+  surveyId        String
+  block           SurveyBlock? @relation(fields: [blockId], references: [id])
+  blockId         String?
+  order           Int
+  isEventQuestion Boolean      @default(false)
+  createdAt       DateTime     @default(now())
+  updatedAt       DateTime     @updatedAt
+  answers         Answer[]
+}
+
+enum BlockScheduleType {
+  FIXED_DATETIME
+  RELATIVE_TO_START
+  EVENT_TRIGGERED
+}
+
+model SurveyBlock {
+  id       String @id @default(cuid())
+  survey   Survey @relation(fields: [surveyId], references: [id])
+  surveyId String
+
+  index Int
+  title String?
+
+  scheduleType BlockScheduleType @default(RELATIVE_TO_START)
+
+  fixedAt DateTime?
+
+  dayOffset        Int?
+  timeOfDayMinutes Int?
+
+  eventKey  String?
+  questions Question[]
+
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
 }
 
 enum QuestionType {

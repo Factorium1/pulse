@@ -9,13 +9,32 @@
 * 🟢 You can import this file directly.
 */
 
-export const QuestionTimingType = {
-  IMMEDIATE: 'IMMEDIATE',
-  DELAYED: 'DELAYED',
-  SCHEDULED: 'SCHEDULED'
+export const SurveyType = {
+  ONE_SHOT: 'ONE_SHOT',
+  MULTI_DAY: 'MULTI_DAY'
 } as const
 
-export type QuestionTimingType = (typeof QuestionTimingType)[keyof typeof QuestionTimingType]
+export type SurveyType = (typeof SurveyType)[keyof typeof SurveyType]
+
+
+export const SurveyStatus = {
+  PLANNED: 'PLANNED',
+  ACTIVE: 'ACTIVE',
+  COMPLETED: 'COMPLETED',
+  ARCHIVED: 'ARCHIVED',
+  PAUSED: 'PAUSED'
+} as const
+
+export type SurveyStatus = (typeof SurveyStatus)[keyof typeof SurveyStatus]
+
+
+export const BlockScheduleType = {
+  FIXED_DATETIME: 'FIXED_DATETIME',
+  RELATIVE_TO_START: 'RELATIVE_TO_START',
+  EVENT_TRIGGERED: 'EVENT_TRIGGERED'
+} as const
+
+export type BlockScheduleType = (typeof BlockScheduleType)[keyof typeof BlockScheduleType]
 
 
 export const QuestionType = {

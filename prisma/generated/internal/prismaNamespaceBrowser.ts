@@ -52,8 +52,12 @@ export const ModelName = {
   User: 'User',
   Survey: 'Survey',
   Question: 'Question',
+  SurveyBlock: 'SurveyBlock',
   SurveyParticipation: 'SurveyParticipation',
-  Answer: 'Answer'
+  Answer: 'Answer',
+  Session: 'Session',
+  Account: 'Account',
+  Verification: 'Verification'
 } as const
 
 export type ModelName = (typeof ModelName)[keyof typeof ModelName]
@@ -78,7 +82,8 @@ export const UserScalarFieldEnum = {
   name: 'name',
   emailVerified: 'emailVerified',
   createdAt: 'createdAt',
-  updatedAt: 'updatedAt'
+  updatedAt: 'updatedAt',
+  image: 'image'
 } as const
 
 export type UserScalarFieldEnum = (typeof UserScalarFieldEnum)[keyof typeof UserScalarFieldEnum]
@@ -87,7 +92,11 @@ export type UserScalarFieldEnum = (typeof UserScalarFieldEnum)[keyof typeof User
 export const SurveyScalarFieldEnum = {
   id: 'id',
   title: 'title',
+  shortLabel: 'shortLabel',
+  emoji: 'emoji',
+  status: 'status',
   description: 'description',
+  type: 'type',
   creatorId: 'creatorId',
   createdAt: 'createdAt',
   updatedAt: 'updatedAt'
@@ -103,14 +112,31 @@ export const QuestionScalarFieldEnum = {
   type: 'type',
   options: 'options',
   surveyId: 'surveyId',
-  timingType: 'timingType',
-  fixedAt: 'fixedAt',
-  offsetMinutes: 'offsetMinutes',
+  blockId: 'blockId',
+  order: 'order',
+  isEventQuestion: 'isEventQuestion',
   createdAt: 'createdAt',
   updatedAt: 'updatedAt'
 } as const
 
 export type QuestionScalarFieldEnum = (typeof QuestionScalarFieldEnum)[keyof typeof QuestionScalarFieldEnum]
+
+
+export const SurveyBlockScalarFieldEnum = {
+  id: 'id',
+  surveyId: 'surveyId',
+  index: 'index',
+  title: 'title',
+  scheduleType: 'scheduleType',
+  fixedAt: 'fixedAt',
+  dayOffset: 'dayOffset',
+  timeOfDayMinutes: 'timeOfDayMinutes',
+  eventKey: 'eventKey',
+  createdAt: 'createdAt',
+  updatedAt: 'updatedAt'
+} as const
+
+export type SurveyBlockScalarFieldEnum = (typeof SurveyBlockScalarFieldEnum)[keyof typeof SurveyBlockScalarFieldEnum]
 
 
 export const SurveyParticipationScalarFieldEnum = {
@@ -139,6 +165,51 @@ export const AnswerScalarFieldEnum = {
 } as const
 
 export type AnswerScalarFieldEnum = (typeof AnswerScalarFieldEnum)[keyof typeof AnswerScalarFieldEnum]
+
+
+export const SessionScalarFieldEnum = {
+  id: 'id',
+  expiresAt: 'expiresAt',
+  token: 'token',
+  createdAt: 'createdAt',
+  updatedAt: 'updatedAt',
+  ipAddress: 'ipAddress',
+  userAgent: 'userAgent',
+  userId: 'userId'
+} as const
+
+export type SessionScalarFieldEnum = (typeof SessionScalarFieldEnum)[keyof typeof SessionScalarFieldEnum]
+
+
+export const AccountScalarFieldEnum = {
+  id: 'id',
+  accountId: 'accountId',
+  providerId: 'providerId',
+  userId: 'userId',
+  accessToken: 'accessToken',
+  refreshToken: 'refreshToken',
+  idToken: 'idToken',
+  accessTokenExpiresAt: 'accessTokenExpiresAt',
+  refreshTokenExpiresAt: 'refreshTokenExpiresAt',
+  scope: 'scope',
+  password: 'password',
+  createdAt: 'createdAt',
+  updatedAt: 'updatedAt'
+} as const
+
+export type AccountScalarFieldEnum = (typeof AccountScalarFieldEnum)[keyof typeof AccountScalarFieldEnum]
+
+
+export const VerificationScalarFieldEnum = {
+  id: 'id',
+  identifier: 'identifier',
+  value: 'value',
+  expiresAt: 'expiresAt',
+  createdAt: 'createdAt',
+  updatedAt: 'updatedAt'
+} as const
+
+export type VerificationScalarFieldEnum = (typeof VerificationScalarFieldEnum)[keyof typeof VerificationScalarFieldEnum]
 
 
 export const SortOrder = {

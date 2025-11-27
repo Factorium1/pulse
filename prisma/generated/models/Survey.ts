@@ -27,7 +27,11 @@ export type AggregateSurvey = {
 export type SurveyMinAggregateOutputType = {
   id: string | null
   title: string | null
+  shortLabel: string | null
+  emoji: string | null
+  status: $Enums.SurveyStatus | null
   description: string | null
+  type: $Enums.SurveyType | null
   creatorId: string | null
   createdAt: Date | null
   updatedAt: Date | null
@@ -36,7 +40,11 @@ export type SurveyMinAggregateOutputType = {
 export type SurveyMaxAggregateOutputType = {
   id: string | null
   title: string | null
+  shortLabel: string | null
+  emoji: string | null
+  status: $Enums.SurveyStatus | null
   description: string | null
+  type: $Enums.SurveyType | null
   creatorId: string | null
   createdAt: Date | null
   updatedAt: Date | null
@@ -45,7 +53,11 @@ export type SurveyMaxAggregateOutputType = {
 export type SurveyCountAggregateOutputType = {
   id: number
   title: number
+  shortLabel: number
+  emoji: number
+  status: number
   description: number
+  type: number
   creatorId: number
   createdAt: number
   updatedAt: number
@@ -56,7 +68,11 @@ export type SurveyCountAggregateOutputType = {
 export type SurveyMinAggregateInputType = {
   id?: true
   title?: true
+  shortLabel?: true
+  emoji?: true
+  status?: true
   description?: true
+  type?: true
   creatorId?: true
   createdAt?: true
   updatedAt?: true
@@ -65,7 +81,11 @@ export type SurveyMinAggregateInputType = {
 export type SurveyMaxAggregateInputType = {
   id?: true
   title?: true
+  shortLabel?: true
+  emoji?: true
+  status?: true
   description?: true
+  type?: true
   creatorId?: true
   createdAt?: true
   updatedAt?: true
@@ -74,7 +94,11 @@ export type SurveyMaxAggregateInputType = {
 export type SurveyCountAggregateInputType = {
   id?: true
   title?: true
+  shortLabel?: true
+  emoji?: true
+  status?: true
   description?: true
+  type?: true
   creatorId?: true
   createdAt?: true
   updatedAt?: true
@@ -156,7 +180,11 @@ export type SurveyGroupByArgs<ExtArgs extends runtime.Types.Extensions.InternalA
 export type SurveyGroupByOutputType = {
   id: string
   title: string
+  shortLabel: string | null
+  emoji: string | null
+  status: $Enums.SurveyStatus
   description: string | null
+  type: $Enums.SurveyType
   creatorId: string
   createdAt: Date
   updatedAt: Date
@@ -186,46 +214,65 @@ export type SurveyWhereInput = {
   NOT?: Prisma.SurveyWhereInput | Prisma.SurveyWhereInput[]
   id?: Prisma.StringFilter<"Survey"> | string
   title?: Prisma.StringFilter<"Survey"> | string
+  shortLabel?: Prisma.StringNullableFilter<"Survey"> | string | null
+  emoji?: Prisma.StringNullableFilter<"Survey"> | string | null
+  status?: Prisma.EnumSurveyStatusFilter<"Survey"> | $Enums.SurveyStatus
   description?: Prisma.StringNullableFilter<"Survey"> | string | null
+  type?: Prisma.EnumSurveyTypeFilter<"Survey"> | $Enums.SurveyType
   creatorId?: Prisma.StringFilter<"Survey"> | string
   createdAt?: Prisma.DateTimeFilter<"Survey"> | Date | string
   updatedAt?: Prisma.DateTimeFilter<"Survey"> | Date | string
   creator?: Prisma.XOR<Prisma.UserScalarRelationFilter, Prisma.UserWhereInput>
   questions?: Prisma.QuestionListRelationFilter
+  blocks?: Prisma.SurveyBlockListRelationFilter
   participants?: Prisma.SurveyParticipationListRelationFilter
 }
 
 export type SurveyOrderByWithRelationInput = {
   id?: Prisma.SortOrder
   title?: Prisma.SortOrder
+  shortLabel?: Prisma.SortOrderInput | Prisma.SortOrder
+  emoji?: Prisma.SortOrderInput | Prisma.SortOrder
+  status?: Prisma.SortOrder
   description?: Prisma.SortOrderInput | Prisma.SortOrder
+  type?: Prisma.SortOrder
   creatorId?: Prisma.SortOrder
   createdAt?: Prisma.SortOrder
   updatedAt?: Prisma.SortOrder
   creator?: Prisma.UserOrderByWithRelationInput
   questions?: Prisma.QuestionOrderByRelationAggregateInput
+  blocks?: Prisma.SurveyBlockOrderByRelationAggregateInput
   participants?: Prisma.SurveyParticipationOrderByRelationAggregateInput
 }
 
 export type SurveyWhereUniqueInput = Prisma.AtLeast<{
   id?: string
+  shortLabel?: string
   AND?: Prisma.SurveyWhereInput | Prisma.SurveyWhereInput[]
   OR?: Prisma.SurveyWhereInput[]
   NOT?: Prisma.SurveyWhereInput | Prisma.SurveyWhereInput[]
   title?: Prisma.StringFilter<"Survey"> | string
+  emoji?: Prisma.StringNullableFilter<"Survey"> | string | null
+  status?: Prisma.EnumSurveyStatusFilter<"Survey"> | $Enums.SurveyStatus
   description?: Prisma.StringNullableFilter<"Survey"> | string | null
+  type?: Prisma.EnumSurveyTypeFilter<"Survey"> | $Enums.SurveyType
   creatorId?: Prisma.StringFilter<"Survey"> | string
   createdAt?: Prisma.DateTimeFilter<"Survey"> | Date | string
   updatedAt?: Prisma.DateTimeFilter<"Survey"> | Date | string
   creator?: Prisma.XOR<Prisma.UserScalarRelationFilter, Prisma.UserWhereInput>
   questions?: Prisma.QuestionListRelationFilter
+  blocks?: Prisma.SurveyBlockListRelationFilter
   participants?: Prisma.SurveyParticipationListRelationFilter
-}, "id">
+}, "id" | "shortLabel">
 
 export type SurveyOrderByWithAggregationInput = {
   id?: Prisma.SortOrder
   title?: Prisma.SortOrder
+  shortLabel?: Prisma.SortOrderInput | Prisma.SortOrder
+  emoji?: Prisma.SortOrderInput | Prisma.SortOrder
+  status?: Prisma.SortOrder
   description?: Prisma.SortOrderInput | Prisma.SortOrder
+  type?: Prisma.SortOrder
   creatorId?: Prisma.SortOrder
   createdAt?: Prisma.SortOrder
   updatedAt?: Prisma.SortOrder
@@ -240,7 +287,11 @@ export type SurveyScalarWhereWithAggregatesInput = {
   NOT?: Prisma.SurveyScalarWhereWithAggregatesInput | Prisma.SurveyScalarWhereWithAggregatesInput[]
   id?: Prisma.StringWithAggregatesFilter<"Survey"> | string
   title?: Prisma.StringWithAggregatesFilter<"Survey"> | string
+  shortLabel?: Prisma.StringNullableWithAggregatesFilter<"Survey"> | string | null
+  emoji?: Prisma.StringNullableWithAggregatesFilter<"Survey"> | string | null
+  status?: Prisma.EnumSurveyStatusWithAggregatesFilter<"Survey"> | $Enums.SurveyStatus
   description?: Prisma.StringNullableWithAggregatesFilter<"Survey"> | string | null
+  type?: Prisma.EnumSurveyTypeWithAggregatesFilter<"Survey"> | $Enums.SurveyType
   creatorId?: Prisma.StringWithAggregatesFilter<"Survey"> | string
   createdAt?: Prisma.DateTimeWithAggregatesFilter<"Survey"> | Date | string
   updatedAt?: Prisma.DateTimeWithAggregatesFilter<"Survey"> | Date | string
@@ -249,51 +300,75 @@ export type SurveyScalarWhereWithAggregatesInput = {
 export type SurveyCreateInput = {
   id?: string
   title: string
+  shortLabel?: string | null
+  emoji?: string | null
+  status?: $Enums.SurveyStatus
   description?: string | null
+  type?: $Enums.SurveyType
   createdAt?: Date | string
   updatedAt?: Date | string
   creator: Prisma.UserCreateNestedOneWithoutCreatedSurveysInput
   questions?: Prisma.QuestionCreateNestedManyWithoutSurveyInput
+  blocks?: Prisma.SurveyBlockCreateNestedManyWithoutSurveyInput
   participants?: Prisma.SurveyParticipationCreateNestedManyWithoutSurveyInput
 }
 
 export type SurveyUncheckedCreateInput = {
   id?: string
   title: string
+  shortLabel?: string | null
+  emoji?: string | null
+  status?: $Enums.SurveyStatus
   description?: string | null
+  type?: $Enums.SurveyType
   creatorId: string
   createdAt?: Date | string
   updatedAt?: Date | string
   questions?: Prisma.QuestionUncheckedCreateNestedManyWithoutSurveyInput
+  blocks?: Prisma.SurveyBlockUncheckedCreateNestedManyWithoutSurveyInput
   participants?: Prisma.SurveyParticipationUncheckedCreateNestedManyWithoutSurveyInput
 }
 
 export type SurveyUpdateInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
   title?: Prisma.StringFieldUpdateOperationsInput | string
+  shortLabel?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  emoji?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  status?: Prisma.EnumSurveyStatusFieldUpdateOperationsInput | $Enums.SurveyStatus
   description?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  type?: Prisma.EnumSurveyTypeFieldUpdateOperationsInput | $Enums.SurveyType
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   creator?: Prisma.UserUpdateOneRequiredWithoutCreatedSurveysNestedInput
   questions?: Prisma.QuestionUpdateManyWithoutSurveyNestedInput
+  blocks?: Prisma.SurveyBlockUpdateManyWithoutSurveyNestedInput
   participants?: Prisma.SurveyParticipationUpdateManyWithoutSurveyNestedInput
 }
 
 export type SurveyUncheckedUpdateInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
   title?: Prisma.StringFieldUpdateOperationsInput | string
+  shortLabel?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  emoji?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  status?: Prisma.EnumSurveyStatusFieldUpdateOperationsInput | $Enums.SurveyStatus
   description?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  type?: Prisma.EnumSurveyTypeFieldUpdateOperationsInput | $Enums.SurveyType
   creatorId?: Prisma.StringFieldUpdateOperationsInput | string
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   questions?: Prisma.QuestionUncheckedUpdateManyWithoutSurveyNestedInput
+  blocks?: Prisma.SurveyBlockUncheckedUpdateManyWithoutSurveyNestedInput
   participants?: Prisma.SurveyParticipationUncheckedUpdateManyWithoutSurveyNestedInput
 }
 
 export type SurveyCreateManyInput = {
   id?: string
   title: string
+  shortLabel?: string | null
+  emoji?: string | null
+  status?: $Enums.SurveyStatus
   description?: string | null
+  type?: $Enums.SurveyType
   creatorId: string
   createdAt?: Date | string
   updatedAt?: Date | string
@@ -302,7 +377,11 @@ export type SurveyCreateManyInput = {
 export type SurveyUpdateManyMutationInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
   title?: Prisma.StringFieldUpdateOperationsInput | string
+  shortLabel?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  emoji?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  status?: Prisma.EnumSurveyStatusFieldUpdateOperationsInput | $Enums.SurveyStatus
   description?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  type?: Prisma.EnumSurveyTypeFieldUpdateOperationsInput | $Enums.SurveyType
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
 }
@@ -310,7 +389,11 @@ export type SurveyUpdateManyMutationInput = {
 export type SurveyUncheckedUpdateManyInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
   title?: Prisma.StringFieldUpdateOperationsInput | string
+  shortLabel?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  emoji?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  status?: Prisma.EnumSurveyStatusFieldUpdateOperationsInput | $Enums.SurveyStatus
   description?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  type?: Prisma.EnumSurveyTypeFieldUpdateOperationsInput | $Enums.SurveyType
   creatorId?: Prisma.StringFieldUpdateOperationsInput | string
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
@@ -329,7 +412,11 @@ export type SurveyOrderByRelationAggregateInput = {
 export type SurveyCountOrderByAggregateInput = {
   id?: Prisma.SortOrder
   title?: Prisma.SortOrder
+  shortLabel?: Prisma.SortOrder
+  emoji?: Prisma.SortOrder
+  status?: Prisma.SortOrder
   description?: Prisma.SortOrder
+  type?: Prisma.SortOrder
   creatorId?: Prisma.SortOrder
   createdAt?: Prisma.SortOrder
   updatedAt?: Prisma.SortOrder
@@ -338,7 +425,11 @@ export type SurveyCountOrderByAggregateInput = {
 export type SurveyMaxOrderByAggregateInput = {
   id?: Prisma.SortOrder
   title?: Prisma.SortOrder
+  shortLabel?: Prisma.SortOrder
+  emoji?: Prisma.SortOrder
+  status?: Prisma.SortOrder
   description?: Prisma.SortOrder
+  type?: Prisma.SortOrder
   creatorId?: Prisma.SortOrder
   createdAt?: Prisma.SortOrder
   updatedAt?: Prisma.SortOrder
@@ -347,7 +438,11 @@ export type SurveyMaxOrderByAggregateInput = {
 export type SurveyMinOrderByAggregateInput = {
   id?: Prisma.SortOrder
   title?: Prisma.SortOrder
+  shortLabel?: Prisma.SortOrder
+  emoji?: Prisma.SortOrder
+  status?: Prisma.SortOrder
   description?: Prisma.SortOrder
+  type?: Prisma.SortOrder
   creatorId?: Prisma.SortOrder
   createdAt?: Prisma.SortOrder
   updatedAt?: Prisma.SortOrder
@@ -400,6 +495,14 @@ export type SurveyUncheckedUpdateManyWithoutCreatorNestedInput = {
   deleteMany?: Prisma.SurveyScalarWhereInput | Prisma.SurveyScalarWhereInput[]
 }
 
+export type EnumSurveyStatusFieldUpdateOperationsInput = {
+  set?: $Enums.SurveyStatus
+}
+
+export type EnumSurveyTypeFieldUpdateOperationsInput = {
+  set?: $Enums.SurveyType
+}
+
 export type SurveyCreateNestedOneWithoutQuestionsInput = {
   create?: Prisma.XOR<Prisma.SurveyCreateWithoutQuestionsInput, Prisma.SurveyUncheckedCreateWithoutQuestionsInput>
   connectOrCreate?: Prisma.SurveyCreateOrConnectWithoutQuestionsInput
@@ -412,6 +515,20 @@ export type SurveyUpdateOneRequiredWithoutQuestionsNestedInput = {
   upsert?: Prisma.SurveyUpsertWithoutQuestionsInput
   connect?: Prisma.SurveyWhereUniqueInput
   update?: Prisma.XOR<Prisma.XOR<Prisma.SurveyUpdateToOneWithWhereWithoutQuestionsInput, Prisma.SurveyUpdateWithoutQuestionsInput>, Prisma.SurveyUncheckedUpdateWithoutQuestionsInput>
+}
+
+export type SurveyCreateNestedOneWithoutBlocksInput = {
+  create?: Prisma.XOR<Prisma.SurveyCreateWithoutBlocksInput, Prisma.SurveyUncheckedCreateWithoutBlocksInput>
+  connectOrCreate?: Prisma.SurveyCreateOrConnectWithoutBlocksInput
+  connect?: Prisma.SurveyWhereUniqueInput
+}
+
+export type SurveyUpdateOneRequiredWithoutBlocksNestedInput = {
+  create?: Prisma.XOR<Prisma.SurveyCreateWithoutBlocksInput, Prisma.SurveyUncheckedCreateWithoutBlocksInput>
+  connectOrCreate?: Prisma.SurveyCreateOrConnectWithoutBlocksInput
+  upsert?: Prisma.SurveyUpsertWithoutBlocksInput
+  connect?: Prisma.SurveyWhereUniqueInput
+  update?: Prisma.XOR<Prisma.XOR<Prisma.SurveyUpdateToOneWithWhereWithoutBlocksInput, Prisma.SurveyUpdateWithoutBlocksInput>, Prisma.SurveyUncheckedUpdateWithoutBlocksInput>
 }
 
 export type SurveyCreateNestedOneWithoutParticipantsInput = {
@@ -431,20 +548,30 @@ export type SurveyUpdateOneRequiredWithoutParticipantsNestedInput = {
 export type SurveyCreateWithoutCreatorInput = {
   id?: string
   title: string
+  shortLabel?: string | null
+  emoji?: string | null
+  status?: $Enums.SurveyStatus
   description?: string | null
+  type?: $Enums.SurveyType
   createdAt?: Date | string
   updatedAt?: Date | string
   questions?: Prisma.QuestionCreateNestedManyWithoutSurveyInput
+  blocks?: Prisma.SurveyBlockCreateNestedManyWithoutSurveyInput
   participants?: Prisma.SurveyParticipationCreateNestedManyWithoutSurveyInput
 }
 
 export type SurveyUncheckedCreateWithoutCreatorInput = {
   id?: string
   title: string
+  shortLabel?: string | null
+  emoji?: string | null
+  status?: $Enums.SurveyStatus
   description?: string | null
+  type?: $Enums.SurveyType
   createdAt?: Date | string
   updatedAt?: Date | string
   questions?: Prisma.QuestionUncheckedCreateNestedManyWithoutSurveyInput
+  blocks?: Prisma.SurveyBlockUncheckedCreateNestedManyWithoutSurveyInput
   participants?: Prisma.SurveyParticipationUncheckedCreateNestedManyWithoutSurveyInput
 }
 
@@ -480,7 +607,11 @@ export type SurveyScalarWhereInput = {
   NOT?: Prisma.SurveyScalarWhereInput | Prisma.SurveyScalarWhereInput[]
   id?: Prisma.StringFilter<"Survey"> | string
   title?: Prisma.StringFilter<"Survey"> | string
+  shortLabel?: Prisma.StringNullableFilter<"Survey"> | string | null
+  emoji?: Prisma.StringNullableFilter<"Survey"> | string | null
+  status?: Prisma.EnumSurveyStatusFilter<"Survey"> | $Enums.SurveyStatus
   description?: Prisma.StringNullableFilter<"Survey"> | string | null
+  type?: Prisma.EnumSurveyTypeFilter<"Survey"> | $Enums.SurveyType
   creatorId?: Prisma.StringFilter<"Survey"> | string
   createdAt?: Prisma.DateTimeFilter<"Survey"> | Date | string
   updatedAt?: Prisma.DateTimeFilter<"Survey"> | Date | string
@@ -489,20 +620,30 @@ export type SurveyScalarWhereInput = {
 export type SurveyCreateWithoutQuestionsInput = {
   id?: string
   title: string
+  shortLabel?: string | null
+  emoji?: string | null
+  status?: $Enums.SurveyStatus
   description?: string | null
+  type?: $Enums.SurveyType
   createdAt?: Date | string
   updatedAt?: Date | string
   creator: Prisma.UserCreateNestedOneWithoutCreatedSurveysInput
+  blocks?: Prisma.SurveyBlockCreateNestedManyWithoutSurveyInput
   participants?: Prisma.SurveyParticipationCreateNestedManyWithoutSurveyInput
 }
 
 export type SurveyUncheckedCreateWithoutQuestionsInput = {
   id?: string
   title: string
+  shortLabel?: string | null
+  emoji?: string | null
+  status?: $Enums.SurveyStatus
   description?: string | null
+  type?: $Enums.SurveyType
   creatorId: string
   createdAt?: Date | string
   updatedAt?: Date | string
+  blocks?: Prisma.SurveyBlockUncheckedCreateNestedManyWithoutSurveyInput
   participants?: Prisma.SurveyParticipationUncheckedCreateNestedManyWithoutSurveyInput
 }
 
@@ -525,41 +666,137 @@ export type SurveyUpdateToOneWithWhereWithoutQuestionsInput = {
 export type SurveyUpdateWithoutQuestionsInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
   title?: Prisma.StringFieldUpdateOperationsInput | string
+  shortLabel?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  emoji?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  status?: Prisma.EnumSurveyStatusFieldUpdateOperationsInput | $Enums.SurveyStatus
   description?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  type?: Prisma.EnumSurveyTypeFieldUpdateOperationsInput | $Enums.SurveyType
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   creator?: Prisma.UserUpdateOneRequiredWithoutCreatedSurveysNestedInput
+  blocks?: Prisma.SurveyBlockUpdateManyWithoutSurveyNestedInput
   participants?: Prisma.SurveyParticipationUpdateManyWithoutSurveyNestedInput
 }
 
 export type SurveyUncheckedUpdateWithoutQuestionsInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
   title?: Prisma.StringFieldUpdateOperationsInput | string
+  shortLabel?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  emoji?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  status?: Prisma.EnumSurveyStatusFieldUpdateOperationsInput | $Enums.SurveyStatus
   description?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  type?: Prisma.EnumSurveyTypeFieldUpdateOperationsInput | $Enums.SurveyType
   creatorId?: Prisma.StringFieldUpdateOperationsInput | string
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  blocks?: Prisma.SurveyBlockUncheckedUpdateManyWithoutSurveyNestedInput
+  participants?: Prisma.SurveyParticipationUncheckedUpdateManyWithoutSurveyNestedInput
+}
+
+export type SurveyCreateWithoutBlocksInput = {
+  id?: string
+  title: string
+  shortLabel?: string | null
+  emoji?: string | null
+  status?: $Enums.SurveyStatus
+  description?: string | null
+  type?: $Enums.SurveyType
+  createdAt?: Date | string
+  updatedAt?: Date | string
+  creator: Prisma.UserCreateNestedOneWithoutCreatedSurveysInput
+  questions?: Prisma.QuestionCreateNestedManyWithoutSurveyInput
+  participants?: Prisma.SurveyParticipationCreateNestedManyWithoutSurveyInput
+}
+
+export type SurveyUncheckedCreateWithoutBlocksInput = {
+  id?: string
+  title: string
+  shortLabel?: string | null
+  emoji?: string | null
+  status?: $Enums.SurveyStatus
+  description?: string | null
+  type?: $Enums.SurveyType
+  creatorId: string
+  createdAt?: Date | string
+  updatedAt?: Date | string
+  questions?: Prisma.QuestionUncheckedCreateNestedManyWithoutSurveyInput
+  participants?: Prisma.SurveyParticipationUncheckedCreateNestedManyWithoutSurveyInput
+}
+
+export type SurveyCreateOrConnectWithoutBlocksInput = {
+  where: Prisma.SurveyWhereUniqueInput
+  create: Prisma.XOR<Prisma.SurveyCreateWithoutBlocksInput, Prisma.SurveyUncheckedCreateWithoutBlocksInput>
+}
+
+export type SurveyUpsertWithoutBlocksInput = {
+  update: Prisma.XOR<Prisma.SurveyUpdateWithoutBlocksInput, Prisma.SurveyUncheckedUpdateWithoutBlocksInput>
+  create: Prisma.XOR<Prisma.SurveyCreateWithoutBlocksInput, Prisma.SurveyUncheckedCreateWithoutBlocksInput>
+  where?: Prisma.SurveyWhereInput
+}
+
+export type SurveyUpdateToOneWithWhereWithoutBlocksInput = {
+  where?: Prisma.SurveyWhereInput
+  data: Prisma.XOR<Prisma.SurveyUpdateWithoutBlocksInput, Prisma.SurveyUncheckedUpdateWithoutBlocksInput>
+}
+
+export type SurveyUpdateWithoutBlocksInput = {
+  id?: Prisma.StringFieldUpdateOperationsInput | string
+  title?: Prisma.StringFieldUpdateOperationsInput | string
+  shortLabel?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  emoji?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  status?: Prisma.EnumSurveyStatusFieldUpdateOperationsInput | $Enums.SurveyStatus
+  description?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  type?: Prisma.EnumSurveyTypeFieldUpdateOperationsInput | $Enums.SurveyType
+  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  creator?: Prisma.UserUpdateOneRequiredWithoutCreatedSurveysNestedInput
+  questions?: Prisma.QuestionUpdateManyWithoutSurveyNestedInput
+  participants?: Prisma.SurveyParticipationUpdateManyWithoutSurveyNestedInput
+}
+
+export type SurveyUncheckedUpdateWithoutBlocksInput = {
+  id?: Prisma.StringFieldUpdateOperationsInput | string
+  title?: Prisma.StringFieldUpdateOperationsInput | string
+  shortLabel?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  emoji?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  status?: Prisma.EnumSurveyStatusFieldUpdateOperationsInput | $Enums.SurveyStatus
+  description?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  type?: Prisma.EnumSurveyTypeFieldUpdateOperationsInput | $Enums.SurveyType
+  creatorId?: Prisma.StringFieldUpdateOperationsInput | string
+  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  questions?: Prisma.QuestionUncheckedUpdateManyWithoutSurveyNestedInput
   participants?: Prisma.SurveyParticipationUncheckedUpdateManyWithoutSurveyNestedInput
 }
 
 export type SurveyCreateWithoutParticipantsInput = {
   id?: string
   title: string
+  shortLabel?: string | null
+  emoji?: string | null
+  status?: $Enums.SurveyStatus
   description?: string | null
+  type?: $Enums.SurveyType
   createdAt?: Date | string
   updatedAt?: Date | string
   creator: Prisma.UserCreateNestedOneWithoutCreatedSurveysInput
   questions?: Prisma.QuestionCreateNestedManyWithoutSurveyInput
+  blocks?: Prisma.SurveyBlockCreateNestedManyWithoutSurveyInput
 }
 
 export type SurveyUncheckedCreateWithoutParticipantsInput = {
   id?: string
   title: string
+  shortLabel?: string | null
+  emoji?: string | null
+  status?: $Enums.SurveyStatus
   description?: string | null
+  type?: $Enums.SurveyType
   creatorId: string
   createdAt?: Date | string
   updatedAt?: Date | string
   questions?: Prisma.QuestionUncheckedCreateNestedManyWithoutSurveyInput
+  blocks?: Prisma.SurveyBlockUncheckedCreateNestedManyWithoutSurveyInput
 }
 
 export type SurveyCreateOrConnectWithoutParticipantsInput = {
@@ -581,27 +818,41 @@ export type SurveyUpdateToOneWithWhereWithoutParticipantsInput = {
 export type SurveyUpdateWithoutParticipantsInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
   title?: Prisma.StringFieldUpdateOperationsInput | string
+  shortLabel?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  emoji?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  status?: Prisma.EnumSurveyStatusFieldUpdateOperationsInput | $Enums.SurveyStatus
   description?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  type?: Prisma.EnumSurveyTypeFieldUpdateOperationsInput | $Enums.SurveyType
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   creator?: Prisma.UserUpdateOneRequiredWithoutCreatedSurveysNestedInput
   questions?: Prisma.QuestionUpdateManyWithoutSurveyNestedInput
+  blocks?: Prisma.SurveyBlockUpdateManyWithoutSurveyNestedInput
 }
 
 export type SurveyUncheckedUpdateWithoutParticipantsInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
   title?: Prisma.StringFieldUpdateOperationsInput | string
+  shortLabel?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  emoji?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  status?: Prisma.EnumSurveyStatusFieldUpdateOperationsInput | $Enums.SurveyStatus
   description?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  type?: Prisma.EnumSurveyTypeFieldUpdateOperationsInput | $Enums.SurveyType
   creatorId?: Prisma.StringFieldUpdateOperationsInput | string
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   questions?: Prisma.QuestionUncheckedUpdateManyWithoutSurveyNestedInput
+  blocks?: Prisma.SurveyBlockUncheckedUpdateManyWithoutSurveyNestedInput
 }
 
 export type SurveyCreateManyCreatorInput = {
   id?: string
   title: string
+  shortLabel?: string | null
+  emoji?: string | null
+  status?: $Enums.SurveyStatus
   description?: string | null
+  type?: $Enums.SurveyType
   createdAt?: Date | string
   updatedAt?: Date | string
 }
@@ -609,27 +860,41 @@ export type SurveyCreateManyCreatorInput = {
 export type SurveyUpdateWithoutCreatorInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
   title?: Prisma.StringFieldUpdateOperationsInput | string
+  shortLabel?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  emoji?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  status?: Prisma.EnumSurveyStatusFieldUpdateOperationsInput | $Enums.SurveyStatus
   description?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  type?: Prisma.EnumSurveyTypeFieldUpdateOperationsInput | $Enums.SurveyType
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   questions?: Prisma.QuestionUpdateManyWithoutSurveyNestedInput
+  blocks?: Prisma.SurveyBlockUpdateManyWithoutSurveyNestedInput
   participants?: Prisma.SurveyParticipationUpdateManyWithoutSurveyNestedInput
 }
 
 export type SurveyUncheckedUpdateWithoutCreatorInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
   title?: Prisma.StringFieldUpdateOperationsInput | string
+  shortLabel?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  emoji?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  status?: Prisma.EnumSurveyStatusFieldUpdateOperationsInput | $Enums.SurveyStatus
   description?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  type?: Prisma.EnumSurveyTypeFieldUpdateOperationsInput | $Enums.SurveyType
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   questions?: Prisma.QuestionUncheckedUpdateManyWithoutSurveyNestedInput
+  blocks?: Prisma.SurveyBlockUncheckedUpdateManyWithoutSurveyNestedInput
   participants?: Prisma.SurveyParticipationUncheckedUpdateManyWithoutSurveyNestedInput
 }
 
 export type SurveyUncheckedUpdateManyWithoutCreatorInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
   title?: Prisma.StringFieldUpdateOperationsInput | string
+  shortLabel?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  emoji?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  status?: Prisma.EnumSurveyStatusFieldUpdateOperationsInput | $Enums.SurveyStatus
   description?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  type?: Prisma.EnumSurveyTypeFieldUpdateOperationsInput | $Enums.SurveyType
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
 }
@@ -641,11 +906,13 @@ export type SurveyUncheckedUpdateManyWithoutCreatorInput = {
 
 export type SurveyCountOutputType = {
   questions: number
+  blocks: number
   participants: number
 }
 
 export type SurveyCountOutputTypeSelect<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
   questions?: boolean | SurveyCountOutputTypeCountQuestionsArgs
+  blocks?: boolean | SurveyCountOutputTypeCountBlocksArgs
   participants?: boolean | SurveyCountOutputTypeCountParticipantsArgs
 }
 
@@ -669,6 +936,13 @@ export type SurveyCountOutputTypeCountQuestionsArgs<ExtArgs extends runtime.Type
 /**
  * SurveyCountOutputType without action
  */
+export type SurveyCountOutputTypeCountBlocksArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+  where?: Prisma.SurveyBlockWhereInput
+}
+
+/**
+ * SurveyCountOutputType without action
+ */
 export type SurveyCountOutputTypeCountParticipantsArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
   where?: Prisma.SurveyParticipationWhereInput
 }
@@ -677,12 +951,17 @@ export type SurveyCountOutputTypeCountParticipantsArgs<ExtArgs extends runtime.T
 export type SurveySelect<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetSelect<{
   id?: boolean
   title?: boolean
+  shortLabel?: boolean
+  emoji?: boolean
+  status?: boolean
   description?: boolean
+  type?: boolean
   creatorId?: boolean
   createdAt?: boolean
   updatedAt?: boolean
   creator?: boolean | Prisma.UserDefaultArgs<ExtArgs>
   questions?: boolean | Prisma.Survey$questionsArgs<ExtArgs>
+  blocks?: boolean | Prisma.Survey$blocksArgs<ExtArgs>
   participants?: boolean | Prisma.Survey$participantsArgs<ExtArgs>
   _count?: boolean | Prisma.SurveyCountOutputTypeDefaultArgs<ExtArgs>
 }, ExtArgs["result"]["survey"]>
@@ -690,7 +969,11 @@ export type SurveySelect<ExtArgs extends runtime.Types.Extensions.InternalArgs =
 export type SurveySelectCreateManyAndReturn<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetSelect<{
   id?: boolean
   title?: boolean
+  shortLabel?: boolean
+  emoji?: boolean
+  status?: boolean
   description?: boolean
+  type?: boolean
   creatorId?: boolean
   createdAt?: boolean
   updatedAt?: boolean
@@ -700,7 +983,11 @@ export type SurveySelectCreateManyAndReturn<ExtArgs extends runtime.Types.Extens
 export type SurveySelectUpdateManyAndReturn<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetSelect<{
   id?: boolean
   title?: boolean
+  shortLabel?: boolean
+  emoji?: boolean
+  status?: boolean
   description?: boolean
+  type?: boolean
   creatorId?: boolean
   createdAt?: boolean
   updatedAt?: boolean
@@ -710,16 +997,21 @@ export type SurveySelectUpdateManyAndReturn<ExtArgs extends runtime.Types.Extens
 export type SurveySelectScalar = {
   id?: boolean
   title?: boolean
+  shortLabel?: boolean
+  emoji?: boolean
+  status?: boolean
   description?: boolean
+  type?: boolean
   creatorId?: boolean
   createdAt?: boolean
   updatedAt?: boolean
 }
 
-export type SurveyOmit<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetOmit<"id" | "title" | "description" | "creatorId" | "createdAt" | "updatedAt", ExtArgs["result"]["survey"]>
+export type SurveyOmit<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetOmit<"id" | "title" | "shortLabel" | "emoji" | "status" | "description" | "type" | "creatorId" | "createdAt" | "updatedAt", ExtArgs["result"]["survey"]>
 export type SurveyInclude<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
   creator?: boolean | Prisma.UserDefaultArgs<ExtArgs>
   questions?: boolean | Prisma.Survey$questionsArgs<ExtArgs>
+  blocks?: boolean | Prisma.Survey$blocksArgs<ExtArgs>
   participants?: boolean | Prisma.Survey$participantsArgs<ExtArgs>
   _count?: boolean | Prisma.SurveyCountOutputTypeDefaultArgs<ExtArgs>
 }
@@ -735,12 +1027,17 @@ export type $SurveyPayload<ExtArgs extends runtime.Types.Extensions.InternalArgs
   objects: {
     creator: Prisma.$UserPayload<ExtArgs>
     questions: Prisma.$QuestionPayload<ExtArgs>[]
+    blocks: Prisma.$SurveyBlockPayload<ExtArgs>[]
     participants: Prisma.$SurveyParticipationPayload<ExtArgs>[]
   }
   scalars: runtime.Types.Extensions.GetPayloadResult<{
     id: string
     title: string
+    shortLabel: string | null
+    emoji: string | null
+    status: $Enums.SurveyStatus
     description: string | null
+    type: $Enums.SurveyType
     creatorId: string
     createdAt: Date
     updatedAt: Date
@@ -1140,6 +1437,7 @@ export interface Prisma__SurveyClient<T, Null = never, ExtArgs extends runtime.T
   readonly [Symbol.toStringTag]: "PrismaPromise"
   creator<T extends Prisma.UserDefaultArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.UserDefaultArgs<ExtArgs>>): Prisma.Prisma__UserClient<runtime.Types.Result.GetResult<Prisma.$UserPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | Null, Null, ExtArgs, GlobalOmitOptions>
   questions<T extends Prisma.Survey$questionsArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.Survey$questionsArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$QuestionPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
+  blocks<T extends Prisma.Survey$blocksArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.Survey$blocksArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$SurveyBlockPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
   participants<T extends Prisma.Survey$participantsArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.Survey$participantsArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$SurveyParticipationPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
   /**
    * Attaches callbacks for the resolution and/or rejection of the Promise.
@@ -1172,7 +1470,11 @@ export interface Prisma__SurveyClient<T, Null = never, ExtArgs extends runtime.T
 export interface SurveyFieldRefs {
   readonly id: Prisma.FieldRef<"Survey", 'String'>
   readonly title: Prisma.FieldRef<"Survey", 'String'>
+  readonly shortLabel: Prisma.FieldRef<"Survey", 'String'>
+  readonly emoji: Prisma.FieldRef<"Survey", 'String'>
+  readonly status: Prisma.FieldRef<"Survey", 'SurveyStatus'>
   readonly description: Prisma.FieldRef<"Survey", 'String'>
+  readonly type: Prisma.FieldRef<"Survey", 'SurveyType'>
   readonly creatorId: Prisma.FieldRef<"Survey", 'String'>
   readonly createdAt: Prisma.FieldRef<"Survey", 'DateTime'>
   readonly updatedAt: Prisma.FieldRef<"Survey", 'DateTime'>
@@ -1593,6 +1895,30 @@ export type Survey$questionsArgs<ExtArgs extends runtime.Types.Extensions.Intern
   take?: number
   skip?: number
   distinct?: Prisma.QuestionScalarFieldEnum | Prisma.QuestionScalarFieldEnum[]
+}
+
+/**
+ * Survey.blocks
+ */
+export type Survey$blocksArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+  /**
+   * Select specific fields to fetch from the SurveyBlock
+   */
+  select?: Prisma.SurveyBlockSelect<ExtArgs> | null
+  /**
+   * Omit specific fields from the SurveyBlock
+   */
+  omit?: Prisma.SurveyBlockOmit<ExtArgs> | null
+  /**
+   * Choose, which related nodes to fetch as well
+   */
+  include?: Prisma.SurveyBlockInclude<ExtArgs> | null
+  where?: Prisma.SurveyBlockWhereInput
+  orderBy?: Prisma.SurveyBlockOrderByWithRelationInput | Prisma.SurveyBlockOrderByWithRelationInput[]
+  cursor?: Prisma.SurveyBlockWhereUniqueInput
+  take?: number
+  skip?: number
+  distinct?: Prisma.SurveyBlockScalarFieldEnum | Prisma.SurveyBlockScalarFieldEnum[]
 }
 
 /**
