@@ -84,7 +84,7 @@ const QuestionCard = () => {
         className="w-full rounded-lg border border-border/70 bg-background/70 px-3 py-2 text-sm text-foreground shadow-xs outline-none"
         placeholder="Optionale Beschreibung oder Anweisungen zur Frage"
       />
-      <div className="w-full flex justify-start items-center flex-row gap-4 ">
+      <div className="w-full flex justify-start items-start flex-col gap-4 md:flex-row md:items-center">
         <div className="text-sm text-muted-foreground flex-start flex-col gap-2">
           <label htmlFor="frage-typ" className="text-xs text-muted-foreground">
             Fragetyp
@@ -103,7 +103,7 @@ const QuestionCard = () => {
           </select>
         </div>
         {questionType === 'single-choice' || questionType === 'multiple-choice' ? (
-          <div className="flex justify-start items-center flex-row gap-4 ">
+          <div className="flex justify-center items-start flex-col gap-4 md:flex-row md:items-center md:justify-start">
             <div className="text-sm text-muted-foreground flex-start flex-col gap-2">
               <label htmlFor="choice" className="text-xs text-muted-foreground">
                 Antwort Möglichkeiten
