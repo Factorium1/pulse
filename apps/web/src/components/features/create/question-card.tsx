@@ -1,7 +1,7 @@
 'use client'
 
 import { Button } from '@/components/ui/button'
-import { Smartphone } from 'lucide-react'
+import { Smartphone, Trash2 } from 'lucide-react'
 import { useState, useEffect } from 'react'
 
 type QuestionType = 'freetext' | 'multiple-choice' | 'single-choice' | 'rating'
@@ -65,10 +65,16 @@ const QuestionCard = () => {
             {questionTypeLabel[questionType]}
           </span>
         </div>
-        <Button variant="ghost" size="sm" className="text-xs">
-          <Smartphone className="h-4 w-4" />
-          In Vorschau
-        </Button>
+        <div className="flex-center gap-4">
+          <Button variant="ghost" size="sm" className="text-xs">
+            <Smartphone className="h-4 w-4" />
+            In Vorschau
+          </Button>
+          <Button variant="outline" size="sm" className="text-xs">
+            <Trash2 className="h-4 w-4" />
+            Löschen
+          </Button>
+        </div>
       </div>
       <input
         type="text"
