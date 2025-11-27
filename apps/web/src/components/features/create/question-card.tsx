@@ -102,7 +102,7 @@ const QuestionCard = () => {
             <option value="rating">Bewertungsskala</option>
           </select>
         </div>
-        {questionType === 'single-choice' || questionType === 'multiple-choice' ? (
+        {(questionType === 'single-choice' || questionType === 'multiple-choice') && (
           <div className="flex justify-center items-start flex-col gap-4 md:flex-row md:items-center md:justify-start">
             <div className="text-sm text-muted-foreground flex-start flex-col gap-2">
               <label htmlFor="choice" className="text-xs text-muted-foreground">
@@ -141,7 +141,7 @@ const QuestionCard = () => {
               </select>
             </div>
           </div>
-        ) : null}
+        )}
       </div>
     </div>
   )
