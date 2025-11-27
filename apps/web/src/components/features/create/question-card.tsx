@@ -4,25 +4,40 @@ import { Button } from '@/components/ui/button'
 import { Smartphone } from 'lucide-react'
 import { useState } from 'react'
 
+type QuestionType = 'freetext' | 'multiple-choice' | 'single-choice' | 'rating'
+
 const QuestionCard = () => {
-  const [questionType, setQuestionType] = useState('Freitext')
+  const [questionType, setQuestionType] = useState<QuestionType>('freetext')
+  const [answerChoices, setAnswerChoices] = useState<number>(1)
+
+  const questionTypeLabel: Record<QuestionType, string> = {
+    freetext: 'Freitext',
+    'multiple-choice': 'Multiple Choice',
+    'single-choice': 'Single Choice',
+    rating: 'Bewertungsskala',
+  }
 
   const handleQuestionTypeChange = (e: React.ChangeEvent<HTMLSelectElement>) => {
-    switch (e.target.value) {
-      case 'freetext':
-        setQuestionType('Freitext')
-        break
-      case 'multiple-choice':
-        setQuestionType('Multiple Choice')
-        break
-      case 'single-choice':
-        setQuestionType('Single Choice')
-        break
-      case 'rating':
-        setQuestionType('Bewertungsskala')
-        break
-      default:
-        setQuestionType('Freitext')
+    const nextType = e.target.value as QuestionType
+    setQuestionType(nextType)
+
+    if (nextType === 'multiple-choice' && answerChoices < 2) {
+      setAnswerChoices(2)
+    }
+    if (nextType === 'single-choice' && answerChoices < 1) {
+      setAnswerChoices(1)
+    }
+  }
+
+  const handleAnswerChoicesChange = (e: React.ChangeEvent<HTMLSelectElement>) => {
+    const value = parseInt(e.target.value, 10)
+    setAnswerChoices(value)
+
+    if (value === 1 && questionType === 'multiple-choice') {
+      setQuestionType('single-choice')
+    }
+    if (value > 1 && questionType === 'single-choice') {
+      setQuestionType('multiple-choice')
     }
   }
 
@@ -32,7 +47,7 @@ const QuestionCard = () => {
         <div className="flex-center gap-4">
           <p className="text-muted-foreground text-xs">Frage 1</p>
           <span className="border border-border/70 bg-card/60 px-4 py-1 rounded-full text-xs text-foreground">
-            {questionType}
+            {questionTypeLabel[questionType]}
           </span>
         </div>
         <Button variant="ghost" size="sm" className="text-xs">
@@ -54,17 +69,17 @@ const QuestionCard = () => {
         className="w-full rounded-lg border border-border/70 bg-background/70 px-3 py-2 text-sm text-foreground shadow-xs outline-none"
         placeholder="Optionale Beschreibung oder Anweisungen zur Frage"
       />
-      <div className="w-full flex-center flex-col gap-2">
-        <div className="text-sm text-muted-foreground w-full flex-start flex-col gap-2">
+      <div className="w-full flex justify-start items-center flex-row gap-4 ">
+        <div className="text-sm text-muted-foreground flex-start flex-col gap-2">
           <label htmlFor="frage-typ" className="text-xs text-muted-foreground">
             Fragetyp
           </label>
           <select
             id="frage-typ"
             name="frage-typ"
+            value={questionType}
             className="rounded-lg border border-border/70 bg-background/70 px-3 py-2 text-sm text-foreground shadow-xs outline-none"
-            // value={questionType}
-            onChange={(e) => handleQuestionTypeChange(e)}
+            onChange={handleQuestionTypeChange}
           >
             <option value="freetext">Freitext</option>
             <option value="multiple-choice">Multiple Choice</option>
@@ -72,6 +87,26 @@ const QuestionCard = () => {
             <option value="rating">Bewertungsskala</option>
           </select>
         </div>
+        {questionType === 'single-choice' || questionType === 'multiple-choice' ? (
+          <div className="text-sm text-muted-foreground flex-start flex-col gap-2">
+            <label htmlFor="choice" className="text-xs text-muted-foreground">
+              Antwort Möglichkeiten
+            </label>
+            <select
+              id="choice"
+              name="choice"
+              value={answerChoices}
+              onChange={handleAnswerChoicesChange}
+              className="rounded-lg border border-border/70 bg-background/70 px-3 py-2 text-sm text-foreground shadow-xs outline-none"
+            >
+              <option value="1">1 Antwort</option>
+              <option value="2">2 Antworten</option>
+              <option value="3">3 Antworten</option>
+              <option value="4">4 Antworten</option>
+              <option value="5">5 Antworten</option>
+            </select>
+          </div>
+        ) : null}
       </div>
     </div>
   )
