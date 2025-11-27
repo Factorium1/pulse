@@ -2,7 +2,7 @@
 
 import { Button } from '@/components/ui/button'
 import { Smartphone } from 'lucide-react'
-import { useState } from 'react'
+import { useState, useEffect } from 'react'
 
 type QuestionType = 'freetext' | 'multiple-choice' | 'single-choice' | 'rating'
 
@@ -30,7 +30,7 @@ const QuestionCard = () => {
     if (nextType === 'multiple-choice' && answerChoices < 2) {
       setAnswerChoices(2)
     }
-    if (nextType === 'single-choice' && answerChoices < 1) {
+    if (nextType === 'single-choice' && answerChoices > 1) {
       setAnswerChoices(1)
     }
   }
@@ -46,6 +46,15 @@ const QuestionCard = () => {
       setQuestionType('multiple-choice')
     }
   }
+
+  useEffect(() => {
+    if (questionType === 'multiple-choice' && answerChoices < 2) {
+      setAnswerChoices(2)
+    }
+    if (questionType === 'single-choice' && answerChoices > 1) {
+      setAnswerChoices(1)
+    }
+  }, [questionType])
 
   return (
     <div className="w-full flex-center flex-col gap-4 p-4 border border-border/70 rounded-lg bg-background/70">
