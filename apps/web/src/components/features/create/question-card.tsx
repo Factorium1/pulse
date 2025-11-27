@@ -139,7 +139,6 @@ const QuestionCard = () => {
                 onChange={handleQuestionChoicesChange}
                 className="rounded-lg border border-border/70 bg-background/70 px-3 py-2 text-sm text-foreground shadow-xs outline-none"
               >
-                <option value="1">1 Frage</option>
                 <option value="2">2 Fragen</option>
                 <option value="3">3 Fragen</option>
                 <option value="4">4 Fragen</option>
