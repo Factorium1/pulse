@@ -9,12 +9,18 @@ type QuestionType = 'freetext' | 'multiple-choice' | 'single-choice' | 'rating'
 const QuestionCard = () => {
   const [questionType, setQuestionType] = useState<QuestionType>('freetext')
   const [answerChoices, setAnswerChoices] = useState<number>(1)
+  const [questionChoices, setQuestionChoices] = useState<number>(5)
 
   const questionTypeLabel: Record<QuestionType, string> = {
     freetext: 'Freitext',
     'multiple-choice': 'Multiple Choice',
     'single-choice': 'Single Choice',
     rating: 'Bewertungsskala',
+  }
+
+  const handleQuestionChoicesChange = (e: React.ChangeEvent<HTMLSelectElement>) => {
+    const value = parseInt(e.target.value, 10)
+    setQuestionChoices(value)
   }
 
   const handleQuestionTypeChange = (e: React.ChangeEvent<HTMLSelectElement>) => {
@@ -88,23 +94,43 @@ const QuestionCard = () => {
           </select>
         </div>
         {questionType === 'single-choice' || questionType === 'multiple-choice' ? (
-          <div className="text-sm text-muted-foreground flex-start flex-col gap-2">
-            <label htmlFor="choice" className="text-xs text-muted-foreground">
-              Antwort Möglichkeiten
-            </label>
-            <select
-              id="choice"
-              name="choice"
-              value={answerChoices}
-              onChange={handleAnswerChoicesChange}
-              className="rounded-lg border border-border/70 bg-background/70 px-3 py-2 text-sm text-foreground shadow-xs outline-none"
-            >
-              <option value="1">1 Antwort</option>
-              <option value="2">2 Antworten</option>
-              <option value="3">3 Antworten</option>
-              <option value="4">4 Antworten</option>
-              <option value="5">5 Antworten</option>
-            </select>
+          <div className="flex justify-start items-center flex-row gap-4 ">
+            <div className="text-sm text-muted-foreground flex-start flex-col gap-2">
+              <label htmlFor="choice" className="text-xs text-muted-foreground">
+                Antwort Möglichkeiten
+              </label>
+              <select
+                id="choice"
+                name="choice"
+                value={answerChoices}
+                onChange={handleAnswerChoicesChange}
+                className="rounded-lg border border-border/70 bg-background/70 px-3 py-2 text-sm text-foreground shadow-xs outline-none"
+              >
+                <option value="1">1 Antwort</option>
+                <option value="2">2 Antworten</option>
+                <option value="3">3 Antworten</option>
+                <option value="4">4 Antworten</option>
+                <option value="5">5 Antworten</option>
+              </select>
+            </div>
+            <div className="text-sm text-muted-foreground flex-start flex-col gap-2">
+              <label htmlFor="question-choices" className="text-xs text-muted-foreground">
+                Anzahl Fragen
+              </label>
+              <select
+                id="question-choices"
+                name="question-choices"
+                value={questionChoices}
+                onChange={handleQuestionChoicesChange}
+                className="rounded-lg border border-border/70 bg-background/70 px-3 py-2 text-sm text-foreground shadow-xs outline-none"
+              >
+                <option value="1">1 Frage</option>
+                <option value="2">2 Fragen</option>
+                <option value="3">3 Fragen</option>
+                <option value="4">4 Fragen</option>
+                <option value="5">5 Fragen</option>
+              </select>
+            </div>
           </div>
         ) : null}
       </div>
