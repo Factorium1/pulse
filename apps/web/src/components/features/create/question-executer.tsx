@@ -18,24 +18,13 @@ const QuestionExecuter = () => {
     { id: crypto.randomUUID(), type: 'freetext', title: '' },
   ])
 
-  function addQuestion({
-    type,
-    title,
-    description,
-    answerChoices,
-    questionChoices,
-    question,
-  }: QuestionType) {
+  function addQuestion() {
     setQuestions((prev) => [
       ...prev,
       {
         id: crypto.randomUUID(),
-        type: type,
-        title: title,
-        description: description,
-        answerChoices: answerChoices,
-        questionChoices: questionChoices,
-        question: question,
+        type: 'freetext',
+        title: '',
       },
     ])
   }
