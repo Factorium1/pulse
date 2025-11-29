@@ -88,6 +88,25 @@ const CreateSurveyPage = () => {
     )
   }
 
+  function changeBlockQuestion(
+    blockId: string,
+    questionId: string,
+    updatedQuestion: QuestionProps,
+  ) {
+    setQuestionBlocks((prev) =>
+      prev.map((block) =>
+        block.id === blockId
+          ? {
+              ...block,
+              questions: block.questions.map((question) =>
+                question.id === questionId ? updatedQuestion : question,
+              ),
+            }
+          : block,
+      ),
+    )
+  }
+
   function addQuestion() {
     setQuestions((prev) => [
       ...prev,
@@ -332,6 +351,7 @@ const CreateSurveyPage = () => {
               questionBlocks={questionBlocks}
               onAddBlockQuestion={addBlockQuestion}
               onRemoveBlockQuestion={deleteBlockQuestion}
+              onChangeBlockQuestion={changeBlockQuestion}
             />
           )}
         </div>

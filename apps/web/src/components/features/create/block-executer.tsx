@@ -1,16 +1,22 @@
 'use client'
 
 import QuestionBlock from './question-block'
-import { QuestionBlockProps } from '@/types/props'
+import { QuestionBlockProps, QuestionProps } from '@/types/props'
 
 const BlockExecuter = ({
   questionBlocks,
   onAddBlockQuestion,
   onRemoveBlockQuestion,
+  onChangeBlockQuestion,
 }: {
   questionBlocks: QuestionBlockProps[]
   onAddBlockQuestion: (blockId: string) => void
   onRemoveBlockQuestion: (blockId: string, questionId: string) => void
+  onChangeBlockQuestion: (
+    blockId: string,
+    questionId: string,
+    updatedQuestion: QuestionProps,
+  ) => void
 }) => {
   return (
     <div className="w-full flex-center flex-col gap-4">
@@ -20,6 +26,9 @@ const BlockExecuter = ({
           questionBlock={block}
           addBlockQuestion={() => onAddBlockQuestion(block.id)}
           removeBlockQuestion={(questionId) => onRemoveBlockQuestion(block.id, questionId)}
+          onChangeBlockQuestion={(questionId, updatedQuestion) =>
+            onChangeBlockQuestion(block.id, questionId, updatedQuestion)
+          }
         />
       ))}
     </div>

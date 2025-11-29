@@ -3,17 +3,19 @@
 import { Button } from '@/components/ui/button'
 import { Input } from '@/components/ui/input'
 import { Minimize2, Plus } from 'lucide-react'
-import { QuestionBlockProps } from '@/types/props'
+import { QuestionBlockProps, QuestionProps } from '@/types/props'
 import QuestionExecuter from './question-executer'
 
 const QuestionBlock = ({
   questionBlock,
   addBlockQuestion,
   removeBlockQuestion,
+  onChangeBlockQuestion,
 }: {
   questionBlock: QuestionBlockProps
   addBlockQuestion: () => void
   removeBlockQuestion: (questionId: string) => void
+  onChangeBlockQuestion: (questionId: string, updatedQuestion: QuestionProps) => void
 }) => {
   return (
     <div className="rounded-lg border border-border/70 bg-background/70 p-6 text-center flex-center flex-col gap-4 w-full">
@@ -72,6 +74,7 @@ const QuestionBlock = ({
       <QuestionExecuter
         questions={questionBlock.questions}
         onRemoveQuestion={removeBlockQuestion}
+        onChangeQuestion={onChangeBlockQuestion}
       />
     </div>
   )
