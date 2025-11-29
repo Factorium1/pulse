@@ -8,10 +8,12 @@ const QuestionCard = ({
   question,
   onRemove,
   onChange,
+  index,
 }: {
   question: QuestionProps
   onRemove: () => void
   onChange: (updatedQuestion: QuestionProps) => void
+  index: number
 }) => {
   const questionTypeLabel: Record<QuestionProps['type'], string> = {
     freetext: 'Freitext',
@@ -24,7 +26,7 @@ const QuestionCard = ({
     <div className="w-full flex-center flex-col gap-4 p-4 border border-border/70 rounded-lg bg-background/70">
       <div className="flex-between w-full">
         <div className="flex-center gap-4">
-          <p className="text-muted-foreground text-xs">Frage 1</p>
+          <p className="text-muted-foreground text-xs">Frage {index}</p>
           <span className="border border-border/70 bg-card/60 px-4 py-1 rounded-full text-xs text-foreground">
             {questionTypeLabel[question.type]}
           </span>

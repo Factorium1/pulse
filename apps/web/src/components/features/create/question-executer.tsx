@@ -23,10 +23,11 @@ const QuestionExecuter = ({
           </p>
         </div>
       ) : (
-        questions.map((question) => (
+        questions.map((question, index) => (
           <QuestionCard
             key={question.id}
             question={question}
+            index={index + 1}
             onRemove={() => onRemoveQuestion(question.id)}
             onChange={(updatedQuestion: QuestionProps) =>
               onChangeQuestion(question.id, updatedQuestion)
