@@ -330,7 +330,7 @@ const CreateSurveyPage = () => {
 
       <div className="w-full grid grid-cols-1 gap-6 items-start lg:grid-cols-3">
         <div className="lg:col-span-2 rounded-2xl border border-border/80 bg-card/80 p-6 shadow-sm flex-start flex-col gap-4">
-          <div className="flex-between w-full">
+          <div className="flex flex-col gap-2 md:flex-between md:flex-row md:gap-0 md:items-center w-full">
             <div className="">
               <p className="text-xs uppercase text-muted-foreground tracking-widest">Fragen</p>
               <h2 className="text-xl font-semibold text-foreground">Fragebogen</h2>

@@ -25,8 +25,8 @@ const QuestionBlock = ({
 }) => {
   return (
     <div className="rounded-lg border border-border/70 bg-background/70 p-6 text-center flex-center flex-col gap-4 w-full">
-      <div className="flex-between w-full">
-        <div className="flex-center gap-1 lg:gap-2 flex-wrap">
+      <div className="flex items-start justify-start w-full flex-col md:flex-row gap-4 md:gap-0 md:justify-between">
+        <div className="flex-center flex-row gap-1 lg:gap-2 flex-wrap">
           <p className="text-muted-foreground text-md font-semibold mr-2">Block {index}</p>
           <span className="border border-border/70 bg-card/60 px-4 py-1 rounded-full text-xs text-foreground">
             {questionBlock.date}
@@ -35,7 +35,7 @@ const QuestionBlock = ({
             {questionBlock.time}
           </span>
         </div>
-        <div className="flex gap-2 flex-wrap justify-end">
+        <div className="flex gap-2 flex-row md:flex-row flex-wrap">
           <Button
             variant="outline"
             size="sm"
@@ -60,7 +60,7 @@ const QuestionBlock = ({
           </Button>
         </div>
       </div>
-      <div className="flex items-center justify-start gap-2 w-full">
+      <div className="flex md:items-center md:justify-start gap-2 w-full flex-col md:flex-row">
         <div className="flex-start flex-col gap-1">
           <label htmlFor="block-datum" className="text-sm text-muted-foreground">
             Datum
@@ -71,7 +71,7 @@ const QuestionBlock = ({
             name="block-datum"
             value={questionBlock.date}
             onChange={(e) => onChangeBlock({ ...questionBlock, date: e.target.value })}
-            className="bg-transparent outline-none text-muted-foreground px-3 py-2 text-sm rounded-lg border border-border/70"
+            className="text-center md:text-start bg-transparent outline-none text-muted-foreground px-3 py-2 text-sm rounded-lg border border-border/70"
           />
         </div>
         <div className="flex-start flex-col gap-1">
@@ -84,7 +84,7 @@ const QuestionBlock = ({
             name="block-uhrzeit"
             value={questionBlock.time}
             onChange={(e) => onChangeBlock({ ...questionBlock, time: e.target.value })}
-            className="bg-transparent outline-none text-muted-foreground px-3 py-2 text-sm rounded-lg border border-border/70"
+            className="text-center md:text-start bg-transparent outline-none text-muted-foreground px-3 py-2 text-sm rounded-lg border border-border/70"
           />
         </div>
       </div>

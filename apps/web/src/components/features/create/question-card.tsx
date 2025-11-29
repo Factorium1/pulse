@@ -24,14 +24,14 @@ const QuestionCard = ({
 
   return (
     <div className="w-full flex-center flex-col gap-4 p-4 border border-border/70 rounded-lg bg-background/70">
-      <div className="flex-between w-full">
-        <div className="flex-center gap-4">
+      <div className="w-full flex items-start flex-col gap-3 sm:flex-row sm:items-center sm:justify-between">
+        <div className="flex flex-wrap items-center gap-2 sm:gap-4">
           <p className="text-muted-foreground text-xs">Frage {index}</p>
           <span className="border border-border/70 bg-card/60 px-4 py-1 rounded-full text-xs text-foreground">
             {questionTypeLabel[question.type]}
           </span>
         </div>
-        <div className="flex-center gap-4">
+        <div className="flex flex-wrap items-center justify-end gap-2 sm:gap-3">
           <Button variant="ghost" size="sm" className="text-xs">
             <Smartphone className="h-4 w-4" />
             In Vorschau
