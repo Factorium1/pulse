@@ -14,7 +14,7 @@ const QuestionExecuter = ({
   onChangeQuestion: (id: string, updatedQuestion: QuestionProps) => void
 }) => {
   return (
-    <div className="w-full flex-center flex-col gap-4 p-4 border border-border/70 rounded-lg bg-background/70">
+    <div className="w-full flex-center flex-col gap-4 rounded-lg">
       {questions.length === 0 ? (
         <div className="flex-center flex-col gap-2 px-5 lg:px-20 py-10">
           <CheckCircle className="h-8 w-8 text-emerald-500" />
