@@ -7,6 +7,7 @@ import { useState } from 'react'
 import { QuestionBlockProps, QuestionProps } from '@/types/props'
 import QuestionExecuter from './question-executer'
 import BlockExecuter from './block-executer'
+import { v4 as uuidv4 } from 'uuid'
 
 const CreateSurveyPage = () => {
   const [type, setType] = useState<'short' | 'long'>('short')
@@ -16,7 +17,7 @@ const CreateSurveyPage = () => {
 
   const [questions, setQuestions] = useState<QuestionProps[]>([
     {
-      id: crypto.randomUUID(),
+      id: uuidv4(),
       type: 'freetext',
       title: '',
       questionChoices: 2,
@@ -26,12 +27,12 @@ const CreateSurveyPage = () => {
 
   const [questionBlocks, setQuestionBlocks] = useState<QuestionBlockProps[]>([
     {
-      id: crypto.randomUUID(),
+      id: uuidv4(),
       date: new Date().toLocaleDateString(),
       time: new Date().toLocaleTimeString().slice(0, 5),
       questions: [
         {
-          id: crypto.randomUUID(),
+          id: uuidv4(),
           type: 'freetext',
           title: '',
           questionChoices: 2,
@@ -45,7 +46,7 @@ const CreateSurveyPage = () => {
     setQuestionBlocks((prev) => [
       ...prev,
       {
-        id: crypto.randomUUID(),
+        id: uuidv4(),
         date: new Date().toLocaleDateString(),
         time: new Date().toLocaleTimeString().slice(0, 5),
         questions: [],
@@ -66,7 +67,7 @@ const CreateSurveyPage = () => {
               questions: [
                 ...block.questions,
                 {
-                  id: crypto.randomUUID(),
+                  id: uuidv4(),
                   type: 'freetext',
                   title: '',
                   questionChoices: 2,
@@ -119,7 +120,7 @@ const CreateSurveyPage = () => {
     setQuestions((prev) => [
       ...prev,
       {
-        id: crypto.randomUUID(),
+        id: uuidv4(),
         type: 'freetext',
         title: '',
         questionChoices: 2,
