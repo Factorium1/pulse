@@ -11,11 +11,13 @@ const QuestionBlock = ({
   addBlockQuestion,
   removeBlockQuestion,
   onChangeBlockQuestion,
+  onChangeBlock,
 }: {
   questionBlock: QuestionBlockProps
   addBlockQuestion: () => void
   removeBlockQuestion: (questionId: string) => void
   onChangeBlockQuestion: (questionId: string, updatedQuestion: QuestionProps) => void
+  onChangeBlock: (updatedBlock: QuestionBlockProps) => void
 }) => {
   return (
     <div className="rounded-lg border border-border/70 bg-background/70 p-6 text-center flex-center flex-col gap-4 w-full">
@@ -55,6 +57,7 @@ const QuestionBlock = ({
             id="block-datum"
             name="block-datum"
             value={questionBlock.date}
+            onChange={(e) => onChangeBlock({ ...questionBlock, date: e.target.value })}
             className="bg-transparent outline-none text-muted-foreground px-3 py-2 text-sm rounded-lg border border-border/70"
           />
         </div>
@@ -67,6 +70,7 @@ const QuestionBlock = ({
             id="block-uhrzeit"
             name="block-uhrzeit"
             value={questionBlock.time}
+            onChange={(e) => onChangeBlock({ ...questionBlock, time: e.target.value })}
             className="bg-transparent outline-none text-muted-foreground px-3 py-2 text-sm rounded-lg border border-border/70"
           />
         </div>

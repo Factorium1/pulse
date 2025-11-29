@@ -8,6 +8,7 @@ const BlockExecuter = ({
   onAddBlockQuestion,
   onRemoveBlockQuestion,
   onChangeBlockQuestion,
+  onChangeBlock,
 }: {
   questionBlocks: QuestionBlockProps[]
   onAddBlockQuestion: (blockId: string) => void
@@ -17,6 +18,7 @@ const BlockExecuter = ({
     questionId: string,
     updatedQuestion: QuestionProps,
   ) => void
+  onChangeBlock: (blockId: string, updatedBlock: QuestionBlockProps) => void
 }) => {
   return (
     <div className="w-full flex-center flex-col gap-4">
@@ -29,6 +31,7 @@ const BlockExecuter = ({
           onChangeBlockQuestion={(questionId, updatedQuestion) =>
             onChangeBlockQuestion(block.id, questionId, updatedQuestion)
           }
+          onChangeBlock={(updatedBlock) => onChangeBlock(block.id, updatedBlock)}
         />
       ))}
     </div>

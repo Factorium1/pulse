@@ -53,6 +53,10 @@ const CreateSurveyPage = () => {
     ])
   }
 
+  function changeBlock(blockId: string, updatedBlock: QuestionBlockProps) {
+    setQuestionBlocks((prev) => prev.map((block) => (block.id === blockId ? updatedBlock : block)))
+  }
+
   function addBlockQuestion(blockId: string) {
     setQuestionBlocks((prev) =>
       prev.map((block) =>
@@ -352,6 +356,7 @@ const CreateSurveyPage = () => {
               onAddBlockQuestion={addBlockQuestion}
               onRemoveBlockQuestion={deleteBlockQuestion}
               onChangeBlockQuestion={changeBlockQuestion}
+              onChangeBlock={changeBlock}
             />
           )}
         </div>
