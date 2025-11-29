@@ -2,11 +2,7 @@
 
 import { Button } from '@/components/ui/button'
 import { Smartphone, Trash2 } from 'lucide-react'
-import { useState, useEffect } from 'react'
 import { QuestionProps } from '@/types/props'
-import { describe } from 'node:test'
-
-type QuestionType = 'freetext' | 'multiple-choice' | 'single-choice' | 'rating'
 
 const QuestionCard = ({
   question,
@@ -17,54 +13,12 @@ const QuestionCard = ({
   onRemove: () => void
   onChange: (updatedQuestion: QuestionProps) => void
 }) => {
-  const [questionType, setQuestionType] = useState<QuestionType>('freetext')
-  const [answerChoices, setAnswerChoices] = useState<number>(1)
-  const [questionChoices, setQuestionChoices] = useState<number>(5)
-
-  const questionTypeLabel: Record<QuestionType, string> = {
+  const questionTypeLabel: Record<QuestionProps['type'], string> = {
     freetext: 'Freitext',
     'multiple-choice': 'Multiple Choice',
     'single-choice': 'Single Choice',
     rating: 'Bewertungsskala',
   }
-
-  const handleQuestionChoicesChange = (e: React.ChangeEvent<HTMLSelectElement>) => {
-    const value = parseInt(e.target.value, 10)
-    setQuestionChoices(value)
-  }
-
-  const handleQuestionTypeChange = (e: React.ChangeEvent<HTMLSelectElement>) => {
-    const nextType = e.target.value as QuestionType
-    setQuestionType(nextType)
-
-    if (nextType === 'multiple-choice' && answerChoices < 2) {
-      setAnswerChoices(2)
-    }
-    if (nextType === 'single-choice' && answerChoices > 1) {
-      setAnswerChoices(1)
-    }
-  }
-
-  const handleAnswerChoicesChange = (e: React.ChangeEvent<HTMLSelectElement>) => {
-    const value = parseInt(e.target.value, 10)
-    setAnswerChoices(value)
-
-    if (value === 1 && questionType === 'multiple-choice') {
-      setQuestionType('single-choice')
-    }
-    if (value > 1 && questionType === 'single-choice') {
-      setQuestionType('multiple-choice')
-    }
-  }
-
-  useEffect(() => {
-    if (questionType === 'multiple-choice' && answerChoices < 2) {
-      setAnswerChoices(2)
-    }
-    if (questionType === 'single-choice' && answerChoices > 1) {
-      setAnswerChoices(1)
-    }
-  }, [questionType])
 
   return (
     <div className="w-full flex-center flex-col gap-4 p-4 border border-border/70 rounded-lg bg-background/70">
@@ -72,7 +26,7 @@ const QuestionCard = ({
         <div className="flex-center gap-4">
           <p className="text-muted-foreground text-xs">Frage 1</p>
           <span className="border border-border/70 bg-card/60 px-4 py-1 rounded-full text-xs text-foreground">
-            {questionTypeLabel[question.type]}
+            {[question.type]}
           </span>
         </div>
         <div className="flex-center gap-4">
@@ -116,7 +70,9 @@ const QuestionCard = ({
             name="frage-typ"
             value={question.type}
             className="rounded-lg border border-border/70 bg-background/70 px-3 py-2 text-sm text-foreground shadow-xs outline-none"
-            onChange={(e) => onChange({ ...question, type: e.target.value as QuestionType })}
+            onChange={(e) =>
+              onChange({ ...question, type: e.target.value as QuestionProps['type'] })
+            }
           >
             <option value="freetext">Freitext</option>
             <option value="multiple-choice">Multiple Choice</option>
@@ -134,7 +90,12 @@ const QuestionCard = ({
                 id="choice"
                 name="choice"
                 value={question.answerChoices}
-                onChange={handleAnswerChoicesChange}
+                onChange={(e) =>
+                  onChange({
+                    ...question,
+                    answerChoices: parseInt(e.target.value) as QuestionProps['answerChoices'],
+                  })
+                }
                 className="rounded-lg border border-border/70 bg-background/70 px-3 py-2 text-sm text-foreground shadow-xs outline-none"
               >
                 <option value="1">1 Antwort</option>
@@ -152,7 +113,12 @@ const QuestionCard = ({
                 id="question-choices"
                 name="question-choices"
                 value={question.questionChoices}
-                onChange={handleQuestionChoicesChange}
+                onChange={(e) =>
+                  onChange({
+                    ...question,
+                    questionChoices: parseInt(e.target.value) as QuestionProps['questionChoices'],
+                  })
+                }
                 className="rounded-lg border border-border/70 bg-background/70 px-3 py-2 text-sm text-foreground shadow-xs outline-none"
               >
                 <option value="2">2 Fragen</option>
@@ -164,10 +130,10 @@ const QuestionCard = ({
           </>
         )}
       </div>
-      {(questionType === 'single-choice' || questionType === 'multiple-choice') && (
+      {(question.type === 'single-choice' || question.type === 'multiple-choice') && (
         <div className="flex items-start justify-start flex-col w-full gap-3 p-4">
           <p className="text-muted-foreground text-sm">Fragen:</p>
-          {[...Array(questionChoices)].map((_, index) => (
+          {[...Array(question.questionChoices)].map((_, index) => (
             <input
               key={index}
               type="text"

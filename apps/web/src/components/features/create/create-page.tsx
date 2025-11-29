@@ -17,6 +17,7 @@ import {
 import { useState } from 'react'
 import { QuestionProps } from '@/types/props'
 import QuestionExecuter from './question-executer'
+import { QuestionType } from '@prisma/client'
 
 const CreateSurveyPage = () => {
   const [type, setType] = useState<'short' | 'long'>('short')
@@ -44,6 +45,26 @@ const CreateSurveyPage = () => {
   }
 
   function changeQuestion(id: string, updatedQuestion: QuestionProps) {
+    if (updatedQuestion.answerChoices !== undefined) {
+      if (updatedQuestion.type === 'multiple-choice' && updatedQuestion.answerChoices < 2) {
+        updatedQuestion.answerChoices = 2
+      }
+
+      if (updatedQuestion.answerChoices === 1 && updatedQuestion.type === 'multiple-choice') {
+        updatedQuestion.type = 'single-choice'
+      }
+    }
+
+    if (updatedQuestion.answerChoices !== undefined) {
+      if (updatedQuestion.type === 'single-choice' && updatedQuestion.answerChoices > 1) {
+        updatedQuestion.answerChoices = 1
+      }
+
+      if (updatedQuestion.answerChoices > 1 && updatedQuestion.type === 'single-choice') {
+        updatedQuestion.type = 'multiple-choice'
+      }
+    }
+
     setQuestions((prev) =>
       prev.map((question) => (question.id === id ? updatedQuestion : question)),
     )
