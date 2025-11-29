@@ -32,3 +32,10 @@ export type QuestionProps = {
   questionChoices?: number
   question?: string[]
 }
+
+export type QuestionBlockProps = {
+  id: string
+  date: string
+  time: string
+  questions: QuestionProps[]
+}
