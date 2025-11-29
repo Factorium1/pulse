@@ -26,7 +26,7 @@ const QuestionCard = ({
         <div className="flex-center gap-4">
           <p className="text-muted-foreground text-xs">Frage 1</p>
           <span className="border border-border/70 bg-card/60 px-4 py-1 rounded-full text-xs text-foreground">
-            {[question.type]}
+            {questionTypeLabel[question.type]}
           </span>
         </div>
         <div className="flex-center gap-4">
