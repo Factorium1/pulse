@@ -70,6 +70,14 @@ const CreateSurveyPage = () => {
     )
   }
 
+  function handleAddButtonClick() {
+    if (type === 'short') {
+      addQuestion()
+    } else {
+      //addBlock()
+    }
+  }
+
   return (
     <div className="flex-center flex-col w-full p-4 gap-4">
       <div className="rounded-3xl border border-border/70 bg-gradient-to-r from-primary/10 via-accent/20 to-background/80 p-6 shadow-sm backdrop-blur-2xl w-full">
@@ -244,7 +252,7 @@ const CreateSurveyPage = () => {
                 erscheint in der Vorschau.
               </p>
             </div>
-            <Button variant="outline" size="sm" className="text-xs">
+            <Button variant="outline" size="sm" className="text-xs" onClick={handleAddButtonClick}>
               <Plus className="h-4 w-4" />
               {type === 'short' ? 'Frage hinzufügen' : 'Block hinzufügen'}
             </Button>
