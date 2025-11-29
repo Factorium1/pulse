@@ -4,9 +4,9 @@ import { Button } from '@/components/ui/button'
 import { Input } from '@/components/ui/input'
 import { CheckCircle2, LayoutGrid, Plus, Sparkles, Tag, Target, Users2 } from 'lucide-react'
 import { useState } from 'react'
-import { QuestionProps } from '@/types/props'
+import { QuestionBlockProps, QuestionProps } from '@/types/props'
 import QuestionExecuter from './question-executer'
-import QuestionBlock from './question-block'
+import BlockExecuter from './block-executer'
 
 const CreateSurveyPage = () => {
   const [type, setType] = useState<'short' | 'long'>('short')
@@ -23,6 +23,70 @@ const CreateSurveyPage = () => {
       answerChoices: 1,
     },
   ])
+
+  const [questionBlocks, setQuestionBlocks] = useState<QuestionBlockProps[]>([
+    {
+      id: crypto.randomUUID(),
+      date: new Date().toLocaleDateString(),
+      time: new Date().toLocaleTimeString().slice(0, 5),
+      questions: [
+        {
+          id: crypto.randomUUID(),
+          type: 'freetext',
+          title: '',
+          questionChoices: 2,
+          answerChoices: 1,
+        },
+      ],
+    },
+  ])
+
+  function addBlock() {
+    setQuestionBlocks((prev) => [
+      ...prev,
+      {
+        id: crypto.randomUUID(),
+        date: new Date().toLocaleDateString(),
+        time: new Date().toLocaleTimeString().slice(0, 5),
+        questions: [],
+      },
+    ])
+  }
+
+  function addBlockQuestion(blockId: string) {
+    setQuestionBlocks((prev) =>
+      prev.map((block) =>
+        block.id === blockId
+          ? {
+              ...block,
+              questions: [
+                ...block.questions,
+                {
+                  id: crypto.randomUUID(),
+                  type: 'freetext',
+                  title: '',
+                  questionChoices: 2,
+                  answerChoices: 1,
+                },
+              ],
+            }
+          : block,
+      ),
+    )
+  }
+
+  function deleteBlockQuestion(blockId: string, questionId: string) {
+    setQuestionBlocks((prev) =>
+      prev.map((block) =>
+        block.id === blockId
+          ? {
+              ...block,
+              questions: block.questions.filter((question) => question.id !== questionId),
+            }
+          : block,
+      ),
+    )
+  }
 
   function addQuestion() {
     setQuestions((prev) => [
@@ -69,7 +133,7 @@ const CreateSurveyPage = () => {
     if (type === 'short') {
       addQuestion()
     } else {
-      //addBlock()
+      addBlock()
     }
   }
 
@@ -264,7 +328,11 @@ const CreateSurveyPage = () => {
               onChangeQuestion={changeQuestion}
             />
           ) : (
-            <QuestionBlock />
+            <BlockExecuter
+              questionBlocks={questionBlocks}
+              onAddBlockQuestion={addBlockQuestion}
+              onRemoveBlockQuestion={deleteBlockQuestion}
+            />
           )}
         </div>
       </div>
