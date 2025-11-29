@@ -216,8 +216,8 @@ const CreateSurveyPage = () => {
               placeholder="z.B. Kundenzufriedenheitsumfrage Q2 2024"
             />
           </div>
-          <div className="w-full flex-between gap-4 md:flex-row flex-col">
-            <div className="w-full">
+          <div className="w-full grid grid-cols-4 gap-4">
+            <div className="w-full col-span-3">
               <label htmlFor="short-form" className="text-sm text-muted-foreground">
                 Kurzform
               </label>
@@ -229,14 +229,14 @@ const CreateSurveyPage = () => {
                 placeholder="z.B. Gedächtnis"
               />
             </div>
-            <div className="w-full">
+            <div className="w-full col-span-1">
               <label htmlFor="emoji" className="text-sm text-muted-foreground">
                 Emoji
               </label>
               <select
                 id="emoji"
                 name="emoji"
-                className="w-full rounded-lg border border-border/70 bg-background/70 px-3 py-2 text-sm text-foreground shadow-xs outline-none"
+                className="w-full rounded-lg border border-border/70 bg-background/70 px-3 py-2 text-sm text-foreground shadow-xs outline-none text-center"
               >
                 <option value="smile">😊</option>
                 <option value="chart">📊</option>
