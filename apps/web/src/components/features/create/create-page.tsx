@@ -52,29 +52,27 @@ const CreateSurveyPage = () => {
   }
 
   function changeQuestion(id: string, updatedQuestion: QuestionProps) {
-    if (updatedQuestion.answerChoices !== undefined) {
-      if (updatedQuestion.type === 'multiple-choice' && updatedQuestion.answerChoices < 2) {
-        updatedQuestion.answerChoices = 2
-      }
+    const next: QuestionProps = { ...updatedQuestion }
 
-      if (updatedQuestion.answerChoices === 1 && updatedQuestion.type === 'multiple-choice') {
-        updatedQuestion.type = 'single-choice'
+    if (next.type === 'multiple-choice' && next.answerChoices === 1) {
+      next.type = 'single-choice'
+    }
+
+    if (next.type === 'single-choice' && next.answerChoices && next.answerChoices > 1) {
+      next.type = 'multiple-choice'
+    }
+
+    if (next.type === 'single-choice') {
+      next.answerChoices = 1
+    }
+
+    if (next.type === 'multiple-choice') {
+      if (!next.answerChoices || next.answerChoices < 2) {
+        next.answerChoices = 2
       }
     }
 
-    if (updatedQuestion.answerChoices !== undefined) {
-      if (updatedQuestion.type === 'single-choice' && updatedQuestion.answerChoices > 1) {
-        updatedQuestion.answerChoices = 1
-      }
-
-      if (updatedQuestion.answerChoices > 1 && updatedQuestion.type === 'single-choice') {
-        updatedQuestion.type = 'multiple-choice'
-      }
-    }
-
-    setQuestions((prev) =>
-      prev.map((question) => (question.id === id ? updatedQuestion : question)),
-    )
+    setQuestions((prev) => prev.map((question) => (question.id === id ? next : question)))
   }
 
   function handleAddButtonClick() {
