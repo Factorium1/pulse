@@ -25,7 +25,13 @@ const CreateSurveyPage = () => {
   }
 
   const [questions, setQuestions] = useState<QuestionProps[]>([
-    { id: crypto.randomUUID(), type: 'freetext', title: '' },
+    {
+      id: crypto.randomUUID(),
+      type: 'freetext',
+      title: '',
+      questionChoices: 2,
+      answerChoices: 1,
+    },
   ])
 
   function addQuestion() {
@@ -35,6 +41,8 @@ const CreateSurveyPage = () => {
         id: crypto.randomUUID(),
         type: 'freetext',
         title: '',
+        questionChoices: 2,
+        answerChoices: 1,
       },
     ])
   }
