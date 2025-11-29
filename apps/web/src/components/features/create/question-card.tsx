@@ -3,10 +3,20 @@
 import { Button } from '@/components/ui/button'
 import { Smartphone, Trash2 } from 'lucide-react'
 import { useState, useEffect } from 'react'
+import { QuestionProps } from '@/types/props'
+import { describe } from 'node:test'
 
 type QuestionType = 'freetext' | 'multiple-choice' | 'single-choice' | 'rating'
 
-const QuestionCard = () => {
+const QuestionCard = ({
+  question,
+  onRemove,
+  onChange,
+}: {
+  question: QuestionProps
+  onRemove: () => void
+  onChange: (updatedQuestion: QuestionProps) => void
+}) => {
   const [questionType, setQuestionType] = useState<QuestionType>('freetext')
   const [answerChoices, setAnswerChoices] = useState<number>(1)
   const [questionChoices, setQuestionChoices] = useState<number>(5)
@@ -62,7 +72,7 @@ const QuestionCard = () => {
         <div className="flex-center gap-4">
           <p className="text-muted-foreground text-xs">Frage 1</p>
           <span className="border border-border/70 bg-card/60 px-4 py-1 rounded-full text-xs text-foreground">
-            {questionTypeLabel[questionType]}
+            {questionTypeLabel[question.type]}
           </span>
         </div>
         <div className="flex-center gap-4">
@@ -70,7 +80,7 @@ const QuestionCard = () => {
             <Smartphone className="h-4 w-4" />
             In Vorschau
           </Button>
-          <Button variant="outline" size="sm" className="text-xs">
+          <Button variant="outline" size="sm" className="text-xs" onClick={onRemove}>
             <Trash2 className="h-4 w-4" />
             Löschen
           </Button>
@@ -80,6 +90,8 @@ const QuestionCard = () => {
         type="text"
         id="frage-titel"
         name="frage-titel"
+        value={question.title}
+        onChange={(e) => onChange({ ...question, title: e.target.value as QuestionProps['title'] })}
         className="w-full rounded-lg border border-border/70 bg-background/70 px-3 py-2 text-sm text-foreground shadow-xs outline-none"
         placeholder="z.B. Wie zufrieden sind Sie mit unserem Produkt?"
       />
@@ -87,6 +99,10 @@ const QuestionCard = () => {
         id="frage-beschreibung"
         name="frage-beschreibung"
         rows={2}
+        value={question.description}
+        onChange={(e) =>
+          onChange({ ...question, description: e.target.value as QuestionProps['description'] })
+        }
         className="w-full rounded-lg border border-border/70 bg-background/70 px-3 py-2 text-sm text-foreground shadow-xs outline-none"
         placeholder="Optionale Beschreibung oder Anweisungen zur Frage"
       />
@@ -98,9 +114,9 @@ const QuestionCard = () => {
           <select
             id="frage-typ"
             name="frage-typ"
-            value={questionType}
+            value={question.type}
             className="rounded-lg border border-border/70 bg-background/70 px-3 py-2 text-sm text-foreground shadow-xs outline-none"
-            onChange={handleQuestionTypeChange}
+            onChange={(e) => onChange({ ...question, type: e.target.value as QuestionType })}
           >
             <option value="freetext">Freitext</option>
             <option value="multiple-choice">Multiple Choice</option>
@@ -108,7 +124,7 @@ const QuestionCard = () => {
             <option value="rating">Bewertungsskala</option>
           </select>
         </div>
-        {(questionType === 'single-choice' || questionType === 'multiple-choice') && (
+        {(question.type === 'single-choice' || question.type === 'multiple-choice') && (
           <>
             <div className="text-sm text-muted-foreground flex-start flex-col gap-2">
               <label htmlFor="choice" className="text-xs text-muted-foreground">
@@ -117,7 +133,7 @@ const QuestionCard = () => {
               <select
                 id="choice"
                 name="choice"
-                value={answerChoices}
+                value={question.answerChoices}
                 onChange={handleAnswerChoicesChange}
                 className="rounded-lg border border-border/70 bg-background/70 px-3 py-2 text-sm text-foreground shadow-xs outline-none"
               >
@@ -135,7 +151,7 @@ const QuestionCard = () => {
               <select
                 id="question-choices"
                 name="question-choices"
-                value={questionChoices}
+                value={question.questionChoices}
                 onChange={handleQuestionChoicesChange}
                 className="rounded-lg border border-border/70 bg-background/70 px-3 py-2 text-sm text-foreground shadow-xs outline-none"
               >

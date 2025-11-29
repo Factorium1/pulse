@@ -15,11 +15,38 @@ import {
   Users2,
 } from 'lucide-react'
 import { useState } from 'react'
+import { QuestionProps } from '@/types/props'
+import QuestionExecuter from './question-executer'
 
 const CreateSurveyPage = () => {
   const [type, setType] = useState<'short' | 'long'>('short')
   function handleTypeChange(newType: 'short' | 'long') {
     setType(newType)
+  }
+
+  const [questions, setQuestions] = useState<QuestionProps[]>([
+    { id: crypto.randomUUID(), type: 'freetext', title: '' },
+  ])
+
+  function addQuestion() {
+    setQuestions((prev) => [
+      ...prev,
+      {
+        id: crypto.randomUUID(),
+        type: 'freetext',
+        title: '',
+      },
+    ])
+  }
+
+  function removeQuestion(id: string) {
+    setQuestions((prev) => prev.filter((question) => question.id !== id))
+  }
+
+  function changeQuestion(id: string, updatedQuestion: QuestionProps) {
+    setQuestions((prev) =>
+      prev.map((question) => (question.id === id ? updatedQuestion : question)),
+    )
   }
 
   return (
@@ -202,7 +229,11 @@ const CreateSurveyPage = () => {
             </Button>
           </div>
           {type === 'short' ? (
-            <QuestionCard />
+            <QuestionExecuter
+              questions={questions}
+              onRemoveQuestion={removeQuestion}
+              onChangeQuestion={changeQuestion}
+            />
           ) : (
             <div className="w-full flex-center flex-col gap-4">
               <div className="rounded-lg border border-border/70 bg-background/70 p-6 text-center flex-center flex-col gap-4 w-full">

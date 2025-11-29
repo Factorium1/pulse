@@ -22,3 +22,13 @@ export type InputFieldProps = {
   placeholder?: string
   required?: boolean
 }
+
+export type QuestionProps = {
+  id: string
+  type: 'freetext' | 'multiple-choice' | 'single-choice' | 'rating'
+  title: string
+  description?: string
+  answerChoices?: number
+  questionChoices?: number
+  question?: string[]
+}
