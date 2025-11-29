@@ -256,7 +256,12 @@ const CreateSurveyPage = () => {
                 erscheint in der Vorschau.
               </p>
             </div>
-            <Button variant="outline" size="sm" className="text-xs" onClick={handleAddButtonClick}>
+            <Button
+              variant="outline"
+              size="sm"
+              className="text-xs cursor-pointer"
+              onClick={handleAddButtonClick}
+            >
               <Plus className="h-4 w-4" />
               {type === 'short' ? 'Frage hinzufügen' : 'Block hinzufügen'}
             </Button>
