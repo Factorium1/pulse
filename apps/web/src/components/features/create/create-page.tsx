@@ -92,6 +92,10 @@ const CreateSurveyPage = () => {
     )
   }
 
+  function deleteBlock(blockId: string) {
+    setQuestionBlocks((prev) => prev.filter((block) => block.id !== blockId))
+  }
+
   function changeBlockQuestion(
     blockId: string,
     questionId: string,
@@ -357,6 +361,7 @@ const CreateSurveyPage = () => {
               onRemoveBlockQuestion={deleteBlockQuestion}
               onChangeBlockQuestion={changeBlockQuestion}
               onChangeBlock={changeBlock}
+              onDeleteBlock={deleteBlock}
             />
           )}
         </div>

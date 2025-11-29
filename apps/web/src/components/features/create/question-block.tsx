@@ -2,7 +2,7 @@
 
 import { Button } from '@/components/ui/button'
 import { Input } from '@/components/ui/input'
-import { Minimize2, Plus } from 'lucide-react'
+import { Minimize2, Plus, Trash2 } from 'lucide-react'
 import { QuestionBlockProps, QuestionProps } from '@/types/props'
 import QuestionExecuter from './question-executer'
 
@@ -12,18 +12,22 @@ const QuestionBlock = ({
   removeBlockQuestion,
   onChangeBlockQuestion,
   onChangeBlock,
+  index,
+  onDeleteBlock,
 }: {
   questionBlock: QuestionBlockProps
   addBlockQuestion: () => void
   removeBlockQuestion: (questionId: string) => void
   onChangeBlockQuestion: (questionId: string, updatedQuestion: QuestionProps) => void
   onChangeBlock: (updatedBlock: QuestionBlockProps) => void
+  index: number
+  onDeleteBlock: () => void
 }) => {
   return (
     <div className="rounded-lg border border-border/70 bg-background/70 p-6 text-center flex-center flex-col gap-4 w-full">
       <div className="flex-between w-full">
-        <div className="flex-center gap-1 lg:gap-4 flex-wrap">
-          <p className="text-muted-foreground text-md font-semibold">Block 1</p>
+        <div className="flex-center gap-1 lg:gap-2 flex-wrap">
+          <p className="text-muted-foreground text-md font-semibold mr-2">Block {index}</p>
           <span className="border border-border/70 bg-card/60 px-4 py-1 rounded-full text-xs text-foreground">
             {questionBlock.date}
           </span>
@@ -32,6 +36,15 @@ const QuestionBlock = ({
           </span>
         </div>
         <div className="flex gap-2 flex-wrap justify-end">
+          <Button
+            variant="outline"
+            size="sm"
+            className="text-xs cursor-pointer"
+            onClick={onDeleteBlock}
+          >
+            <Trash2 className="h-4 w-4" />
+            Block löschen
+          </Button>
           <Button
             variant="outline"
             size="sm"

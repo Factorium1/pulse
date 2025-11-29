@@ -9,6 +9,7 @@ const BlockExecuter = ({
   onRemoveBlockQuestion,
   onChangeBlockQuestion,
   onChangeBlock,
+  onDeleteBlock,
 }: {
   questionBlocks: QuestionBlockProps[]
   onAddBlockQuestion: (blockId: string) => void
@@ -19,10 +20,11 @@ const BlockExecuter = ({
     updatedQuestion: QuestionProps,
   ) => void
   onChangeBlock: (blockId: string, updatedBlock: QuestionBlockProps) => void
+  onDeleteBlock: (blockId: string) => void
 }) => {
   return (
     <div className="w-full flex-center flex-col gap-4">
-      {questionBlocks.map((block) => (
+      {questionBlocks.map((block, index) => (
         <QuestionBlock
           key={block.id}
           questionBlock={block}
@@ -32,6 +34,8 @@ const BlockExecuter = ({
             onChangeBlockQuestion(block.id, questionId, updatedQuestion)
           }
           onChangeBlock={(updatedBlock) => onChangeBlock(block.id, updatedBlock)}
+          index={index + 1}
+          onDeleteBlock={() => onDeleteBlock(block.id)}
         />
       ))}
     </div>
