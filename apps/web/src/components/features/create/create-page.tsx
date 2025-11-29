@@ -17,7 +17,6 @@ import {
 import { useState } from 'react'
 import { QuestionProps } from '@/types/props'
 import QuestionExecuter from './question-executer'
-import { QuestionType } from '@prisma/client'
 
 const CreateSurveyPage = () => {
   const [type, setType] = useState<'short' | 'long'>('short')

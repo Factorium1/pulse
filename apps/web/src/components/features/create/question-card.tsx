@@ -139,6 +139,12 @@ const QuestionCard = ({
               type="text"
               className="w-full rounded-lg border border-border/70 bg-background/70 px-3 py-2 text-sm text-foreground shadow-xs outline-none"
               placeholder={`Antwortmöglichkeit ${index + 1}`}
+              value={question.question?.[index] ?? ''}
+              onChange={(e) => {
+                const newQuestions = question.question ? [...question.question] : []
+                newQuestions[index] = e.target.value
+                onChange({ ...question, question: newQuestions })
+              }}
             />
           ))}
         </div>
