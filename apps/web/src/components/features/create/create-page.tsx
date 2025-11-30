@@ -4,7 +4,7 @@ import { Button } from '@/components/ui/button'
 import { Input } from '@/components/ui/input'
 import { CheckCircle2, LayoutGrid, Plus, Sparkles, Tag, Target, Users2 } from 'lucide-react'
 import { useState } from 'react'
-import { QuestionBlockProps, QuestionProps } from '@/types/props'
+import { QuestionBlockProps, QuestionProps, SurveyDraft } from '@/types/props'
 import QuestionExecuter from './question-executer'
 import BlockExecuter from './block-executer'
 import { v4 as uuidv4 } from 'uuid'
@@ -13,6 +13,12 @@ const CreateSurveyPage = () => {
   const [type, setType] = useState<'short' | 'long'>('short')
   const [tags, setTags] = useState<string[]>([])
   const [newTag, setNewTag] = useState<string>('')
+  const [title, setTitle] = useState('')
+  const [shortLabel, setShortLabel] = useState('')
+  const [emoji, setEmoji] = useState('smile')
+  const [description, setDescription] = useState('')
+  const [targetParticipants, setTargetParticipants] = useState<number | null>(null)
+  const [audience, setAudience] = useState('')
 
   function handleTypeChange(newType: 'short' | 'long') {
     setType(newType)
@@ -179,8 +185,30 @@ const CreateSurveyPage = () => {
     }
   }
 
+  async function handleSubmit(e: React.FormEvent<HTMLFormElement>) {
+    e.preventDefault()
+    const payload: SurveyDraft = {
+      title,
+      shortLabel,
+      emoji,
+      description,
+      type,
+      tags,
+      targetParticipants,
+      audience,
+      questions: type === 'short' ? questions : [],
+      blocks: type === 'long' ? questionBlocks : [],
+    }
+
+    await fetch('/api/create/survey', {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify(payload),
+    })
+  }
+
   return (
-    <div className="flex-center flex-col w-full p-4 gap-4">
+    <form className="flex-center flex-col w-full p-4 gap-4" onSubmit={handleSubmit}>
       <div className="rounded-3xl border border-border/70 bg-gradient-to-r from-primary/10 via-accent/20 to-background/80 p-6 shadow-sm backdrop-blur-2xl w-full">
         <div className="flex flex-col gap-3 md:flex-row md:items-center md:justify-between">
           <div className="space-y-2">
@@ -228,6 +256,8 @@ const CreateSurveyPage = () => {
               name="titel"
               className="w-full rounded-lg border border-border/70 bg-background/70 px-3 py-2 text-sm text-foreground shadow-xs outline-none"
               placeholder="z.B. Kundenzufriedenheitsumfrage Q2 2024"
+              value={title}
+              onChange={(e) => setTitle(e.target.value)}
             />
           </div>
           <div className="w-full grid grid-cols-4 gap-4">
@@ -241,6 +271,8 @@ const CreateSurveyPage = () => {
                 name="short-form"
                 className="w-full rounded-lg border border-border/70 bg-background/70 px-3 py-2 text-sm text-foreground shadow-xs outline-none"
                 placeholder="z.B. Gedächtnis"
+                value={shortLabel}
+                onChange={(e) => setShortLabel(e.target.value)}
               />
             </div>
             <div className="w-full col-span-1">
@@ -251,6 +283,8 @@ const CreateSurveyPage = () => {
                 id="emoji"
                 name="emoji"
                 className="w-full rounded-lg border border-border/70 bg-background/70 px-3 py-2 text-sm text-foreground shadow-xs outline-none text-center"
+                value={emoji}
+                onChange={(e) => setEmoji(e.target.value)}
               >
                 //TODO: Add more options and colors
                 <option value="smile">😊</option>
@@ -270,6 +304,8 @@ const CreateSurveyPage = () => {
               rows={4}
               className="w-full rounded-lg border border-border/70 bg-background/70 px-3 py-2 text-sm text-foreground shadow-xs outline-none"
               placeholder="Worum geht es, was erwartet die Teilnehmer?"
+              value={description}
+              onChange={(e) => setDescription(e.target.value)}
             />
           </div>
           <div className="w-full">
@@ -337,6 +373,8 @@ const CreateSurveyPage = () => {
                 type="number"
                 placeholder="Anzahl der Teilnehmer"
                 className="bg-transparent outline-none text-muted-foreground px-3 py-2 text-sm rounded-lg border border-border/70 flex-1"
+                value={targetParticipants ?? ''}
+                onChange={(e) => setTargetParticipants(Number(e.target.value))}
               />
               <p className="text-muted-foreground text-xs">
                 Anzahl gplanter Teilnehmer für die Studie.
@@ -351,6 +389,8 @@ const CreateSurveyPage = () => {
                 type="text"
                 placeholder="Beschreibung der Zielgruppe"
                 className="bg-transparent outline-none text-muted-foreground px-3 py-2 text-sm rounded-lg border border-border/70 flex-1"
+                value={audience}
+                onChange={(e) => setAudience(e.target.value)}
               />
               <p className="rounded-full bg-muted/60 border border-border/70 px-3 py-1 text-xs">
                 Deutschland
@@ -399,7 +439,7 @@ const CreateSurveyPage = () => {
           )}
         </div>
       </div>
-    </div>
+    </form>
   )
 }
 
