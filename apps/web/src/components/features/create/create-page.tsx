@@ -273,6 +273,7 @@ const CreateSurveyPage = () => {
               placeholder="z.B. Kundenzufriedenheitsumfrage Q2 2024"
               value={title}
               onChange={(e) => setTitle(e.target.value)}
+              required
             />
           </div>
           <div className="w-full grid grid-cols-4 gap-4">
@@ -288,6 +289,7 @@ const CreateSurveyPage = () => {
                 placeholder="z.B. Gedächtnis"
                 value={shortLabel}
                 onChange={(e) => setShortLabel(e.target.value)}
+                required
               />
             </div>
             <div className="w-full col-span-1">
@@ -321,6 +323,7 @@ const CreateSurveyPage = () => {
               placeholder="Worum geht es, was erwartet die Teilnehmer?"
               value={description}
               onChange={(e) => setDescription(e.target.value)}
+              required
             />
           </div>
           <div className="w-full">
@@ -391,6 +394,7 @@ const CreateSurveyPage = () => {
                 className="bg-transparent outline-none text-muted-foreground px-3 py-2 text-sm rounded-lg border border-border/70 flex-1"
                 value={targetParticipants ?? ''}
                 onChange={(e) => setTargetParticipants(Number(e.target.value))}
+                required
               />
               <p className="text-muted-foreground text-xs">
                 Anzahl gplanter Teilnehmer für die Studie.

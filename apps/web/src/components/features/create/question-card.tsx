@@ -50,6 +50,7 @@ const QuestionCard = ({
         onChange={(e) => onChange({ ...question, title: e.target.value as QuestionProps['title'] })}
         className="w-full rounded-lg border border-border/70 bg-background/70 px-3 py-2 text-sm text-foreground shadow-xs outline-none"
         placeholder="z.B. Wie zufrieden sind Sie mit unserem Produkt?"
+        required
       />
       <textarea
         id="frage-beschreibung"

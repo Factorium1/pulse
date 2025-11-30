@@ -84,6 +84,7 @@ const QuestionBlock = ({
               value={questionBlock.date}
               onChange={(e) => onChangeBlock({ ...questionBlock, date: e.target.value })}
               className="text-center md:text-start bg-transparent outline-none text-muted-foreground px-3 py-2 text-sm rounded-lg border border-border/70"
+              required
             />
           </div>
           <div className="flex-start flex-col gap-1">
@@ -97,6 +98,7 @@ const QuestionBlock = ({
               value={questionBlock.time}
               onChange={(e) => onChangeBlock({ ...questionBlock, time: e.target.value })}
               className="text-center md:text-start bg-transparent outline-none text-muted-foreground px-3 py-2 text-sm rounded-lg border border-border/70"
+              required
             />
           </div>
         </div>
