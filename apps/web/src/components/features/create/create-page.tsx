@@ -2,7 +2,17 @@
 
 import { Button } from '@/components/ui/button'
 import { Input } from '@/components/ui/input'
-import { CheckCircle2, LayoutGrid, Plus, Sparkles, Tag, Target, Users2 } from 'lucide-react'
+import {
+  CheckCircle2,
+  Ghost,
+  LayoutGrid,
+  Plus,
+  Send,
+  Sparkles,
+  Tag,
+  Target,
+  Users2,
+} from 'lucide-react'
 import { useState } from 'react'
 import { QuestionBlockProps, QuestionProps, SurveyDraft } from '@/types/props'
 import QuestionExecuter from './question-executer'
@@ -225,11 +235,16 @@ const CreateSurveyPage = () => {
             </p>
           </div>
           <div className="flex flex-wrap gap-2">
-            <Button variant="outline" size="sm" className="bg-background/60 backdrop-blur">
+            <Button
+              type="button"
+              variant="outline"
+              size="sm"
+              className="bg-background/60 backdrop-blur"
+            >
               <LayoutGrid className="h-4 w-4" />
               Vorlagen
             </Button>
-            <Button size="sm" className="shadow-md">
+            <Button type="button" size="sm" className="shadow-md">
               <CheckCircle2 className="h-4 w-4" />
               Entwurf sichern
             </Button>
@@ -337,6 +352,7 @@ const CreateSurveyPage = () => {
                 onChange={(e) => setNewTag(e.target.value)}
               />
               <Button
+                type="button"
                 variant="outline"
                 size="sm"
                 className="text-xs cursor-pointer"
@@ -412,6 +428,7 @@ const CreateSurveyPage = () => {
               </p>
             </div>
             <Button
+              type="button"
               variant="outline"
               size="sm"
               className="text-xs cursor-pointer"
@@ -437,6 +454,39 @@ const CreateSurveyPage = () => {
               onDeleteBlock={deleteBlock}
             />
           )}
+        </div>
+      </div>
+
+      <div className="w-full rounded-3xl border border-border/70 bg-gradient-to-r from-primary/15 via-accent/20 to-background/80 p-6 shadow-sm backdrop-blur-2xl flex flex-col gap-3 md:flex-row md:items-center md:justify-between">
+        <div className="space-y-1">
+          <p className="text-xs uppercase tracking-[0.2em] text-muted-foreground">Abschliessen</p>
+          <h3 className="text-2xl font-semibold text-foreground flex items-center gap-2">
+            Studie absenden
+            <Sparkles className="h-5 w-5 text-primary" />
+          </h3>
+          <p className="text-sm text-muted-foreground max-w-2xl">
+            Sichere den Entwurf oder sende ihn ab, um direkt Feedback von Teilnehmern zu sammeln.
+          </p>
+        </div>
+        <div className="flex flex-col gap-2 sm:flex-row sm:items-center">
+          <Button
+            type="button"
+            variant="outline"
+            size="sm"
+            className="bg-background/70 backdrop-blur cursor-pointer"
+          >
+            <CheckCircle2 className="h-4 w-4" />
+            Entwurf sichern
+          </Button>
+          <Button
+            type="submit"
+            variant="outline"
+            size="lg"
+            className="px-6 py-3 rounded-xl shadow-lg text-secondary border-none cursor-pointer"
+          >
+            <Send className="h-5 w-5" />
+            <p className="">Studie absenden</p>
+          </Button>
         </div>
       </div>
     </form>

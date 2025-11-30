@@ -32,11 +32,11 @@ const QuestionCard = ({
           </span>
         </div>
         <div className="flex flex-wrap items-center justify-end gap-2 sm:gap-3">
-          <Button variant="ghost" size="sm" className="text-xs">
+          <Button type="button" variant="ghost" size="sm" className="text-xs">
             <Smartphone className="h-4 w-4" />
             In Vorschau
           </Button>
-          <Button variant="outline" size="sm" className="text-xs" onClick={onRemove}>
+          <Button type="button" variant="outline" size="sm" className="text-xs" onClick={onRemove}>
             <Trash2 className="h-4 w-4" />
             Löschen
           </Button>

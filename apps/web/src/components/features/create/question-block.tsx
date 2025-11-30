@@ -40,6 +40,7 @@ const QuestionBlock = ({
         </div>
         <div className="flex gap-2 flex-row md:flex-row flex-wrap">
           <Button
+            type="button"
             variant="outline"
             size="sm"
             className="text-xs cursor-pointer"
@@ -49,6 +50,7 @@ const QuestionBlock = ({
             Block löschen
           </Button>
           <Button
+            type="button"
             variant="outline"
             size="sm"
             className="text-xs cursor-pointer"
@@ -58,6 +60,7 @@ const QuestionBlock = ({
             Frage hinzufügen
           </Button>
           <Button
+            type="button"
             variant="ghost"
             size="sm"
             className="text-xs"
