@@ -252,6 +252,7 @@ const CreateSurveyPage = () => {
                 name="emoji"
                 className="w-full rounded-lg border border-border/70 bg-background/70 px-3 py-2 text-sm text-foreground shadow-xs outline-none text-center"
               >
+                //TODO: Add more options and colors
                 <option value="smile">😊</option>
                 <option value="chart">📊</option>
                 <option value="brain">🧠</option>
