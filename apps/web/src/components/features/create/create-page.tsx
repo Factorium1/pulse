@@ -11,6 +11,9 @@ import { v4 as uuidv4 } from 'uuid'
 
 const CreateSurveyPage = () => {
   const [type, setType] = useState<'short' | 'long'>('short')
+  const [tags, setTags] = useState<string[]>([])
+  const [newTag, setNewTag] = useState<string>('')
+
   function handleTypeChange(newType: 'short' | 'long') {
     setType(newType)
   }
@@ -165,6 +168,17 @@ const CreateSurveyPage = () => {
     }
   }
 
+  function handleRemoveTag(tagToRemove: string) {
+    setTags((prevTags) => prevTags.filter((tag) => tag !== tagToRemove))
+  }
+
+  function handleAddTag() {
+    if (newTag.trim() !== '' && !tags.includes(newTag.trim())) {
+      setTags((prevTags) => [...prevTags, newTag.trim()])
+      setNewTag('')
+    }
+  }
+
   return (
     <div className="flex-center flex-col w-full p-4 gap-4">
       <div className="rounded-3xl border border-border/70 bg-gradient-to-r from-primary/10 via-accent/20 to-background/80 p-6 shadow-sm backdrop-blur-2xl w-full">
@@ -282,17 +296,34 @@ const CreateSurveyPage = () => {
                 type="text"
                 placeholder="Tags hinzufügen..."
                 className="bg-transparent outline-none text-muted-foreground px-3 text-sm rounded-lg border border-border/70"
+                value={newTag}
+                onChange={(e) => setNewTag(e.target.value)}
               />
-              <Button variant="outline" size="sm" className="text-xs">
+              <Button
+                variant="outline"
+                size="sm"
+                className="text-xs cursor-pointer"
+                onClick={() => handleAddTag()}
+              >
                 <Plus className="h-4 w-4" />
                 Hinzufügen
               </Button>
             </div>
             <div className="flex-center flex-wrap gap-2">
-              <span className="flex-center gap-1 rounded-full border border-border/70 bg-muted/60 px-3 py-1 text-xs text-foreground font-semibold">
-                Kundenzufriedenheit
-                <span className="text-muted-foreground cursor-pointer">✕</span>
-              </span>
+              {tags.map((tag) => (
+                <span
+                  key={tag}
+                  className="flex-center gap-1 rounded-full border border-border/70 bg-muted/60 px-3 py-1 text-xs text-foreground font-semibold"
+                >
+                  {tag}
+                  <span
+                    className="text-muted-foreground cursor-pointer"
+                    onClick={() => handleRemoveTag(tag)}
+                  >
+                    ✕
+                  </span>
+                </span>
+              ))}
             </div>
           </div>
           <div className="w-full grid gap-4 md:grid-cols-2">
