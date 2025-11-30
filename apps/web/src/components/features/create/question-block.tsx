@@ -2,9 +2,10 @@
 
 import { Button } from '@/components/ui/button'
 import { Input } from '@/components/ui/input'
-import { Minimize2, Plus, Trash2 } from 'lucide-react'
+import { Maximize2, Minimize2, Plus, Trash2 } from 'lucide-react'
 import { QuestionBlockProps, QuestionProps } from '@/types/props'
 import QuestionExecuter from './question-executer'
+import { useState } from 'react'
 
 const QuestionBlock = ({
   questionBlock,
@@ -23,6 +24,8 @@ const QuestionBlock = ({
   index: number
   onDeleteBlock: () => void
 }) => {
+  const [isMinimized, setIsMinimized] = useState<boolean>(false)
+
   return (
     <div className="rounded-lg border border-border/70 bg-background/70 p-6 text-center flex-center flex-col gap-4 w-full">
       <div className="flex items-start justify-start w-full flex-col md:flex-row gap-4 md:gap-0 md:justify-between">
@@ -54,45 +57,54 @@ const QuestionBlock = ({
             <Plus className="h-4 w-4" />
             Frage hinzufügen
           </Button>
-          <Button variant="ghost" size="sm" className="text-xs">
-            <Minimize2 className="h-4 w-4" />
-            Minimieren
+          <Button
+            variant="ghost"
+            size="sm"
+            className="text-xs"
+            onClick={() => setIsMinimized(!isMinimized)}
+          >
+            {isMinimized ? <Maximize2 className="h-4 w-4" /> : <Minimize2 className="h-4 w-4" />}
+            {isMinimized ? 'Maximieren' : 'Minimieren'}
           </Button>
         </div>
       </div>
-      <div className="flex md:items-center md:justify-start gap-2 w-full flex-col md:flex-row">
-        <div className="flex-start flex-col gap-1">
-          <label htmlFor="block-datum" className="text-sm text-muted-foreground">
-            Datum
-          </label>
-          <Input
-            type="date"
-            id="block-datum"
-            name="block-datum"
-            value={questionBlock.date}
-            onChange={(e) => onChangeBlock({ ...questionBlock, date: e.target.value })}
-            className="text-center md:text-start bg-transparent outline-none text-muted-foreground px-3 py-2 text-sm rounded-lg border border-border/70"
-          />
+      {!isMinimized && (
+        <div className="flex md:items-center md:justify-start gap-2 w-full flex-col md:flex-row">
+          <div className="flex-start flex-col gap-1">
+            <label htmlFor="block-datum" className="text-sm text-muted-foreground">
+              Datum
+            </label>
+            <Input
+              type="date"
+              id="block-datum"
+              name="block-datum"
+              value={questionBlock.date}
+              onChange={(e) => onChangeBlock({ ...questionBlock, date: e.target.value })}
+              className="text-center md:text-start bg-transparent outline-none text-muted-foreground px-3 py-2 text-sm rounded-lg border border-border/70"
+            />
+          </div>
+          <div className="flex-start flex-col gap-1">
+            <label htmlFor="block-uhrzeit" className="text-sm text-muted-foreground">
+              Uhrzeit
+            </label>
+            <Input
+              type="time"
+              id="block-uhrzeit"
+              name="block-uhrzeit"
+              value={questionBlock.time}
+              onChange={(e) => onChangeBlock({ ...questionBlock, time: e.target.value })}
+              className="text-center md:text-start bg-transparent outline-none text-muted-foreground px-3 py-2 text-sm rounded-lg border border-border/70"
+            />
+          </div>
         </div>
-        <div className="flex-start flex-col gap-1">
-          <label htmlFor="block-uhrzeit" className="text-sm text-muted-foreground">
-            Uhrzeit
-          </label>
-          <Input
-            type="time"
-            id="block-uhrzeit"
-            name="block-uhrzeit"
-            value={questionBlock.time}
-            onChange={(e) => onChangeBlock({ ...questionBlock, time: e.target.value })}
-            className="text-center md:text-start bg-transparent outline-none text-muted-foreground px-3 py-2 text-sm rounded-lg border border-border/70"
-          />
-        </div>
-      </div>
-      <QuestionExecuter
-        questions={questionBlock.questions}
-        onRemoveQuestion={removeBlockQuestion}
-        onChangeQuestion={onChangeBlockQuestion}
-      />
+      )}
+      {!isMinimized && (
+        <QuestionExecuter
+          questions={questionBlock.questions}
+          onRemoveQuestion={removeBlockQuestion}
+          onChangeQuestion={onChangeBlockQuestion}
+        />
+      )}
     </div>
   )
 }
