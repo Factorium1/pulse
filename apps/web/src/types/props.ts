@@ -47,7 +47,7 @@ export type SurveyDraft = {
   description: string
   type: 'short' | 'long'
   tags: string[]
-  targetParticipants: number | null
+  targetParticipants: number
   audience: string
   questions: QuestionProps[]
   blocks: QuestionBlockProps[]

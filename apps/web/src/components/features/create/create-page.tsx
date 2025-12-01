@@ -19,7 +19,7 @@ const CreateSurveyPage = () => {
   const [shortLabel, setShortLabel] = useState('')
   const [emoji, setEmoji] = useState('smile')
   const [description, setDescription] = useState('')
-  const [targetParticipants, setTargetParticipants] = useState<number | null>(null)
+  const [targetParticipants, setTargetParticipants] = useState<number>(10)
   const [audience, setAudience] = useState('')
 
   function handleTypeChange(newType: 'short' | 'long') {
@@ -407,7 +407,7 @@ const CreateSurveyPage = () => {
                 type="number"
                 placeholder="Anzahl der Teilnehmer"
                 className="bg-transparent outline-none text-muted-foreground px-3 py-2 text-sm rounded-lg border border-border/70 flex-1"
-                value={targetParticipants ?? ''}
+                value={targetParticipants}
                 onChange={(e) => setTargetParticipants(Number(e.target.value))}
                 required
               />
