@@ -2,22 +2,14 @@
 
 import { Button } from '@/components/ui/button'
 import { Input } from '@/components/ui/input'
-import {
-  CheckCircle2,
-  Ghost,
-  LayoutGrid,
-  Plus,
-  Send,
-  Sparkles,
-  Tag,
-  Target,
-  Users2,
-} from 'lucide-react'
+import { CheckCircle2, LayoutGrid, Plus, Send, Sparkles, Tag, Target, Users2 } from 'lucide-react'
 import { useState } from 'react'
 import { QuestionBlockProps, QuestionProps, SurveyDraft } from '@/types/props'
 import QuestionExecuter from './question-executer'
 import BlockExecuter from './block-executer'
 import { v4 as uuidv4 } from 'uuid'
+import { SurveySchema } from '@/types/rules'
+import { toast } from 'react-toastify'
 
 const CreateSurveyPage = () => {
   const [type, setType] = useState<'short' | 'long'>('short')
@@ -210,11 +202,34 @@ const CreateSurveyPage = () => {
       blocks: type === 'long' ? questionBlocks : [],
     }
 
-    await fetch('/api/create/survey', {
-      method: 'POST',
-      headers: { 'Content-Type': 'application/json' },
-      body: JSON.stringify(payload),
-    })
+    const validationResult = SurveySchema.safeParse(payload)
+    if (!validationResult.success) {
+      const { fieldErrors, formErrors } = validationResult.error.flatten()
+      const errorMessages = [...formErrors, ...Object.values(fieldErrors).flat()]
+      errorMessages.forEach((msg) => {
+        toast.error(msg)
+      })
+      return
+    }
+
+    try {
+      const res = await fetch('/api/create/survey', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify(payload),
+      })
+
+      const body = await res.json()
+
+      if (!res.ok) {
+        toast.error(body.message || 'Fehler beim Erstellen der Studie')
+        return
+      }
+
+      toast.success('Studie erfolgreich erstellt!')
+    } catch (error) {
+      toast.error('Network error: ' + String(error))
+    }
   }
 
   return (
