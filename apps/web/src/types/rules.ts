@@ -75,7 +75,7 @@ const BaseSurveySchema = z
   .object({
     title: z.string().min(1, 'Title is required'),
     shortLabel: z.string().min(1, 'Short label is required'),
-    emoji: z.string().min(1, 'Emoji is required'),
+    emoji: z.string().min(1, 'Emoji is required'), // TODO: Enum for allowed emojis
     description: z.string().min(1, 'Description is required'),
     tags: z.array(z.string()).default([]),
     targetParticipants: z.number().int().min(1, 'At least one participant is required'),

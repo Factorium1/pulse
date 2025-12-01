@@ -60,7 +60,15 @@ const CreateSurveyPage = () => {
         id: uuidv4(),
         date: new Date().toLocaleDateString(),
         time: new Date().toLocaleTimeString().slice(0, 5),
-        questions: [],
+        questions: [
+          {
+            id: uuidv4(),
+            type: 'freetext',
+            title: '',
+            questionChoices: 2,
+            answerChoices: 1,
+          },
+        ],
       },
     ])
   }
