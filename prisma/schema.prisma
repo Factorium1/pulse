@@ -35,7 +35,7 @@ model Survey {
   emoji              String?
   status             SurveyStatus          @default(PLANNED)
   description        String?
-  type               SurveyType            @default(ONE_SHOT)
+  type               SurveyType            @default(SHORT)
   tags               String[]              @default([])
   targetParticipants Int?
   audience           String?
@@ -49,8 +49,8 @@ model Survey {
 }
 
 enum SurveyType {
-  ONE_SHOT
-  MULTI_DAY
+  SHORT
+  LONG
 }
 
 enum SurveyStatus {
