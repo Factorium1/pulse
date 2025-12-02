@@ -12,6 +12,7 @@ datasource db {
   provider = "postgresql"
 }
 
+// Better Auth
 model User {
   id                   String                @id @default(cuid())
   email                String                @unique
@@ -26,130 +27,6 @@ model User {
   accounts             Account[]
 
   @@map("user")
-}
-
-model Survey {
-  id                 String                @id @default(cuid())
-  title              String
-  shortLabel         String?               @unique
-  emoji              String?
-  status             SurveyStatus          @default(PLANNED)
-  description        String?
-  type               SurveyType            @default(SHORT)
-  tags               String[]              @default([])
-  targetParticipants Int?
-  audience           String?
-  creator            User                  @relation("SurveyCreator", fields: [creatorId], references: [id])
-  creatorId          String
-  questions          Question[]
-  blocks             SurveyBlock[]
-  participants       SurveyParticipation[]
-  createdAt          DateTime              @default(now())
-  updatedAt          DateTime              @updatedAt
-}
-
-enum SurveyType {
-  SHORT
-  LONG
-}
-
-enum SurveyStatus {
-  PLANNED
-  ACTIVE
-  COMPLETED
-  ARCHIVED
-  PAUSED
-}
-
-model Question {
-  id              String       @id @default(uuid())
-  title           String
-  description     String?
-  type            QuestionType
-  options         String[] // For single/multiple-choice questions
-  maxAnswers      Int?
-  survey          Survey       @relation(fields: [surveyId], references: [id])
-  surveyId        String
-  block           SurveyBlock? @relation(fields: [blockId], references: [id])
-  blockId         String?
-  order           Int
-  isEventQuestion Boolean      @default(false)
-  createdAt       DateTime     @default(now())
-  updatedAt       DateTime     @updatedAt
-  answers         Answer[]
-}
-
-enum BlockScheduleType {
-  FIXED_DATETIME
-  RELATIVE_TO_START
-  EVENT_TRIGGERED
-}
-
-model SurveyBlock {
-  id       String @id @default(uuid())
-  survey   Survey @relation(fields: [surveyId], references: [id])
-  surveyId String
-
-  index Int
-  title String?
-
-  scheduleType BlockScheduleType @default(RELATIVE_TO_START)
-
-  fixedAt DateTime?
-
-  dayOffset        Int?
-  timeOfDayMinutes Int?
-
-  eventKey  String?
-  questions Question[]
-
-  createdAt DateTime @default(now())
-  updatedAt DateTime @updatedAt
-}
-
-enum QuestionType {
-  TEXT
-  MULTIPLE_CHOICE
-  SINGLE_CHOICE
-  SCALE
-  RATING
-  AUDIO
-  VIDEO
-  IMAGE
-}
-
-model SurveyParticipation {
-  id          String              @id @default(cuid())
-  user        User                @relation(fields: [userId], references: [id])
-  userId      String
-  survey      Survey              @relation(fields: [surveyId], references: [id])
-  surveyId    String
-  status      ParticipationStatus @default(ACTIVE)
-  currentStep Int?
-  startedAt   DateTime            @default(now())
-  completedAt DateTime?
-  answers     Answer[]
-  createdAt   DateTime            @default(now())
-  updatedAt   DateTime            @updatedAt
-}
-
-enum ParticipationStatus {
-  INVITED
-  ACTIVE
-  COMPLETED
-  DROPPED
-}
-
-model Answer {
-  id              String              @id @default(cuid())
-  participation   SurveyParticipation @relation(fields: [participationId], references: [id])
-  participationId String
-  question        Question            @relation(fields: [questionId], references: [id])
-  questionId      String
-  value           String
-  answeredAt      DateTime            @default(now())
-  createdAt       DateTime            @default(now())
-  updatedAt       DateTime            @updatedAt
 }
 
 model Session {
@@ -196,3 +73,136 @@ model Verification {
 
   @@map("verification")
 }
+
+// Main Survey Model
+model Survey {
+  id                 String                @id @default(cuid())
+  title              String
+  shortLabel         String?               @unique
+  emoji              String?
+  status             SurveyStatus          @default(PLANNED)
+  description        String?
+  type               SurveyType            @default(SHORT)
+  tags               String[]              @default([])
+  targetParticipants Int?
+  audience           String?
+  creator            User                  @relation("SurveyCreator", fields: [creatorId], references: [id])
+  creatorId          String
+  questions          Question[]
+  blocks             SurveyBlock[]
+  participants       SurveyParticipation[]
+  createdAt          DateTime              @default(now())
+  updatedAt          DateTime              @updatedAt
+}
+
+//Survey Enums
+enum SurveyType {
+  SHORT
+  LONG
+}
+
+enum SurveyStatus {
+  PLANNED
+  ACTIVE
+  COMPLETED
+  ARCHIVED
+  PAUSED
+}
+
+// Survey Block Model
+model SurveyBlock {
+  id       String @id @default(uuid())
+  survey   Survey @relation(fields: [surveyId], references: [id])
+  surveyId String
+
+  index Int
+  title String?
+
+  scheduleType BlockScheduleType @default(RELATIVE_TO_START)
+
+  fixedAt DateTime?
+
+  dayOffset        Int?
+  timeOfDayMinutes Int?
+
+  eventKey  String?
+  questions Question[]
+
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+}
+
+// Survey Block Enums
+enum BlockScheduleType {
+  FIXED_DATETIME
+  RELATIVE_TO_START
+  EVENT_TRIGGERED
+}
+
+// Question Model
+model Question {
+  id              String       @id @default(uuid())
+  title           String
+  description     String?
+  type            QuestionType
+  options         String[] // For single/multiple-choice questions
+  maxAnswers      Int?
+  survey          Survey       @relation(fields: [surveyId], references: [id])
+  surveyId        String
+  block           SurveyBlock? @relation(fields: [blockId], references: [id])
+  blockId         String?
+  order           Int
+  isEventQuestion Boolean      @default(false)
+  createdAt       DateTime     @default(now())
+  updatedAt       DateTime     @updatedAt
+  answers         Answer[]
+}
+
+// Question Enums
+enum QuestionType {
+  TEXT
+  MULTIPLE_CHOICE
+  SINGLE_CHOICE
+  SCALE
+  RATING
+  AUDIO
+  VIDEO
+  IMAGE
+}
+
+// Other Models
+model SurveyParticipation {
+  id          String              @id @default(cuid())
+  user        User                @relation(fields: [userId], references: [id])
+  userId      String
+  survey      Survey              @relation(fields: [surveyId], references: [id])
+  surveyId    String
+  status      ParticipationStatus @default(ACTIVE)
+  currentStep Int?
+  startedAt   DateTime            @default(now())
+  completedAt DateTime?
+  answers     Answer[]
+  createdAt   DateTime            @default(now())
+  updatedAt   DateTime            @updatedAt
+}
+
+enum ParticipationStatus {
+  INVITED
+  ACTIVE
+  COMPLETED
+  DROPPED
+}
+
+model Answer {
+  id              String              @id @default(cuid())
+  participation   SurveyParticipation @relation(fields: [participationId], references: [id])
+  participationId String
+  question        Question            @relation(fields: [questionId], references: [id])
+  questionId      String
+  value           String
+  answeredAt      DateTime            @default(now())
+  createdAt       DateTime            @default(now())
+  updatedAt       DateTime            @updatedAt
+}
+
+
