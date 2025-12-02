@@ -26,13 +26,17 @@ const QuestionBlock = ({
 }) => {
   const [isMinimized, setIsMinimized] = useState<boolean>(false)
 
+  const date = () => {
+    return questionBlock.date.split('-').reverse().join('.')
+  }
+
   return (
     <div className="rounded-lg border border-border/70 bg-background/70 p-6 text-center flex-center flex-col gap-4 w-full">
       <div className="flex items-start justify-start w-full flex-col md:flex-row gap-4 md:gap-0 md:justify-between">
         <div className="flex-center flex-row gap-1 lg:gap-2 flex-wrap">
           <p className="text-muted-foreground text-md font-semibold mr-2">Block {index}</p>
           <span className="border border-border/70 bg-card/60 px-4 py-1 rounded-full text-xs text-foreground">
-            {questionBlock.date}
+            {date()}
           </span>
           <span className="border border-border/70 bg-card/60 px-4 py-1 rounded-full text-xs text-foreground">
             {questionBlock.time}
