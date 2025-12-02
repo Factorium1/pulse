@@ -10,8 +10,10 @@ import BlockExecuter from './block-executer'
 import { v4 as uuidv4 } from 'uuid'
 import { SurveySchema } from '@/types/rules'
 import { toast } from 'react-toastify'
+import { useRouter } from 'next/navigation'
 
 const CreateSurveyPage = () => {
+  const router = useRouter()
   const [type, setType] = useState<'short' | 'long'>('short')
   const [tags, setTags] = useState<string[]>([])
   const [newTag, setNewTag] = useState<string>('')
@@ -235,6 +237,7 @@ const CreateSurveyPage = () => {
       }
 
       toast.success('Studie erfolgreich erstellt!')
+      router.push(`/editor/manage`)
     } catch (error) {
       toast.error('Network error: ' + String(error))
     }
