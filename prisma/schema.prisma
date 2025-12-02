@@ -29,20 +29,23 @@ model User {
 }
 
 model Survey {
-  id           String                @id @default(cuid())
-  title        String
-  shortLabel   String?               @unique
-  emoji        String?
-  status       SurveyStatus          @default(PLANNED)
-  description  String?
-  type         SurveyType            @default(ONE_SHOT)
-  creator      User                  @relation("SurveyCreator", fields: [creatorId], references: [id])
-  creatorId    String
-  questions    Question[]
-  blocks       SurveyBlock[]
-  participants SurveyParticipation[]
-  createdAt    DateTime              @default(now())
-  updatedAt    DateTime              @updatedAt
+  id                 String                @id @default(cuid())
+  title              String
+  shortLabel         String?               @unique
+  emoji              String?
+  status             SurveyStatus          @default(PLANNED)
+  description        String?
+  type               SurveyType            @default(ONE_SHOT)
+  tags               String[]              @default([])
+  targetParticipants Int?
+  audience           String?
+  creator            User                  @relation("SurveyCreator", fields: [creatorId], references: [id])
+  creatorId          String
+  questions          Question[]
+  blocks             SurveyBlock[]
+  participants       SurveyParticipation[]
+  createdAt          DateTime              @default(now())
+  updatedAt          DateTime              @updatedAt
 }
 
 enum SurveyType {
@@ -59,11 +62,12 @@ enum SurveyStatus {
 }
 
 model Question {
-  id              String       @id @default(cuid())
+  id              String       @id @default(uuid())
   title           String
   description     String?
   type            QuestionType
   options         String[] // For single/multiple-choice questions
+  maxAnswers      Int?
   survey          Survey       @relation(fields: [surveyId], references: [id])
   surveyId        String
   block           SurveyBlock? @relation(fields: [blockId], references: [id])
@@ -82,7 +86,7 @@ enum BlockScheduleType {
 }
 
 model SurveyBlock {
-  id       String @id @default(cuid())
+  id       String @id @default(uuid())
   survey   Survey @relation(fields: [surveyId], references: [id])
   surveyId String
 
