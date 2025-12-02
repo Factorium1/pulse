@@ -147,9 +147,9 @@ model Question {
   type            QuestionType
   options         String[] // For single/multiple-choice questions
   maxAnswers      Int?
-  survey          Survey       @relation(fields: [surveyId], references: [id])
-  surveyId        String
-  block           SurveyBlock? @relation(fields: [blockId], references: [id])
+  survey          Survey?      @relation(fields: [surveyId], references: [id])
+  surveyId        String?
+  block           SurveyBlock?  @relation(fields: [blockId], references: [id])
   blockId         String?
   order           Int
   isEventQuestion Boolean      @default(false)
@@ -204,5 +204,3 @@ model Answer {
   createdAt       DateTime            @default(now())
   updatedAt       DateTime            @updatedAt
 }
-
-
