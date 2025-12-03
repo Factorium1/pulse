@@ -1,6 +1,7 @@
+'use server'
+
 import { SurveySchema } from '@/types/rules'
-import type { QuestionBlockProps, QuestionProps } from '@/types/props'
-import { NextResponse } from 'next/server'
+import type { QuestionBlockProps, QuestionProps, SurveyDraft } from '@/types/props'
 import { auth } from '../../../../../../../auth'
 import { headers } from 'next/headers'
 import { prisma } from '../../../../../../../prisma'
@@ -79,16 +80,11 @@ function mapBlockToPrisma(block: QuestionBlockProps, blockIndex: number) {
   }
 }
 
-export async function POST(req: Request) {
+export async function createSurvey(data: SurveyDraft) {
   try {
-    const data = await req.json()
-
     const validationResult = SurveySchema.safeParse(data)
     if (!validationResult.success) {
-      return NextResponse.json(
-        { message: 'Validation failed', errors: validationResult.error.format() },
-        { status: 400 },
-      )
+      return { ok: false, message: 'Validation failed', errors: validationResult.error.flatten }
     }
 
     const session = await auth.api.getSession({
@@ -97,7 +93,7 @@ export async function POST(req: Request) {
 
     const userId = session?.user?.id
     if (!userId) {
-      return NextResponse.json({ message: 'Unauthorized' }, { status: 401 })
+      return { ok: false, message: 'Unauthorized' }
     }
 
     const validData = validationResult.data
@@ -142,14 +138,8 @@ export async function POST(req: Request) {
       },
     })
 
-    return NextResponse.json(
-      { message: 'Survey created successfully', data: createdSurvey },
-      { status: 201 },
-    )
+    return { ok: true, message: 'Survey create successfully', data: createSurvey }
   } catch (error) {
-    return NextResponse.json(
-      { message: 'Error creating survey', error: (error as Error).message },
-      { status: 500 },
-    )
+    return { ok: false, message: 'Error creating survey', error: (error as Error).message }
   }
 }
