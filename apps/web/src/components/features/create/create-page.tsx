@@ -1,5 +1,6 @@
 'use client'
 
+import { createSurvey } from '@/app/(editor)/editor/create/actions'
 import { Button } from '@/components/ui/button'
 import { Input } from '@/components/ui/input'
 import { CheckCircle2, LayoutGrid, Plus, Send, Sparkles, Tag, Target, Users2 } from 'lucide-react'
@@ -223,16 +224,10 @@ const CreateSurveyPage = () => {
     }
 
     try {
-      const res = await fetch('/api/create/survey', {
-        method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify(payload),
-      })
-
-      const body = await res.json()
+      const res = await createSurvey(payload)
 
       if (!res.ok) {
-        toast.error(body.message || 'Fehler beim Erstellen der Studie')
+        toast.error(res.message || 'Fehler beim Erstellen der Studie')
         return
       }
 
