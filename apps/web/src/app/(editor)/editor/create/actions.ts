@@ -138,7 +138,7 @@ export async function createSurvey(data: SurveyDraft) {
       },
     })
 
-    return { ok: true, message: 'Survey create successfully', data: createSurvey }
+    return { ok: true, message: 'Survey create successfully', data: createdSurvey }
   } catch (error) {
     return { ok: false, message: 'Error creating survey', error: (error as Error).message }
   }
