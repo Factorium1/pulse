@@ -20,7 +20,7 @@ import StatusPill from '@/components/features/editor-dashboard/status-pill'
 const ManagePage = () => {
   return (
     <div className="p-6 md:px-0 space-y-6">
-      <div className="rounded-3xl border border-border/60 bg-gradient-to-r from-primary/10 via-accent/20 to-background/80 p-6 shadow-sm backdrop-blur-2xl">
+      <div className="rounded-3xl border border-border/60 bg-linear-to-r from-primary/10 via-accent/20 to-background/80 p-6 shadow-sm backdrop-blur-2xl">
         <div className="flex flex-col gap-4 md:flex-row md:items-center md:justify-between">
           <div className="space-y-2">
             <p className="text-xs uppercase tracking-[0.2em] text-muted-foreground">
