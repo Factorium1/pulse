@@ -164,7 +164,7 @@ const ManagePage = async () => {
                   CX-2412
                 </p>
               </div>
-              <div className="flex-center flex-wrap gap-2">
+              <div className="flex items-center justify-start md:items-center md:justify-center flex-wrap gap-2">
                 <Button variant="outline" size="sm" className="bg-background/60 backdrop-blur">
                   <Bell className="h-4 w-4" />
                   Alerts
@@ -206,7 +206,7 @@ const ManagePage = async () => {
               <p className="text-xs text-muted-foreground">Ziel 600</p>
             </div>
           </div>
-          <div className="flex-between">
+          <div className="flex items-start flex-col gap-2 md:flex-row md:gap-0 md:items-center md:justify-between">
             <div className="flex-start flex-col">
               <p className="font-semibold text-foreground">Letzte Aktivität: 12. Juni 2024</p>
               <p className="text-xs text-muted-foreground">
