@@ -1,5 +1,4 @@
 import {
-  ArrowUp,
   ArrowUpRight,
   Bell,
   CalendarRange,
@@ -16,8 +15,34 @@ import {
 import { Button } from '@/components/ui/button'
 import EventCard from '@/components/features/editor-dashboard/event-card'
 import StatusPill from '@/components/features/editor-dashboard/status-pill'
+import { headers } from 'next/headers'
+import { prisma } from '../../../../../../../prisma'
+import { auth } from '../../../../../../../auth'
+import { redirect } from 'next/navigation'
+import { SurveyDraft, SurveyStatus } from '@/types/props'
 
-const ManagePage = () => {
+const ManagePage = async () => {
+  const session = await auth.api.getSession({
+    headers: await headers(),
+  })
+
+  if (!session?.user) {
+    redirect('/login')
+  }
+
+  const getSurveys = async (state: SurveyStatus) =>
+    await prisma.survey.findMany({
+      where: {
+        creatorId: session.user.id,
+        status: state,
+      },
+    })
+
+  const surveysPlanned = await getSurveys(SurveyStatus.PLANNED)
+  const surveysActive = await getSurveys(SurveyStatus.ACTIVE)
+  const surveyPaused = await getSurveys(SurveyStatus.PAUSED)
+  const surveyCompleted = await getSurveys(SurveyStatus.COMPLETED)
+
   return (
     <div className="p-6 md:px-0 space-y-6">
       <div className="rounded-3xl border border-border/60 bg-linear-to-r from-primary/10 via-accent/20 to-background/80 p-6 shadow-sm backdrop-blur-2xl">
@@ -53,28 +78,28 @@ const ManagePage = () => {
           <EventCard
             title="Geplant"
             icon={<CalendarRange />}
-            count={15}
+            count={surveysPlanned.length}
             statusText="Bereit zum Start"
             statusColorClass="text-blue-500"
           />
           <EventCard
             title="In Umsetzung"
             icon={<ChartColumnIncreasing />}
-            count={8}
+            count={surveysActive.length}
             statusText="Aktiv und laufend"
             statusColorClass="text-emerald-500"
           />
           <EventCard
             title="Pausiert"
             icon={<Pause />}
-            count={3}
+            count={surveyPaused.length}
             statusText="Warten auf Reaktivierung"
             statusColorClass="text-yellow-500"
           />
           <EventCard
             title="Abgeschlossen"
             icon={<Download />}
-            count={20}
+            count={surveyCompleted.length}
             statusText="Daten exportiert"
             statusColorClass="text-purple-500"
           />

@@ -74,3 +74,11 @@ export enum SurveyType {
   SHORT = 'SHORT',
   LONG = 'LONG',
 }
+
+export enum SurveyStatus {
+  PLANNED = 'PLANNED',
+  ACTIVE = 'ACTIVE',
+  COMPLETED = 'COMPLETED',
+  ARCHIVED = 'ARCHIVED',
+  PAUSED = 'PAUSED',
+}
