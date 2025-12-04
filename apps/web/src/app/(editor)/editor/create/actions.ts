@@ -5,7 +5,7 @@ import type { QuestionBlockProps, QuestionProps, SurveyDraft } from '@/types/pro
 import { auth } from '../../../../../../../auth'
 import { headers } from 'next/headers'
 import { prisma } from '../../../../../../../prisma'
-import { BlockScheduleType, QuestionType, SurveyType } from '@prisma/client'
+import { BlockScheduleType, QuestionType, SurveyType } from '@/types/props'
 
 const questionTypeMap: Record<QuestionProps['type'], QuestionType> = {
   freetext: QuestionType.TEXT,
