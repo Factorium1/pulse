@@ -7,6 +7,7 @@ import {
   Download,
   Pause,
   PenBox,
+  Play,
   Trash,
 } from 'lucide-react'
 import { SurveyForm } from '@/types/props'
@@ -25,7 +26,9 @@ const SurveyCard = async ({ data }: SurveyCardProps) => {
     where: { surveyId: data.id },
   })
 
-  console.log(data)
+  const isCompletedOrArchived = () => {
+    return data.status === 'COMPLETED' || data.status === 'ARCHIVED'
+  }
 
   return (
     <div className="rounded-2xl border border-border/60 bg-muted/80 p-5 text-sm shadow-xs w-full flex flex-col gap-4">
@@ -91,9 +94,22 @@ const SurveyCard = async ({ data }: SurveyCardProps) => {
           </p>
         </div>
         <div className="flex-center gap-2">
-          <Button variant="outline" size="sm" className="text-xs">
-            <Pause className="h-4 w-4" />
-            Pause
+          <Button
+            variant="outline"
+            size="sm"
+            className={`text-xs cursor-pointer ${isCompletedOrArchived() ? 'hidden' : ''}`}
+          >
+            {data.status === 'ACTIVE' ? (
+              <>
+                <Pause className="h-4 w-4" />
+                Pause
+              </>
+            ) : (
+              <>
+                <Play className="h-4 w-4" />
+                Start
+              </>
+            )}
           </Button>
           <Button variant="outline" size="sm" className="text-xs">
             Freigeben <ArrowUpRight className="h-4 w-4" />
