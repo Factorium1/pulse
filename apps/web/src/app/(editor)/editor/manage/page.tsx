@@ -14,7 +14,7 @@ import { headers } from 'next/headers'
 import { prisma } from '../../../../../../../prisma'
 import { auth } from '../../../../../../../auth'
 import { redirect } from 'next/navigation'
-import { SurveyDraft, SurveyStatus } from '@/types/props'
+import { SurveyForm, SurveyStatus } from '@/types/props'
 import SurveyCard from '@/components/features/manage/survey-card'
 
 const ManagePage = async () => {
@@ -154,7 +154,7 @@ const ManagePage = async () => {
             </button>
           </div>
         </div>
-        {surveys.map((survey: SurveyDraft) => {
+        {surveys.map((survey: SurveyForm) => {
           return <SurveyCard key={survey.id} data={survey} />
         })}
       </div>

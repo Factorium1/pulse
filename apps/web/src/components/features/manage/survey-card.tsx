@@ -9,11 +9,11 @@ import {
   PenBox,
   Trash,
 } from 'lucide-react'
-import { SurveyDraft } from '@/types/props'
+import { SurveyForm } from '@/types/props'
 import { prisma } from '../../../../../../prisma'
 
 type SurveyCardProps = {
-  data: SurveyDraft
+  data: SurveyForm
 }
 
 const SurveyCard = async ({ data }: SurveyCardProps) => {
@@ -24,6 +24,8 @@ const SurveyCard = async ({ data }: SurveyCardProps) => {
   const participants = await prisma.surveyParticipation.findMany({
     where: { surveyId: data.id },
   })
+
+  console.log(data)
 
   return (
     <div className="rounded-2xl border border-border/60 bg-muted/80 p-5 text-sm shadow-xs w-full flex flex-col gap-4">

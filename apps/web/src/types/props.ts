@@ -41,6 +41,19 @@ export type QuestionBlockProps = {
 }
 
 export type SurveyDraft = {
+  title: string
+  shortLabel: string
+  emoji: string
+  description: string
+  type: 'short' | 'long'
+  tags: string[]
+  targetParticipants: number
+  audience: string
+  questions: QuestionProps[]
+  blocks: QuestionBlockProps[]
+}
+
+export type SurveyForm = {
   id: string
   title: string
   shortLabel: string
