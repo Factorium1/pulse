@@ -1,20 +1,15 @@
 import {
-  ArrowUpRight,
-  Bell,
   CalendarRange,
   ChartColumnIncreasing,
   Download,
   Filter,
   Pause,
-  PenBox,
   Play,
   SearchIcon,
   Settings2,
-  Trash,
 } from 'lucide-react'
 import { Button } from '@/components/ui/button'
 import EventCard from '@/components/features/editor-dashboard/event-card'
-import StatusPill from '@/components/features/editor-dashboard/status-pill'
 import { headers } from 'next/headers'
 import { prisma } from '../../../../../../../prisma'
 import { auth } from '../../../../../../../auth'
@@ -31,18 +26,22 @@ const ManagePage = async () => {
     redirect('/login')
   }
 
-  const getSurveys = async (state: SurveyStatus) =>
-    await prisma.survey.findMany({
+  const getSurveys = async (state?: SurveyStatus) => {
+    return await prisma.survey.findMany({
       where: {
         creatorId: session.user.id,
         status: state,
       },
     })
+  }
 
   const surveysPlanned = await getSurveys(SurveyStatus.PLANNED)
   const surveysActive = await getSurveys(SurveyStatus.ACTIVE)
   const surveyPaused = await getSurveys(SurveyStatus.PAUSED)
   const surveyCompleted = await getSurveys(SurveyStatus.COMPLETED)
+  const surveyArchived = await getSurveys(SurveyStatus.ARCHIVED)
+
+  const surveys = await getSurveys()
 
   return (
     <div className="p-6 md:px-0 space-y-6">
@@ -155,7 +154,9 @@ const ManagePage = async () => {
             </button>
           </div>
         </div>
-        <SurveyCard />
+        {surveys.map((survey: SurveyDraft) => {
+          return <SurveyCard key={survey.id} data={survey} />
+        })}
       </div>
     </div>
   )

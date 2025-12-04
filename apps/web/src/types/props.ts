@@ -41,6 +41,7 @@ export type QuestionBlockProps = {
 }
 
 export type SurveyDraft = {
+  id?: string
   title: string
   shortLabel: string
   emoji: string
@@ -49,6 +50,7 @@ export type SurveyDraft = {
   tags: string[]
   targetParticipants: number
   audience: string
+  status: SurveyStatus
   questions: QuestionProps[]
   blocks: QuestionBlockProps[]
 }

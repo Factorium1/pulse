@@ -9,17 +9,22 @@ import {
   PenBox,
   Trash,
 } from 'lucide-react'
+import { SurveyDraft } from '@/types/props'
 
-const SurveyCard = () => {
+type SurveyCardProps = {
+  data: SurveyDraft
+}
+
+const SurveyCard = ({ data }: SurveyCardProps) => {
   return (
     <div className="rounded-2xl border border-border/60 bg-muted/80 p-5 text-sm shadow-xs w-full flex flex-col gap-4">
       <div className="flex-center">
         <div className="flex justify-center align-center flex-col gap-2 lg:flex-row lg:justify-between w-full items-center sm:items-start">
           <div className="flex-center gap-2">
-            <StatusPill status="live" />
-            <p className="text-base font-semibold text-foreground">Kundenzufriedenheit 2024</p>
+            <StatusPill status={data.status} />
+            <p className="text-base font-semibold text-foreground">{data.title}</p>
             <p className="rounded-full px-3 py-1 border border-border/60 bg-background/80 font-medium text-xs">
-              CX-2412
+              {data.id}
             </p>
           </div>
           <div className="flex items-center justify-start md:items-center md:justify-center flex-wrap gap-2">
@@ -46,7 +51,7 @@ const SurveyCard = () => {
         <div className="rounded-xl border border-border/60 bg-background/70 p-3">
           <p className="text-xs text-muted-foreground">Teilnehmende</p>
           <p className="text-lg font-semibold text-foreground">482</p>
-          <p className="text-xs text-muted-foreground">Ziel 600</p>
+          <p className="text-xs text-muted-foreground">Ziel {data.targetParticipants}</p>
         </div>
         {/* TODO: implement Beantwortungszeit */}
         <div className="rounded-xl border border-border/60 bg-background/70 p-3">
