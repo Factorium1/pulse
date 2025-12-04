@@ -41,7 +41,7 @@ export type QuestionBlockProps = {
 }
 
 export type SurveyDraft = {
-  id?: string
+  id: string
   title: string
   shortLabel: string
   emoji: string

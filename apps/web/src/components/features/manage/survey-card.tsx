@@ -10,12 +10,21 @@ import {
   Trash,
 } from 'lucide-react'
 import { SurveyDraft } from '@/types/props'
+import { prisma } from '../../../../../../prisma'
 
 type SurveyCardProps = {
   data: SurveyDraft
 }
 
-const SurveyCard = ({ data }: SurveyCardProps) => {
+const SurveyCard = async ({ data }: SurveyCardProps) => {
+  if (!data.id) {
+    throw new Error('Survey ID missing')
+  }
+
+  const participants = await prisma.surveyParticipation.findMany({
+    where: { surveyId: data.id },
+  })
+
   return (
     <div className="rounded-2xl border border-border/60 bg-muted/80 p-5 text-sm shadow-xs w-full flex flex-col gap-4">
       <div className="flex-center">
@@ -50,7 +59,7 @@ const SurveyCard = ({ data }: SurveyCardProps) => {
       <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4">
         <div className="rounded-xl border border-border/60 bg-background/70 p-3">
           <p className="text-xs text-muted-foreground">Teilnehmende</p>
-          <p className="text-lg font-semibold text-foreground">482</p>
+          <p className="text-lg font-semibold text-foreground">{participants.length}</p>
           <p className="text-xs text-muted-foreground">Ziel {data.targetParticipants}</p>
         </div>
         {/* TODO: implement Beantwortungszeit */}
