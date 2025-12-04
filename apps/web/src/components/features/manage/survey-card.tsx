@@ -11,23 +11,14 @@ import {
   Trash,
 } from 'lucide-react'
 import { SurveyForm } from '@/types/props'
-import { prisma } from '../../../../../../prisma'
 
 type SurveyCardProps = {
   data: SurveyForm
 }
 
-const SurveyCard = async ({ data }: SurveyCardProps) => {
-  if (!data.id) {
-    throw new Error('Survey ID missing')
-  }
-
-  const participants = await prisma.surveyParticipation.findMany({
-    where: { surveyId: data.id },
-  })
-
+const SurveyCard = async ({ data: survey }: SurveyCardProps) => {
   const isCompletedOrArchived = () => {
-    return data.status === 'COMPLETED' || data.status === 'ARCHIVED'
+    return survey.status === 'COMPLETED' || survey.status === 'ARCHIVED'
   }
 
   return (
@@ -35,10 +26,10 @@ const SurveyCard = async ({ data }: SurveyCardProps) => {
       <div className="flex-center">
         <div className="flex justify-center align-center flex-col gap-2 lg:flex-row lg:justify-between w-full items-center sm:items-start">
           <div className="flex-center gap-2">
-            <StatusPill status={data.status} />
-            <p className="text-base font-semibold text-foreground">{data.title}</p>
+            <StatusPill status={survey.status} />
+            <p className="text-base font-semibold text-foreground">{survey.title}</p>
             <p className="rounded-full px-3 py-1 border border-border/60 bg-background/80 font-medium text-xs">
-              {data.id}
+              {survey.id}
             </p>
           </div>
           <div className="flex items-center justify-start md:items-center md:justify-center flex-wrap gap-2">
@@ -65,7 +56,7 @@ const SurveyCard = async ({ data }: SurveyCardProps) => {
         <div className="rounded-xl border border-border/60 bg-background/70 p-3">
           <p className="text-xs text-muted-foreground">Teilnehmende</p>
           <p className="text-lg font-semibold text-foreground">{participants.length}</p>
-          <p className="text-xs text-muted-foreground">Ziel {data.targetParticipants}</p>
+          <p className="text-xs text-muted-foreground">Ziel {survey.targetParticipants}</p>
         </div>
         {/* TODO: implement Beantwortungszeit */}
         <div className="rounded-xl border border-border/60 bg-background/70 p-3">
@@ -99,7 +90,7 @@ const SurveyCard = async ({ data }: SurveyCardProps) => {
             size="sm"
             className={`text-xs cursor-pointer ${isCompletedOrArchived() ? 'hidden' : ''}`}
           >
-            {data.status === 'ACTIVE' ? (
+            {survey.status === 'ACTIVE' ? (
               <>
                 <Pause className="h-4 w-4" />
                 Pause
