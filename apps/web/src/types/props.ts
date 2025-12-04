@@ -52,3 +52,25 @@ export type SurveyDraft = {
   questions: QuestionProps[]
   blocks: QuestionBlockProps[]
 }
+
+export enum BlockScheduleType {
+  FIXED_DATETIME = 'FIXED_DATETIME',
+  RELATIVE_TO_START = 'RELATIVE_TO_START',
+  EVENT_TRIGGERED = 'EVENT_TRIGGERED',
+}
+
+export enum QuestionType {
+  TEXT = 'TEXT',
+  MULTIPLE_CHOICE = 'MULTIPLE_CHOICE',
+  SINGLE_CHOICE = ' SINGLE_CHOICE',
+  SCALE = 'SCALE',
+  RATING = 'RATING',
+  AUDIO = 'AUDIO',
+  VIDEO = 'VIDEO',
+  IMAGE = 'IMAGE',
+}
+
+export enum SurveyType {
+  SHORT = 'SHORT',
+  LONG = 'LONG',
+}
