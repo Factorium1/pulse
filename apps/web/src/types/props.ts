@@ -1,12 +1,6 @@
 import type { IconType } from 'react-icons'
-import type {
-  BlockScheduleType,
-  Prisma,
-  QuestionType,
-  Survey,
-  SurveyStatus,
-  SurveyType,
-} from '@prisma/client'
+import type { Prisma, Survey } from '@prisma/client'
+import { BlockScheduleType, QuestionType, SurveyStatus, SurveyType } from '@prisma/client'
 import type { z } from 'zod'
 import { BlockSchema, QuestionSchema, SurveySchema } from './rules'
 
