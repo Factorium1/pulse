@@ -15,10 +15,12 @@ import EventCard from '@/components/features/editor-dashboard/event-card'
 import { SurveyForm } from '@/types/props'
 import SurveyCard from '@/components/features/manage/survey-card'
 import { useState, useEffect } from 'react'
+import Link from 'next/link'
 
 type ManageClientProps = {
   data: SurveyForm[]
 }
+
 const ManageClient = ({ data: surveys }: ManageClientProps) => {
   const surveysPlanned = surveys.filter((survey: SurveyForm) => survey.status === 'PLANNED')
   const surveysActive = surveys.filter((survey: SurveyForm) => survey.status === 'ACTIVE')
@@ -66,17 +68,15 @@ const ManageClient = ({ data: surveys }: ManageClientProps) => {
           </div>
           <div className="flex flex-wrap gap-2">
             <Button variant="outline" size="sm" className="bg-background/60 backdrop-blur">
-              <Download className="h-4 w-4" />
-              Bulk-Export
-            </Button>
-            <Button variant="outline" size="sm" className="bg-background/60 backdrop-blur">
               <Settings2 className="h-4 w-4" />
               Richtlinien
             </Button>
-            <Button size="sm" className="shadow-md">
-              <Play className="h-4 w-4" />
-              Neue Studie
-            </Button>
+            <Link href="/editor/create">
+              <Button size="sm" className="shadow-md cursor-pointer">
+                <Play className="h-4 w-4" />
+                Neue Studie
+              </Button>
+            </Link>
           </div>
         </div>
         <div className="mt-6 grid grid-cols-1 gap-3 sm:grid-cols-2 lg:grid-cols-4">
@@ -122,14 +122,6 @@ const ManageClient = ({ data: surveys }: ManageClientProps) => {
             <Button variant="outline" size="sm" className="bg-background/60 backdrop-blur">
               <Filter className="h-4 w-4" />
               Filtern
-            </Button>
-            <Button variant="outline" size="sm" className="bg-background/60 backdrop-blur">
-              <Download className="h-4 w-4" />
-              Export
-            </Button>
-            <Button size="sm" className="shadow-md">
-              <Play className="h-4 w-4" />
-              Neue Studie starten
             </Button>
           </div>
         </div>
