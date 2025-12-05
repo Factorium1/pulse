@@ -14,7 +14,7 @@ import { Button } from '@/components/ui/button'
 import EventCard from '@/components/features/editor-dashboard/event-card'
 import { SurveyForm } from '@/types/props'
 import SurveyCard from '@/components/features/manage/survey-card'
-import { useState } from 'react'
+import { useState, useEffect } from 'react'
 
 type ManageClientProps = {
   data: SurveyForm[]
@@ -24,6 +24,20 @@ const ManageClient = ({ data: surveys }: ManageClientProps) => {
   const surveysActive = surveys.filter((survey: SurveyForm) => survey.status === 'ACTIVE')
   const surveysPaused = surveys.filter((survey: SurveyForm) => survey.status === 'PAUSED')
   const surveysCompleted = surveys.filter((survey: SurveyForm) => survey.status === 'COMPLETED')
+
+  const [filterByStatus, setFilterByStatus] = useState<
+    'LIVE' | 'PAUSED' | 'PLANNED' | 'COMPLETED' | ''
+  >('')
+
+  const [filteredSurvey, setFilteredSurvey] = useState(surveys)
+
+  useEffect(() => {
+    if (filterByStatus === '') {
+      setFilteredSurvey(surveys)
+    } else {
+      setFilteredSurvey(surveys.filter((s) => s.status === filterByStatus))
+    }
+  }, [filterByStatus, surveys])
 
   return (
     <div className="p-6 md:px-0 space-y-6">
@@ -122,21 +136,43 @@ const ManageClient = ({ data: surveys }: ManageClientProps) => {
             </div>
           </form>
           <div className="flex-center flex-wrap gap-2">
-            <button className="rounded-full border border-border/60 bg-muted/50 px-3 py-1 text-xs text-foreground cursor-pointer">
+            <button
+              className={`rounded-full px-3 py-1 text-xs cursor-pointer ${filterByStatus === 'LIVE' ? 'bg-emerald-200 border-none text-emerald-500 font-semibold' : 'bg-muted/50 border border-border/60 text-foreground font-normal'}`}
+              onClick={() =>
+                filterByStatus !== 'LIVE' ? setFilterByStatus('LIVE') : setFilterByStatus('')
+              }
+            >
               Live
             </button>
-            <button className="rounded-full border border-border/60 bg-muted/50 px-3 py-1 text-xs text-foreground cursor-pointer">
+            <button
+              className={`rounded-full px-3 py-1 text-xs cursor-pointer ${filterByStatus === 'PAUSED' ? 'bg-yellow-200 border-none text-yellow-500 font-semibold' : 'bg-muted/50 border border-border/60 text-foreground font-normal'}`}
+              onClick={() =>
+                filterByStatus !== 'PAUSED' ? setFilterByStatus('PAUSED') : setFilterByStatus('')
+              }
+            >
               Pausiert
             </button>
-            <button className="rounded-full border border-border/60 bg-muted/50 px-3 py-1 text-xs text-foreground cursor-pointer">
+            <button
+              className={`rounded-full px-3 py-1 text-xs cursor-pointer ${filterByStatus === 'PLANNED' ? 'bg-blue-200 border-none text-blue-500 font-semibold' : 'bg-muted/50 border border-border/60 text-foreground font-normal'}`}
+              onClick={() =>
+                filterByStatus !== 'PLANNED' ? setFilterByStatus('PLANNED') : setFilterByStatus('')
+              }
+            >
               Geplant
             </button>
-            <button className="rounded-full border border-border/60 bg-muted/50 px-3 py-1 text-xs text-foreground cursor-pointer">
+            <button
+              className={`rounded-full px-3 py-1 text-xs cursor-pointer ${filterByStatus === 'COMPLETED' ? 'bg-purple-200 border-none text-purple-500 font-semibold' : 'bg-muted/50 border border-border/60 text-foreground font-normal'}`}
+              onClick={() =>
+                filterByStatus !== 'COMPLETED'
+                  ? setFilterByStatus('COMPLETED')
+                  : setFilterByStatus('')
+              }
+            >
               Abgeschlossen
             </button>
           </div>
         </div>
-        {surveys.map((survey: SurveyForm) => {
+        {filteredSurvey.map((survey: SurveyForm) => {
           return <SurveyCard key={survey.id} data={survey} />
         })}
       </div>
