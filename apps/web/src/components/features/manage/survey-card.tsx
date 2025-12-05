@@ -10,12 +10,7 @@ import {
   Play,
   Trash,
 } from 'lucide-react'
-import { SurveyForm } from '@/types/props'
-
-export type SurveyWithParticipants = SurveyForm & {
-  participants: number
-  updatedAt: Date
-}
+import type { SurveyWithParticipants } from '@/types/props'
 
 type SurveyCardProps = {
   data: SurveyWithParticipants

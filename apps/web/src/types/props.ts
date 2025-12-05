@@ -1,4 +1,14 @@
-import { IconType } from 'react-icons'
+import type { IconType } from 'react-icons'
+import type {
+  BlockScheduleType,
+  Prisma,
+  QuestionType,
+  Survey,
+  SurveyStatus,
+  SurveyType,
+} from '@prisma/client'
+import type { z } from 'zod'
+import { BlockSchema, QuestionSchema, SurveySchema } from './rules'
 
 export type CardProps = {
   icon?: IconType
@@ -23,77 +33,27 @@ export type InputFieldProps = {
   required?: boolean
 }
 
-export type QuestionProps = {
-  id: string
-  type: 'freetext' | 'multiple-choice' | 'single-choice' | 'rating'
-  title: string
-  description?: string
-  answerChoices?: number
-  questionChoices?: number
-  question?: string[]
+export type QuestionProps = z.infer<typeof QuestionSchema>
+
+export type QuestionBlockProps = z.infer<typeof BlockSchema>
+
+export type SurveyDraft = z.infer<typeof SurveySchema>
+
+export type SurveyForm = Survey
+
+export type SurveyWithParticipants = Survey & {
+  participants: number
 }
 
-export type QuestionBlockProps = {
-  id: string
-  date: string
-  time: string
-  questions: QuestionProps[]
-}
+export type SurveyWithRelations = Prisma.SurveyGetPayload<{
+  include: {
+    blocks: {
+      include: {
+        questions: true
+      }
+    }
+    questions: true
+  }
+}>
 
-export type SurveyDraft = {
-  title: string
-  shortLabel: string
-  emoji: string
-  description: string
-  type: 'short' | 'long'
-  tags: string[]
-  targetParticipants: number
-  audience: string
-  questions: QuestionProps[]
-  blocks: QuestionBlockProps[]
-}
-
-export type SurveyForm = {
-  id: string
-  title: string
-  shortLabel: string
-  emoji: string
-  description: string
-  type: 'short' | 'long'
-  tags: string[]
-  targetParticipants: number
-  audience: string
-  status: SurveyStatus
-  questions: QuestionProps[]
-  blocks: QuestionBlockProps[]
-}
-
-export enum BlockScheduleType {
-  FIXED_DATETIME = 'FIXED_DATETIME',
-  RELATIVE_TO_START = 'RELATIVE_TO_START',
-  EVENT_TRIGGERED = 'EVENT_TRIGGERED',
-}
-
-export enum QuestionType {
-  TEXT = 'TEXT',
-  MULTIPLE_CHOICE = 'MULTIPLE_CHOICE',
-  SINGLE_CHOICE = ' SINGLE_CHOICE',
-  SCALE = 'SCALE',
-  RATING = 'RATING',
-  AUDIO = 'AUDIO',
-  VIDEO = 'VIDEO',
-  IMAGE = 'IMAGE',
-}
-
-export enum SurveyType {
-  SHORT = 'SHORT',
-  LONG = 'LONG',
-}
-
-export enum SurveyStatus {
-  PLANNED = 'PLANNED',
-  ACTIVE = 'ACTIVE',
-  COMPLETED = 'COMPLETED',
-  ARCHIVED = 'ARCHIVED',
-  PAUSED = 'PAUSED',
-}
+export { BlockScheduleType, QuestionType, SurveyStatus, SurveyType }

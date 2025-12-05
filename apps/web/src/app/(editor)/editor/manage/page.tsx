@@ -3,7 +3,7 @@ import { auth } from '../../../../../../../auth'
 import { headers } from 'next/headers'
 import { redirect } from 'next/navigation'
 import ManageClient from '@/components/features/manage/manage-client'
-import { SurveyType } from '@prisma/client'
+import type { SurveyWithParticipants } from '@/types/props'
 
 const ManagePage = async () => {
   const session = await auth.api.getSession({
@@ -27,9 +27,9 @@ const ManagePage = async () => {
     },
   })
 
-  const surveys = surveysRaw.map((survey: { _count: { participants: number } }) => ({
+  const surveys: SurveyWithParticipants[] = surveysRaw.map(({ _count, ...survey }) => ({
     ...survey,
-    participants: survey._count.participants,
+    participants: _count.participants,
   }))
 
   return <ManageClient data={surveys} />

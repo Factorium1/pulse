@@ -12,20 +12,20 @@ import {
 } from 'lucide-react'
 import { Button } from '@/components/ui/button'
 import EventCard from '@/components/features/editor-dashboard/event-card'
-import { SurveyForm } from '@/types/props'
+import type { SurveyWithParticipants } from '@/types/props'
 import SurveyCard from '@/components/features/manage/survey-card'
 import { useState, useEffect } from 'react'
 import Link from 'next/link'
 
 type ManageClientProps = {
-  data: SurveyForm[]
+  data: SurveyWithParticipants[]
 }
 
 const ManageClient = ({ data: surveys }: ManageClientProps) => {
-  const surveysPlanned = surveys.filter((survey: SurveyForm) => survey.status === 'PLANNED')
-  const surveysActive = surveys.filter((survey: SurveyForm) => survey.status === 'ACTIVE')
-  const surveysPaused = surveys.filter((survey: SurveyForm) => survey.status === 'PAUSED')
-  const surveysCompleted = surveys.filter((survey: SurveyForm) => survey.status === 'COMPLETED')
+  const surveysPlanned = surveys.filter((survey) => survey.status === 'PLANNED')
+  const surveysActive = surveys.filter((survey) => survey.status === 'ACTIVE')
+  const surveysPaused = surveys.filter((survey) => survey.status === 'PAUSED')
+  const surveysCompleted = surveys.filter((survey) => survey.status === 'COMPLETED')
 
   const [filterByStatus, setFilterByStatus] = useState<
     'LIVE' | 'PAUSED' | 'PLANNED' | 'COMPLETED' | ''
@@ -33,7 +33,7 @@ const ManageClient = ({ data: surveys }: ManageClientProps) => {
 
   const [searchFilter, setSearchFilter] = useState<string>('')
 
-  const [filteredSurvey, setFilteredSurvey] = useState(surveys)
+  const [filteredSurvey, setFilteredSurvey] = useState<SurveyWithParticipants[]>(surveys)
 
   useEffect(() => {
     let result = surveys
@@ -175,7 +175,7 @@ const ManageClient = ({ data: surveys }: ManageClientProps) => {
             </button>
           </div>
         </div>
-        {filteredSurvey.map((survey: SurveyForm) => {
+        {filteredSurvey.map((survey) => {
           return <SurveyCard key={survey.id} data={survey} />
         })}
       </div>
