@@ -12,7 +12,7 @@ import {
 } from 'lucide-react'
 import { Button } from '@/components/ui/button'
 import EventCard from '@/components/features/editor-dashboard/event-card'
-import type { SurveyWithParticipants } from '@/types/props'
+import type { SurveyWithParticipants, SurveyStatus } from '@/types/props'
 import SurveyCard from '@/components/features/manage/survey-card'
 import { useState, useEffect } from 'react'
 import Link from 'next/link'
@@ -27,9 +27,7 @@ const ManageClient = ({ data: surveys }: ManageClientProps) => {
   const surveysPaused = surveys.filter((survey) => survey.status === 'PAUSED')
   const surveysCompleted = surveys.filter((survey) => survey.status === 'COMPLETED')
 
-  const [filterByStatus, setFilterByStatus] = useState<
-    'LIVE' | 'PAUSED' | 'PLANNED' | 'COMPLETED' | ''
-  >('')
+  const [filterByStatus, setFilterByStatus] = useState<SurveyStatus | ''>('')
 
   const [searchFilter, setSearchFilter] = useState<string>('')
 
@@ -140,9 +138,9 @@ const ManageClient = ({ data: surveys }: ManageClientProps) => {
           </form>
           <div className="flex-center flex-wrap gap-2">
             <button
-              className={`rounded-full px-3 py-1 text-xs cursor-pointer ${filterByStatus === 'LIVE' ? 'bg-emerald-200 border-none text-emerald-500 font-semibold' : 'bg-muted/50 border border-border/60 text-foreground font-normal'}`}
+              className={`rounded-full px-3 py-1 text-xs cursor-pointer ${filterByStatus === 'ACTIVE' ? 'bg-emerald-200 border-none text-emerald-500 font-semibold' : 'bg-muted/50 border border-border/60 text-foreground font-normal'}`}
               onClick={() =>
-                filterByStatus !== 'LIVE' ? setFilterByStatus('LIVE') : setFilterByStatus('')
+                filterByStatus !== 'ACTIVE' ? setFilterByStatus('ACTIVE') : setFilterByStatus('')
               }
             >
               Live
