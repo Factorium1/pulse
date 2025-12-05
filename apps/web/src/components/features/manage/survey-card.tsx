@@ -12,14 +12,24 @@ import {
 } from 'lucide-react'
 import { SurveyForm } from '@/types/props'
 
-type SurveyCardProps = {
-  data: SurveyForm
+export type SurveyWithParticipants = SurveyForm & {
+  participants: number
+  updatedAt: Date
 }
 
-const SurveyCard = async ({ data: survey }: SurveyCardProps) => {
+type SurveyCardProps = {
+  data: SurveyWithParticipants
+}
+
+const SurveyCard = ({ data: survey }: SurveyCardProps) => {
   const isCompletedOrArchived = () => {
     return survey.status === 'COMPLETED' || survey.status === 'ARCHIVED'
   }
+
+  const updatedDate = new Date(survey.updatedAt).toLocaleString('de-DE', {
+    dateStyle: 'medium',
+    timeStyle: 'short',
+  })
 
   return (
     <div className="rounded-2xl border border-border/60 bg-muted/80 p-5 text-sm shadow-xs w-full flex flex-col gap-4">
@@ -55,7 +65,7 @@ const SurveyCard = async ({ data: survey }: SurveyCardProps) => {
       <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4">
         <div className="rounded-xl border border-border/60 bg-background/70 p-3">
           <p className="text-xs text-muted-foreground">Teilnehmende</p>
-          <p className="text-lg font-semibold text-foreground">{participants.length}</p>
+          <p className="text-lg font-semibold text-foreground">{survey.participants}</p>
           <p className="text-xs text-muted-foreground">Ziel {survey.targetParticipants}</p>
         </div>
         {/* TODO: implement Beantwortungszeit */}
@@ -79,10 +89,8 @@ const SurveyCard = async ({ data: survey }: SurveyCardProps) => {
       </div>
       <div className="flex items-start flex-col gap-2 md:flex-row md:gap-0 md:items-center md:justify-between">
         <div className="flex-start flex-col">
-          <p className="font-semibold text-foreground">Letzte Aktivität: 12. Juni 2024</p>
-          <p className="text-xs text-muted-foreground">
-            Letzte Änderung am Studiendesign und Versand der Einladung
-          </p>
+          <p className="font-semibold text-foreground">{`Letzte Aktivität: ${updatedDate} `}</p>
+          <p className="text-xs text-muted-foreground">Letzte Änderung am Studiendesign</p>
         </div>
         <div className="flex-center gap-2">
           <Button

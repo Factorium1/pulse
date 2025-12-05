@@ -19,14 +19,10 @@ import { useState } from 'react'
 type ManageClientProps = {
   data: SurveyForm[]
 }
-const ManageClient = async ({ data: surveys }: ManageClientProps) => {
-  console.log(surveys)
+const ManageClient = ({ data: surveys }: ManageClientProps) => {
   const surveysPlanned = surveys.filter((survey: SurveyForm) => survey.status === 'PLANNED')
-
   const surveysActive = surveys.filter((survey: SurveyForm) => survey.status === 'ACTIVE')
-
   const surveysPaused = surveys.filter((survey: SurveyForm) => survey.status === 'PAUSED')
-
   const surveysCompleted = surveys.filter((survey: SurveyForm) => survey.status === 'COMPLETED')
 
   return (
