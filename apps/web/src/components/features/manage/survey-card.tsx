@@ -105,8 +105,14 @@ const SurveyCard = ({ data: survey }: SurveyCardProps) => {
               </>
             )}
           </Button>
-          <Button variant="outline" size="sm" className="text-xs">
-            Freigeben <ArrowUpRight className="h-4 w-4" />
+          <Button
+            variant="outline"
+            size="sm"
+            disabled={survey.status !== 'ACTIVE'}
+            className="text-xs cursor-pointer"
+          >
+            Freigeben
+            <ArrowUpRight className="h-4 w-4" />
           </Button>
           <Button variant="outline" size="sm" className="text-xs">
             Loeschen <Trash className="h-4 w-4" />
