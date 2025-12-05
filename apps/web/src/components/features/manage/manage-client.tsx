@@ -29,15 +29,24 @@ const ManageClient = ({ data: surveys }: ManageClientProps) => {
     'LIVE' | 'PAUSED' | 'PLANNED' | 'COMPLETED' | ''
   >('')
 
+  const [searchFilter, setSearchFilter] = useState<string>('')
+
   const [filteredSurvey, setFilteredSurvey] = useState(surveys)
 
   useEffect(() => {
-    if (filterByStatus === '') {
-      setFilteredSurvey(surveys)
-    } else {
-      setFilteredSurvey(surveys.filter((s) => s.status === filterByStatus))
+    let result = surveys
+
+    if (filterByStatus !== '') {
+      result = result.filter((s) => s.status === filterByStatus)
     }
-  }, [filterByStatus, surveys])
+
+    if (searchFilter !== '') {
+      const search = searchFilter.toLowerCase().trim()
+      result = result.filter((s) => s.title.toLowerCase().includes(search))
+    }
+
+    setFilteredSurvey(result)
+  }, [filterByStatus, surveys, searchFilter])
 
   return (
     <div className="p-6 md:px-0 space-y-6">
@@ -131,6 +140,8 @@ const ManageClient = ({ data: surveys }: ManageClientProps) => {
               <input
                 type="text"
                 placeholder="Studie suchen..."
+                value={searchFilter}
+                onChange={(e) => setSearchFilter(e.target.value)}
                 className="w-full bg-transparent outline-none placeholder:text-muted-foreground"
               />
             </div>
