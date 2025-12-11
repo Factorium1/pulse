@@ -80,6 +80,47 @@ function mapBlockToPrisma(block: QuestionBlockProps, blockIndex: number) {
   }
 }
 
+export async function updateSurvey(id: string, data: SurveyDraft) {
+  try {
+    const validationResult = SurveySchema.safeParse(data)
+    if (!validationResult.success) {
+      return { ok: false, message: 'Validation failed', errors: validationResult.error.flatten }
+    }
+
+    const session = await auth.api.getSession({
+      headers: await headers(),
+    })
+
+    const userId = session?.user?.id
+    if (!userId) {
+      return { ok: false, message: 'Unauthorized' }
+    }
+
+    const validData = validationResult.data
+
+    const surveyData = {
+      title: validData.title,
+      shortLabel: validData.shortLabel,
+      emoji: validData.emoji,
+      description: validData.description,
+      tags: validData.tags,
+      targetParticipants: validData.targetParticipants,
+      audience: validData.audience,
+    }
+
+    await prisma.survey.update({
+      where: {
+        id,
+      },
+      data: surveyData,
+    })
+
+    return { ok: true, message: 'Survey updated successfully' }
+  } catch (error) {
+    return { ok: false, message: 'Error updating survey', error: (error as Error).message }
+  }
+}
+
 export async function createSurvey(data: SurveyDraft) {
   try {
     const validationResult = SurveySchema.safeParse(data)

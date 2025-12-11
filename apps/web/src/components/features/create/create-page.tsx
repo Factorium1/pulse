@@ -1,11 +1,11 @@
 'use client'
 
-import { createSurvey } from '@/app/(editor)/editor/create/actions'
+import { createSurvey, updateSurvey } from '@/app/(editor)/editor/create/actions'
 import { Button } from '@/components/ui/button'
 import { Input } from '@/components/ui/input'
 import { CheckCircle2, LayoutGrid, Plus, Send, Sparkles, Tag, Target, Users2 } from 'lucide-react'
-import { useState } from 'react'
-import { QuestionBlockProps, QuestionProps, SurveyDraft } from '@/types/props'
+import { useEffect, useState } from 'react'
+import { QuestionBlockProps, QuestionProps, SurveyDraft, SurveyForm } from '@/types/props'
 import QuestionExecuter from './question-executer'
 import BlockExecuter from './block-executer'
 import { v4 as uuidv4 } from 'uuid'
@@ -13,7 +13,11 @@ import { SurveySchema } from '@/types/rules'
 import { toast } from 'react-toastify'
 import { useRouter } from 'next/navigation'
 
-const CreateSurveyPage = () => {
+type UpdateSurveyParams = SurveyDraft & {
+  id: string
+}
+
+const CreateSurveyPage = ({ survey }: { survey?: UpdateSurveyParams }) => {
   const router = useRouter()
   const [type, setType] = useState<'short' | 'long'>('short')
   const [tags, setTags] = useState<string[]>([])
@@ -24,6 +28,21 @@ const CreateSurveyPage = () => {
   const [description, setDescription] = useState('')
   const [targetParticipants, setTargetParticipants] = useState<number>(10)
   const [audience, setAudience] = useState('')
+
+  useEffect(() => {
+    if (!survey) return
+
+    setType(survey.type ?? 'short')
+    setTags(survey.tags ?? [])
+    setTitle(survey.title ?? '')
+    setShortLabel(survey.shortLabel ?? '')
+    setEmoji(survey.emoji ?? 'smile')
+    setDescription(survey.description ?? '')
+    setTargetParticipants(survey.targetParticipants ?? 10)
+    setAudience(survey.audience ?? '')
+    setQuestions(survey.questions ?? [])
+    setQuestionBlocks(survey.blocks ?? [])
+  }, [survey])
 
   function handleTypeChange(newType: 'short' | 'long') {
     setType(newType)
@@ -224,7 +243,12 @@ const CreateSurveyPage = () => {
     }
 
     try {
-      const res = await createSurvey(payload)
+      let res
+      if (survey) {
+        res = await updateSurvey(survey.id, payload)
+      } else {
+        res = await createSurvey(payload)
+      }
 
       if (!res.ok) {
         toast.error(res.message || 'Fehler beim Erstellen der Studie')
