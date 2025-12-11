@@ -116,7 +116,7 @@
   }
 
   .section-vh {
-    @apply min-h-[100dvh] md:min-h-[100vh];
+    @apply min-h-dvh md:min-h-screen;
   }
 
   .flex-start {
