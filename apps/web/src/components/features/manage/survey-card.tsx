@@ -14,15 +14,18 @@ import {
   Trash2,
   AlertTriangle,
 } from 'lucide-react'
-import type { SurveyWithParticipants } from '@/types/props'
+import type { SurveyStatus, SurveyWithParticipants } from '@/types/props'
 import { useState } from 'react'
 
 type SurveyCardProps = {
   data: SurveyWithParticipants
   onDeleteSurvey: (input: { id: string }) => Promise<{ ok: boolean; message: string }>
+  onSurveyState: (input: {
+    id: string
+  }) => Promise<{ ok: boolean; message: string; status?: SurveyStatus }>
 }
 
-const SurveyCard = ({ data: survey, onDeleteSurvey }: SurveyCardProps) => {
+const SurveyCard = ({ data: survey, onDeleteSurvey, onSurveyState }: SurveyCardProps) => {
   const [showDeleteInfo, setShowDeleteInfo] = useState<boolean>(false)
 
   const isCompletedOrArchived = () => {
@@ -142,6 +145,7 @@ const SurveyCard = ({ data: survey, onDeleteSurvey }: SurveyCardProps) => {
             variant="outline"
             size="sm"
             className={`text-xs cursor-pointer ${isCompletedOrArchived() ? 'hidden' : ''}`}
+            onClick={() => onSurveyState({ id: survey.id })}
           >
             {survey.status === 'ACTIVE' ? (
               <>

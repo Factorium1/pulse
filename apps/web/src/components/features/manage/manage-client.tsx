@@ -12,7 +12,7 @@ import {
 } from 'lucide-react'
 import { Button } from '@/components/ui/button'
 import EventCard from '@/components/features/editor-dashboard/event-card'
-import type { SurveyWithParticipants, SurveyStatus } from '@/types/props'
+import { SurveyWithParticipants, SurveyStatus } from '@/types/props'
 import SurveyCard from '@/components/features/manage/survey-card'
 import { useState, useEffect } from 'react'
 import Link from 'next/link'
@@ -21,20 +21,23 @@ import { toast } from 'react-toastify'
 type ManageClientProps = {
   data: SurveyWithParticipants[]
   onDeleteSurvey: (input: { id: string }) => Promise<{ ok: boolean; message: string }>
+  onSurveyState: (input: {
+    id: string
+  }) => Promise<{ ok: boolean; message: string; status?: SurveyStatus }>
 }
 
-const ManageClient = ({ data: surveys, onDeleteSurvey }: ManageClientProps) => {
-  const surveysPlanned = surveys.filter((survey) => survey.status === 'PLANNED')
-  const surveysActive = surveys.filter((survey) => survey.status === 'ACTIVE')
-  const surveysPaused = surveys.filter((survey) => survey.status === 'PAUSED')
-  const surveysCompleted = surveys.filter((survey) => survey.status === 'COMPLETED')
-
+const ManageClient = ({ data: surveys, onDeleteSurvey, onSurveyState }: ManageClientProps) => {
   const [filterByStatus, setFilterByStatus] = useState<SurveyStatus | ''>('')
 
   const [searchFilter, setSearchFilter] = useState<string>('')
 
   const [surveyList, setSurveyList] = useState<SurveyWithParticipants[]>(surveys)
   const [filteredSurvey, setFilteredSurvey] = useState<SurveyWithParticipants[]>(surveys)
+
+  const surveysPlanned = surveyList.filter((survey) => survey.status === 'PLANNED')
+  const surveysActive = surveyList.filter((survey) => survey.status === 'ACTIVE')
+  const surveysPaused = surveyList.filter((survey) => survey.status === 'PAUSED')
+  const surveysCompleted = surveyList.filter((survey) => survey.status === 'COMPLETED')
 
   useEffect(() => {
     setSurveyList(surveys)
@@ -63,6 +66,24 @@ const ManageClient = ({ data: surveys, onDeleteSurvey }: ManageClientProps) => {
       toast.success(res.message || 'Studie geloescht')
     } else {
       toast.error(res.message || 'Loeschen fehlgeschlagen')
+    }
+
+    return res
+  }
+
+  const handleSurveyState = async ({ id }: { id: string }) => {
+    const res = await onSurveyState({ id })
+
+    if (res.ok) {
+      if (res.status) {
+        const nextStatus = res.status
+        setSurveyList((prev) =>
+          prev.map((survey) => (survey.id === id ? { ...survey, status: nextStatus } : survey)),
+        )
+      }
+      toast.success(res.message || 'Studienstatus geändert')
+    } else {
+      toast.error(res.message || 'Studienstatus konnte nicht geändert werden')
     }
 
     return res
@@ -194,7 +215,14 @@ const ManageClient = ({ data: surveys, onDeleteSurvey }: ManageClientProps) => {
           </div>
         </div>
         {filteredSurvey.map((survey) => {
-          return <SurveyCard key={survey.id} data={survey} onDeleteSurvey={handleDeleteSurvey} />
+          return (
+            <SurveyCard
+              key={survey.id}
+              data={survey}
+              onDeleteSurvey={handleDeleteSurvey}
+              onSurveyState={handleSurveyState}
+            />
+          )
         })}
       </div>
     </div>
