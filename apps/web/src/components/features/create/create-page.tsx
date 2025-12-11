@@ -240,7 +240,7 @@ const CreateSurveyPage = () => {
 
   return (
     <form className="flex-center flex-col w-full p-4 gap-4" onSubmit={handleSubmit}>
-      <div className="rounded-3xl border border-border/70 bg-gradient-to-r from-primary/10 via-accent/20 to-background/80 p-6 shadow-sm backdrop-blur-2xl w-full">
+      <div className="rounded-3xl border border-border/70 bg-linear-to-r from-primary/10 via-accent/20 to-background/80 p-6 shadow-sm backdrop-blur-2xl w-full">
         <div className="flex flex-col gap-3 md:flex-row md:items-center md:justify-between">
           <div className="space-y-2">
             <p className="text-xs uppercase tracking-[0.2em] text-muted-foreground">
@@ -482,7 +482,7 @@ const CreateSurveyPage = () => {
         </div>
       </div>
 
-      <div className="w-full rounded-3xl border border-border/70 bg-gradient-to-r from-primary/15 via-accent/20 to-background/80 p-6 shadow-sm backdrop-blur-2xl flex flex-col gap-3 md:flex-row md:items-center md:justify-between">
+      <div className="w-full rounded-3xl border border-border/70 bg-linear-to-r from-primary/15 via-accent/20 to-background/80 p-6 shadow-sm backdrop-blur-2xl flex flex-col gap-3 md:flex-row md:items-center md:justify-between">
         <div className="space-y-1">
           <p className="text-xs uppercase tracking-[0.2em] text-muted-foreground">Abschliessen</p>
           <h3 className="text-2xl font-semibold text-foreground flex items-center gap-2">

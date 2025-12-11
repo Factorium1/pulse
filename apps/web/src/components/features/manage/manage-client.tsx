@@ -1,0 +1,232 @@
+'use client'
+
+import {
+  CalendarRange,
+  ChartColumnIncreasing,
+  Download,
+  Filter,
+  Pause,
+  Play,
+  SearchIcon,
+  Settings2,
+} from 'lucide-react'
+import { Button } from '@/components/ui/button'
+import EventCard from '@/components/features/editor-dashboard/event-card'
+import { SurveyWithParticipants, SurveyStatus } from '@/types/props'
+import SurveyCard from '@/components/features/manage/survey-card'
+import { useState, useEffect } from 'react'
+import Link from 'next/link'
+import { toast } from 'react-toastify'
+
+type ManageClientProps = {
+  data: SurveyWithParticipants[]
+  onDeleteSurvey: (input: { id: string }) => Promise<{ ok: boolean; message: string }>
+  onSurveyState: (input: {
+    id: string
+  }) => Promise<{ ok: boolean; message: string; status?: SurveyStatus }>
+}
+
+const ManageClient = ({ data: surveys, onDeleteSurvey, onSurveyState }: ManageClientProps) => {
+  const [filterByStatus, setFilterByStatus] = useState<SurveyStatus | ''>('')
+
+  const [searchFilter, setSearchFilter] = useState<string>('')
+
+  const [surveyList, setSurveyList] = useState<SurveyWithParticipants[]>(surveys)
+  const [filteredSurvey, setFilteredSurvey] = useState<SurveyWithParticipants[]>(surveys)
+
+  const surveysPlanned = surveyList.filter((survey) => survey.status === 'PLANNED')
+  const surveysActive = surveyList.filter((survey) => survey.status === 'ACTIVE')
+  const surveysPaused = surveyList.filter((survey) => survey.status === 'PAUSED')
+  const surveysCompleted = surveyList.filter((survey) => survey.status === 'COMPLETED')
+
+  useEffect(() => {
+    setSurveyList(surveys)
+  }, [surveys])
+
+  useEffect(() => {
+    let result = surveyList
+
+    if (filterByStatus !== '') {
+      result = result.filter((s) => s.status === filterByStatus)
+    }
+
+    if (searchFilter !== '') {
+      const search = searchFilter.toLowerCase().trim()
+      result = result.filter((s) => s.title.toLowerCase().includes(search))
+    }
+
+    setFilteredSurvey(result)
+  }, [filterByStatus, surveyList, searchFilter])
+
+  const handleDeleteSurvey = async ({ id }: { id: string }) => {
+    const res = await onDeleteSurvey({ id })
+
+    if (res.ok) {
+      setSurveyList((prev) => prev.filter((survey) => survey.id !== id))
+      toast.success(res.message || 'Studie geloescht')
+    } else {
+      toast.error(res.message || 'Loeschen fehlgeschlagen')
+    }
+
+    return res
+  }
+
+  const handleSurveyState = async ({ id }: { id: string }) => {
+    const res = await onSurveyState({ id })
+
+    if (res.ok) {
+      if (res.status) {
+        const nextStatus = res.status
+        setSurveyList((prev) =>
+          prev.map((survey) => (survey.id === id ? { ...survey, status: nextStatus } : survey)),
+        )
+      }
+      toast.success(res.message || 'Studienstatus geändert')
+    } else {
+      toast.error(res.message || 'Studienstatus konnte nicht geändert werden')
+    }
+
+    return res
+  }
+
+  return (
+    <div className="p-6 md:px-0 space-y-6">
+      <div className="rounded-3xl border border-border/60 bg-linear-to-r from-primary/10 via-accent/20 to-background/80 p-6 shadow-sm backdrop-blur-2xl">
+        <div className="flex flex-col gap-4 md:flex-row md:items-center md:justify-between">
+          <div className="space-y-2">
+            <p className="text-xs uppercase tracking-[0.2em] text-muted-foreground">
+              Studienverwaltung
+            </p>
+            <h1 className="text-3xl font-semibold tracking-tight text-foreground">
+              Pipeline planen, steuern & ausrollen
+            </h1>
+            <p className="text-sm text-muted-foreground max-w-2xl">
+              Übersichtlich pro Status, mit klaren Handlungsfeldern für Launches, Qualität und
+              Kommunikation.
+            </p>
+          </div>
+          <div className="flex flex-wrap gap-2">
+            <Button variant="outline" size="sm" className="bg-background/60 backdrop-blur">
+              <Settings2 className="h-4 w-4" />
+              Richtlinien
+            </Button>
+            <Link href="/editor/create">
+              <Button size="sm" className="shadow-md cursor-pointer">
+                <Play className="h-4 w-4" />
+                Neue Studie
+              </Button>
+            </Link>
+          </div>
+        </div>
+        <div className="mt-6 grid grid-cols-1 gap-3 sm:grid-cols-2 lg:grid-cols-4">
+          <EventCard
+            title="Geplant"
+            icon={<CalendarRange />}
+            count={surveysPlanned.length}
+            statusText="Bereit zum Start"
+            statusColorClass="text-blue-500"
+          />
+          <EventCard
+            title="In Umsetzung"
+            icon={<ChartColumnIncreasing />}
+            count={surveysActive.length}
+            statusText="Aktiv und laufend"
+            statusColorClass="text-emerald-500"
+          />
+          <EventCard
+            title="Pausiert"
+            icon={<Pause />}
+            count={surveysPaused.length}
+            statusText="Warten auf Reaktivierung"
+            statusColorClass="text-yellow-500"
+          />
+          <EventCard
+            title="Abgeschlossen"
+            icon={<Download />}
+            count={surveysCompleted.length}
+            statusText="Daten exportiert"
+            statusColorClass="text-purple-500"
+          />
+        </div>
+      </div>
+      <div className="rounded-2xl border border-border/80 bg-card/80 p-5 shadow-xs flex-center flex-col gap-4">
+        <div className="flex flex-col gap-4 md:flex-row md:items-center md:justify-between w-full">
+          <div className="">
+            <p className="h3-bold">Allgemeine Studienverwaltung</p>
+            <p className="text-sm text-muted-foreground">
+              Aktionen für Statuswechsel, Launchplanung, Kommunikation und Qualitätssicherung.
+            </p>
+          </div>
+          <div className="flex-center flex-wrap gap-2">
+            <Button variant="outline" size="sm" className="bg-background/60 backdrop-blur">
+              <Filter className="h-4 w-4" />
+              Filtern
+            </Button>
+          </div>
+        </div>
+        <div className="flex flex-col gap-4 md:flex-row md:items-center md:justify-between w-full">
+          <form action="">
+            <div className="flex-center gap-2 rounded-md border border-border/60 bg-background/60 w-full py-1 px-3 backdrop-blur">
+              <SearchIcon className="h-4 w-4 text-muted-foreground" />
+              <input
+                type="text"
+                placeholder="Studie suchen..."
+                value={searchFilter}
+                onChange={(e) => setSearchFilter(e.target.value)}
+                className="w-full bg-transparent outline-none placeholder:text-muted-foreground"
+              />
+            </div>
+          </form>
+          <div className="flex-center flex-wrap gap-2">
+            <button
+              className={`rounded-full px-3 py-1 text-xs cursor-pointer ${filterByStatus === 'ACTIVE' ? 'bg-emerald-200 border-none text-emerald-500 font-semibold' : 'bg-muted/50 border border-border/60 text-foreground font-normal'}`}
+              onClick={() =>
+                filterByStatus !== 'ACTIVE' ? setFilterByStatus('ACTIVE') : setFilterByStatus('')
+              }
+            >
+              Live
+            </button>
+            <button
+              className={`rounded-full px-3 py-1 text-xs cursor-pointer ${filterByStatus === 'PAUSED' ? 'bg-yellow-200 border-none text-yellow-500 font-semibold' : 'bg-muted/50 border border-border/60 text-foreground font-normal'}`}
+              onClick={() =>
+                filterByStatus !== 'PAUSED' ? setFilterByStatus('PAUSED') : setFilterByStatus('')
+              }
+            >
+              Pausiert
+            </button>
+            <button
+              className={`rounded-full px-3 py-1 text-xs cursor-pointer ${filterByStatus === 'PLANNED' ? 'bg-blue-200 border-none text-blue-500 font-semibold' : 'bg-muted/50 border border-border/60 text-foreground font-normal'}`}
+              onClick={() =>
+                filterByStatus !== 'PLANNED' ? setFilterByStatus('PLANNED') : setFilterByStatus('')
+              }
+            >
+              Geplant
+            </button>
+            <button
+              className={`rounded-full px-3 py-1 text-xs cursor-pointer ${filterByStatus === 'COMPLETED' ? 'bg-purple-200 border-none text-purple-500 font-semibold' : 'bg-muted/50 border border-border/60 text-foreground font-normal'}`}
+              onClick={() =>
+                filterByStatus !== 'COMPLETED'
+                  ? setFilterByStatus('COMPLETED')
+                  : setFilterByStatus('')
+              }
+            >
+              Abgeschlossen
+            </button>
+          </div>
+        </div>
+        {filteredSurvey.map((survey) => {
+          return (
+            <SurveyCard
+              key={survey.id}
+              data={survey}
+              onDeleteSurvey={handleDeleteSurvey}
+              onSurveyState={handleSurveyState}
+            />
+          )
+        })}
+      </div>
+    </div>
+  )
+}
+
+export default ManageClient
