@@ -15,11 +15,11 @@ import {
   AlertTriangle,
   Share,
   Link,
-  X,
 } from 'lucide-react'
 import type { SurveyStatus, SurveyWithParticipants } from '@/types/props'
 import { useState } from 'react'
 import { toast } from 'react-toastify'
+import { useRouter } from 'next/navigation'
 
 type SurveyCardProps = {
   data: SurveyWithParticipants
@@ -43,6 +43,7 @@ const SurveyCard = ({ data: survey, onDeleteSurvey, onSurveyState }: SurveyCardP
   })
 
   const url = `${process.env.NEXT_PUBLIC_SERVER_URL}/${survey.id}`
+  const router = useRouter()
 
   return (
     <div className="relative rounded-2xl border border-border/60 bg-muted/80 p-5 text-sm shadow-xs w-full flex flex-col gap-4 overflow-hidden">
@@ -130,6 +131,7 @@ const SurveyCard = ({ data: survey, onDeleteSurvey, onSurveyState }: SurveyCardP
             </p>
           </div>
           <div className="flex items-center justify-start md:items-center md:justify-center flex-wrap gap-2">
+            {/* TODO: Implement Logic for Buttons */}
             <Button variant="outline" size="sm" className="bg-background/60 backdrop-blur">
               <Bell className="h-4 w-4" />
               Alerts
@@ -142,7 +144,14 @@ const SurveyCard = ({ data: survey, onDeleteSurvey, onSurveyState }: SurveyCardP
               <Download className="h-4 w-4" />
               Export
             </Button>
-            <Button variant="outline" size="sm" className="bg-background/60 backdrop-blur">
+            <Button
+              variant="outline"
+              size="sm"
+              className="bg-background/60 backdrop-blur cursor-pointer"
+              onClick={() => {
+                router.push(`/editor/modify/${survey.id}`)
+              }}
+            >
               <PenBox className="h-4 w-4" />
               Editieren
             </Button>
