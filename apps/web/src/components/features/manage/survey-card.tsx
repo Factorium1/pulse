@@ -13,9 +13,13 @@ import {
   Trash,
   Trash2,
   AlertTriangle,
+  Share,
+  Link,
+  X,
 } from 'lucide-react'
 import type { SurveyStatus, SurveyWithParticipants } from '@/types/props'
 import { useState } from 'react'
+import { toast } from 'react-toastify'
 
 type SurveyCardProps = {
   data: SurveyWithParticipants
@@ -27,6 +31,7 @@ type SurveyCardProps = {
 
 const SurveyCard = ({ data: survey, onDeleteSurvey, onSurveyState }: SurveyCardProps) => {
   const [showDeleteInfo, setShowDeleteInfo] = useState<boolean>(false)
+  const [showShareInfo, setShowShareInfo] = useState<boolean>(false)
 
   const isCompletedOrArchived = () => {
     return survey.status === 'COMPLETED' || survey.status === 'ARCHIVED'
@@ -36,6 +41,8 @@ const SurveyCard = ({ data: survey, onDeleteSurvey, onSurveyState }: SurveyCardP
     dateStyle: 'medium',
     timeStyle: 'short',
   })
+
+  const url = `${process.env.NEXT_PUBLIC_SERVER_URL}/${survey.id}`
 
   return (
     <div className="relative rounded-2xl border border-border/60 bg-muted/80 p-5 text-sm shadow-xs w-full flex flex-col gap-4 overflow-hidden">
@@ -78,13 +85,47 @@ const SurveyCard = ({ data: survey, onDeleteSurvey, onSurveyState }: SurveyCardP
           </div>
         </div>
       )}
+      {showShareInfo && (
+        <div className="absolute inset-0 z-10 flex flex-col items-center justify-center gap-4 bg-background/90 backdrop-blur-sm border border-destructive/40 rounded-2xl">
+          <div className="flex flex-col items-center gap-4 px-6 text-center">
+            <div className="flex flex-row flex-center gap-2">
+              <Share className="h-4 w-4" />
+              <p className="text-sm font-semibold tracking-wide">Studie fuer Teilnehmer teilen</p>
+            </div>
+            <div
+              className="flex flex-row gap-2 items-center justify-center cursor-pointer"
+              onClick={async () => {
+                await navigator.clipboard.writeText(url)
+                toast.success('Link kopiert!')
+              }}
+            >
+              <span>{url}</span>
+              <Link className="h-4 w-4" />
+            </div>
+            <Button
+              variant="outline"
+              size="sm"
+              className="bg-background/60 backdrop-blur cursor-pointer"
+              onClick={() => setShowShareInfo(false)}
+            >
+              Abbrechen
+            </Button>
+          </div>
+        </div>
+      )}
 
       <div className="flex-center">
         <div className="flex justify-center align-center flex-col gap-2 lg:flex-row lg:justify-between w-full items-center sm:items-start">
           <div className="flex-center gap-2">
             <StatusPill status={survey.status} />
             <p className="text-base font-semibold text-foreground">{survey.title}</p>
-            <p className="rounded-full px-3 py-1 border border-border/60 bg-background/80 font-medium text-xs">
+            <p
+              className="rounded-full px-3 py-1 border border-border/60 bg-background/80 font-medium text-xs cursor-pointer"
+              onClick={async () => {
+                await navigator.clipboard.writeText(url)
+                toast.success('Link kopiert!')
+              }}
+            >
               {survey.id}
             </p>
           </div>
@@ -164,6 +205,7 @@ const SurveyCard = ({ data: survey, onDeleteSurvey, onSurveyState }: SurveyCardP
             size="sm"
             disabled={survey.status !== 'ACTIVE'}
             className="text-xs cursor-pointer"
+            onClick={() => setShowShareInfo(true)}
           >
             Freigeben
             <ArrowUpRight className="h-4 w-4" />
