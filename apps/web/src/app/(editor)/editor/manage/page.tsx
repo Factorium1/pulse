@@ -4,6 +4,7 @@ import { headers } from 'next/headers'
 import { redirect } from 'next/navigation'
 import ManageClient from '@/components/features/manage/manage-client'
 import type { SurveyWithParticipants } from '@/types/props'
+import { deleteSurvey } from './actions'
 
 const ManagePage = async () => {
   const session = await auth.api.getSession({
@@ -32,7 +33,7 @@ const ManagePage = async () => {
     participants: _count.participants,
   }))
 
-  return <ManageClient data={surveys} />
+  return <ManageClient data={surveys} onDeleteSurvey={deleteSurvey} />
 }
 
 export default ManagePage

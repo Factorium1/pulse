@@ -16,12 +16,14 @@ import type { SurveyWithParticipants, SurveyStatus } from '@/types/props'
 import SurveyCard from '@/components/features/manage/survey-card'
 import { useState, useEffect } from 'react'
 import Link from 'next/link'
+import { toast } from 'react-toastify'
 
 type ManageClientProps = {
   data: SurveyWithParticipants[]
+  onDeleteSurvey: (input: { id: string }) => Promise<{ ok: boolean; message: string }>
 }
 
-const ManageClient = ({ data: surveys }: ManageClientProps) => {
+const ManageClient = ({ data: surveys, onDeleteSurvey }: ManageClientProps) => {
   const surveysPlanned = surveys.filter((survey) => survey.status === 'PLANNED')
   const surveysActive = surveys.filter((survey) => survey.status === 'ACTIVE')
   const surveysPaused = surveys.filter((survey) => survey.status === 'PAUSED')
@@ -31,10 +33,15 @@ const ManageClient = ({ data: surveys }: ManageClientProps) => {
 
   const [searchFilter, setSearchFilter] = useState<string>('')
 
+  const [surveyList, setSurveyList] = useState<SurveyWithParticipants[]>(surveys)
   const [filteredSurvey, setFilteredSurvey] = useState<SurveyWithParticipants[]>(surveys)
 
   useEffect(() => {
-    let result = surveys
+    setSurveyList(surveys)
+  }, [surveys])
+
+  useEffect(() => {
+    let result = surveyList
 
     if (filterByStatus !== '') {
       result = result.filter((s) => s.status === filterByStatus)
@@ -46,7 +53,20 @@ const ManageClient = ({ data: surveys }: ManageClientProps) => {
     }
 
     setFilteredSurvey(result)
-  }, [filterByStatus, surveys, searchFilter])
+  }, [filterByStatus, surveyList, searchFilter])
+
+  const handleDeleteSurvey = async ({ id }: { id: string }) => {
+    const res = await onDeleteSurvey({ id })
+
+    if (res.ok) {
+      setSurveyList((prev) => prev.filter((survey) => survey.id !== id))
+      toast.success(res.message || 'Studie geloescht')
+    } else {
+      toast.error(res.message || 'Loeschen fehlgeschlagen')
+    }
+
+    return res
+  }
 
   return (
     <div className="p-6 md:px-0 space-y-6">
@@ -174,7 +194,7 @@ const ManageClient = ({ data: surveys }: ManageClientProps) => {
           </div>
         </div>
         {filteredSurvey.map((survey) => {
-          return <SurveyCard key={survey.id} data={survey} />
+          return <SurveyCard key={survey.id} data={survey} onDeleteSurvey={handleDeleteSurvey} />
         })}
       </div>
     </div>
