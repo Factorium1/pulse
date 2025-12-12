@@ -2,8 +2,10 @@ import CreateSurveyPage from '@/components/features/create/create-page'
 import { prisma } from '../../../../../../../../prisma'
 import { auth } from '../../../../../../../../auth'
 import { headers } from 'next/headers'
+import { SurveyForm } from '@/types/props'
 
-const EditPage = async ({ params }: { params: { id: string } }) => {
+const EditPage = async ({ params }: { params: Promise<{ id: string }> }) => {
+  const { id } = await params
   const session = await auth.api.getSession({
     headers: await headers(),
   })
@@ -15,16 +17,16 @@ const EditPage = async ({ params }: { params: { id: string } }) => {
 
   const survey = await prisma.survey.findFirst({
     where: {
-      id: params.id,
+      id,
       creatorId: userId,
     },
   })
 
-  const updateSurvey = async (data: any) => {
+  const updateSurvey = async (data: SurveyForm) => {
     try {
       await prisma.survey.update({
         where: {
-          id: params.id,
+          id,
         },
         data: {
           title: data.title,
