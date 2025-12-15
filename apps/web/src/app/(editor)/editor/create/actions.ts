@@ -1,7 +1,12 @@
 'use server'
 
-import { SurveySchema } from '@/types/rules'
-import type { QuestionBlockProps, QuestionProps, SurveyDraft } from '@/types/props'
+import { SurveySchema, SurveyUpdateSchema } from '@/types/rules'
+import type {
+  QuestionBlockProps,
+  QuestionProps,
+  SurveyDraft,
+  SurveyUpdateDraft,
+} from '@/types/props'
 import { auth } from '../../../../../../../auth'
 import { headers } from 'next/headers'
 import { prisma } from '../../../../../../../prisma'
@@ -80,9 +85,9 @@ function mapBlockToPrisma(block: QuestionBlockProps, blockIndex: number) {
   }
 }
 
-export async function updateSurvey(id: string, data: SurveyDraft) {
+export async function updateSurvey(id: string, data: SurveyUpdateDraft) {
   try {
-    const validationResult = SurveySchema.safeParse(data)
+    const validationResult = SurveyUpdateSchema.safeParse(data)
     if (!validationResult.success) {
       return { ok: false, message: 'Validation failed', errors: validationResult.error.flatten }
     }

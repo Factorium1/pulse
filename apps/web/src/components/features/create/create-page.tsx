@@ -5,11 +5,17 @@ import { Button } from '@/components/ui/button'
 import { Input } from '@/components/ui/input'
 import { CheckCircle2, LayoutGrid, Plus, Send, Sparkles, Tag, Target, Users2 } from 'lucide-react'
 import { useEffect, useState } from 'react'
-import { QuestionBlockProps, QuestionProps, SurveyDraft } from '@/types/props'
+import {
+  QuestionBlockProps,
+  QuestionProps,
+  SurveyDraft,
+  SurveyForm,
+  SurveyUpdateDraft,
+} from '@/types/props'
 import QuestionExecuter from './question-executer'
 import BlockExecuter from './block-executer'
 import { v4 as uuidv4 } from 'uuid'
-import { SurveySchema } from '@/types/rules'
+import { SurveySchema, SurveyUpdateSchema } from '@/types/rules'
 import { toast } from 'react-toastify'
 import { useRouter } from 'next/navigation'
 import type { Question, Survey, SurveyBlock } from '@prisma/client'
@@ -261,6 +267,53 @@ const CreateSurveyPage = ({
     console.log(questions)
   }
 
+  async function handleChange(e: React.FormEvent<HTMLFormElement>) {
+    if (!survey) {
+      toast.error('Survey not found for update')
+      return
+    }
+    e.preventDefault()
+    const payload: SurveyUpdateDraft = {
+      id: survey.id,
+      title,
+      shortLabel,
+      emoji,
+      description,
+      type,
+      tags,
+      targetParticipants,
+      audience,
+      questions: type === 'short' ? questions : [],
+      blocks: type === 'long' ? questionBlocks : [],
+    }
+
+    const validationResult = SurveyUpdateSchema.safeParse(payload)
+    if (!validationResult.success) {
+      const { fieldErrors, formErrors } = validationResult.error.flatten()
+      const errorMessages = [...formErrors, ...Object.values(fieldErrors).flat()]
+      errorMessages.forEach((msg) => {
+        toast.error(msg)
+      })
+      return
+    }
+
+    try {
+      let res
+      res = await updateSurvey(survey.id, payload)
+
+      if (!res.ok) {
+        toast.error('Fehler beim Aktualisieren der Studie')
+        return
+      }
+
+      toast.success('Studie erfolgreich aktualisiert!')
+      router.push(`/editor/manage`)
+      return
+    } catch (error) {
+      toast.error('Network error: ' + String(error))
+    }
+  }
+
   async function handleSubmit(e: React.FormEvent<HTMLFormElement>) {
     e.preventDefault()
     const payload: SurveyDraft = {
@@ -288,26 +341,13 @@ const CreateSurveyPage = ({
 
     try {
       let res
-      if (survey) {
-        res = await updateSurvey(survey.id, payload)
-      } else {
-        res = await createSurvey(payload)
-      }
+      res = await createSurvey(payload)
 
       if (!res.ok) {
-        if (survey) {
-          toast.error('Fehler beim Aktualisieren der Studie')
-          return
-        }
         toast.error(res.message || 'Fehler beim Erstellen der Studie')
         return
       }
 
-      if (survey) {
-        toast.success('Studie erfolgreich aktualisiert!')
-        router.push(`/editor/manage`)
-        return
-      }
       toast.success('Studie erfolgreich erstellt!')
       router.push(`/editor/manage`)
     } catch (error) {
@@ -316,7 +356,10 @@ const CreateSurveyPage = ({
   }
 
   return (
-    <form className="flex-center flex-col w-full p-4 gap-4" onSubmit={handleSubmit}>
+    <form
+      className="flex-center flex-col w-full p-4 gap-4"
+      onSubmit={survey ? handleChange : handleSubmit}
+    >
       <div className="rounded-3xl border border-border/70 bg-linear-to-r from-primary/10 via-accent/20 to-background/80 p-6 shadow-sm backdrop-blur-2xl w-full">
         <div className="flex flex-col gap-3 md:flex-row md:items-center md:justify-between">
           <div className="space-y-2">

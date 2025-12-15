@@ -33,6 +33,10 @@ export type QuestionBlockProps = z.infer<typeof BlockSchema>
 
 export type SurveyDraft = z.infer<typeof SurveySchema>
 
+export type SurveyUpdateDraft = SurveyDraft & {
+  id: string
+}
+
 export type SurveyForm = Survey
 
 export type SurveyWithParticipants = Survey & {

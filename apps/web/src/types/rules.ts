@@ -96,3 +96,12 @@ export const LongQuestionSchema = BaseSurveySchema.extend({
 }).strict()
 
 export const SurveySchema = z.discriminatedUnion('type', [ShortQuestionSchema, LongQuestionSchema])
+
+export const SurveyUpdateSchema = z.discriminatedUnion('type', [
+  ShortQuestionSchema.extend({
+    id: z.string().cuid(),
+  }),
+  LongQuestionSchema.extend({
+    id: z.string().cuid(),
+  }),
+])
