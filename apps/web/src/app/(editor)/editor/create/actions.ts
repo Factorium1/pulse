@@ -89,7 +89,7 @@ export async function updateSurvey(id: string, data: SurveyUpdateDraft) {
   try {
     const validationResult = SurveyUpdateSchema.safeParse(data)
     if (!validationResult.success) {
-      return { ok: false, message: 'Validation failed', errors: validationResult.error.flatten }
+      return { ok: false, message: 'Validation failed', errors: validationResult.error.flatten() }
     }
 
     const session = await auth.api.getSession({
@@ -131,19 +131,41 @@ export async function updateSurvey(id: string, data: SurveyUpdateDraft) {
           : undefined,
     }
 
-    await prisma.survey.update({
-      where: {
-        id,
-      },
-      data: surveyData,
-      include: {
-        questions: true,
-        blocks: {
-          include: {
-            questions: true,
+    const surveyExists = await prisma.survey.findFirst({
+      where: { id, creatorId: userId },
+      select: { id: true },
+    })
+
+    if (!surveyExists) {
+      return { ok: false, message: 'Survey not found' }
+    }
+
+    await prisma.$transaction(async (tx) => {
+      // clear old relations so we can recreate cleanly
+      await tx.question.deleteMany({
+        where: {
+          OR: [{ surveyId: id }, { block: { surveyId: id } }],
+        },
+      })
+
+      await tx.surveyBlock.deleteMany({
+        where: { surveyId: id },
+      })
+
+      await tx.survey.update({
+        where: {
+          id,
+        },
+        data: surveyData,
+        include: {
+          questions: true,
+          blocks: {
+            include: {
+              questions: true,
+            },
           },
         },
-      },
+      })
     })
 
     return { ok: true, message: 'Survey updated successfully' }
@@ -156,7 +178,7 @@ export async function createSurvey(data: SurveyDraft) {
   try {
     const validationResult = SurveySchema.safeParse(data)
     if (!validationResult.success) {
-      return { ok: false, message: 'Validation failed', errors: validationResult.error.flatten }
+      return { ok: false, message: 'Validation failed', errors: validationResult.error.flatten() }
     }
 
     const session = await auth.api.getSession({
