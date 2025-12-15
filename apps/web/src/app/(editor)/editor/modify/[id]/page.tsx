@@ -1,8 +1,10 @@
+'use server'
+
 import CreateSurveyPage from '@/components/features/create/create-page'
 import { prisma } from '../../../../../../../../prisma'
 import { auth } from '../../../../../../../../auth'
 import { headers } from 'next/headers'
-import { SurveyForm } from '@/types/props'
+import { SurveyBlock } from '@prisma/client'
 
 const EditPage = async ({ params }: { params: Promise<{ id: string }> }) => {
   const { id } = await params
@@ -22,29 +24,26 @@ const EditPage = async ({ params }: { params: Promise<{ id: string }> }) => {
     },
   })
 
-  const updateSurvey = async (data: SurveyForm) => {
-    try {
-      await prisma.survey.update({
-        where: {
-          id,
-        },
-        data: {
-          title: data.title,
-          shortLabel: data.shortLabel,
-          emoji: data.emoji,
-          description: data.description,
-          tags: data.tags,
-          targetParticipants: data.targetParticipants,
-          audience: data.audience,
-        },
-      })
-      return { ok: true, message: 'Survey updated successfully' }
-    } catch (error) {
-      return { ok: false, message: 'Error updating survey' }
-    }
-  }
+  if (survey.type === 'SHORT') {
+    const questions = await prisma.question.findMany({
+      where: {
+        surveyId: id,
+      },
+    })
 
-  return <CreateSurveyPage survey={survey} />
+    return <CreateSurveyPage survey={survey} questionsData={questions} />
+  } else {
+    const blocks = await prisma.surveyblock.findMany({
+      where: {
+        surveyId: id,
+      },
+      include: {
+        question: true,
+      },
+    })
+
+    return <CreateSurveyPage survey={survey} blocks={blocks} />
+  }
 }
 
 export default EditPage
