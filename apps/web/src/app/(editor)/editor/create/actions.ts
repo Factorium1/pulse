@@ -106,6 +106,24 @@ export async function updateSurvey(id: string, data: SurveyDraft) {
       tags: validData.tags,
       targetParticipants: validData.targetParticipants,
       audience: validData.audience,
+      type: validData.type === 'short' ? SurveyType.SHORT : SurveyType.LONG,
+      creatorId: userId,
+      questions:
+        validData.type === 'short'
+          ? {
+              create: validData.questions.map((question: QuestionProps, index: number) =>
+                mapQuestionToPrisma(question, index),
+              ),
+            }
+          : undefined,
+      blocks:
+        validData.type === 'long'
+          ? {
+              create: validData.blocks.map((block: QuestionBlockProps, blockIndex: number) =>
+                mapBlockToPrisma(block, blockIndex),
+              ),
+            }
+          : undefined,
     }
 
     await prisma.survey.update({
@@ -113,6 +131,14 @@ export async function updateSurvey(id: string, data: SurveyDraft) {
         id,
       },
       data: surveyData,
+      include: {
+        questions: true,
+        blocks: {
+          include: {
+            questions: true,
+          },
+        },
+      },
     })
 
     return { ok: true, message: 'Survey updated successfully' }
