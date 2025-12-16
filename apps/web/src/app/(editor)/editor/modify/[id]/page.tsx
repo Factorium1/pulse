@@ -33,12 +33,12 @@ const EditPage = async ({ params }: { params: Promise<{ id: string }> }) => {
 
     return <CreateSurveyPage survey={survey} questionsData={questions} />
   } else {
-    const blocks = await prisma.surveyblock.findMany({
+    const blocks = await prisma.surveyBlock.findMany({
       where: {
         surveyId: id,
       },
       include: {
-        question: true,
+        questions: true,
       },
     })
 
