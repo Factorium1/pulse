@@ -2,8 +2,13 @@ import { SurveyStatus } from '@/types/props'
 
 const StatusPill = ({ status }: { status: SurveyStatus }) => {
   const isLive = status === 'ACTIVE'
-  const isScheduled = status === 'PLANNED' || 'PAUSED'
-  const baseColor = isLive ? 'bg-emerald-500' : isScheduled ? 'bg-amber-500' : 'bg-rose-500'
+  const isScheduled = status === 'PLANNED'
+  const isPaused = status === 'PAUSED'
+  const baseColor = isLive
+    ? 'bg-emerald-500'
+    : isScheduled || isPaused
+      ? 'bg-amber-500'
+      : 'bg-rose-500'
   const label = isLive ? 'Live' : isScheduled ? 'Geplant' : 'Pausiert'
 
   return (
