@@ -1,7 +1,12 @@
 'use server'
 
-import { SurveySchema } from '@/types/rules'
-import type { QuestionBlockProps, QuestionProps, SurveyDraft } from '@/types/props'
+import { SurveySchema, SurveyUpdateSchema } from '@/types/rules'
+import type {
+  QuestionBlockProps,
+  QuestionProps,
+  SurveyDraft,
+  SurveyUpdateDraft,
+} from '@/types/props'
 import { auth } from '../../../../../../../auth'
 import { headers } from 'next/headers'
 import { prisma } from '../../../../../../../prisma'
@@ -80,11 +85,100 @@ function mapBlockToPrisma(block: QuestionBlockProps, blockIndex: number) {
   }
 }
 
+export async function updateSurvey(id: string, data: SurveyUpdateDraft) {
+  try {
+    const validationResult = SurveyUpdateSchema.safeParse(data)
+    if (!validationResult.success) {
+      return { ok: false, message: 'Validation failed', errors: validationResult.error.flatten() }
+    }
+
+    const session = await auth.api.getSession({
+      headers: await headers(),
+    })
+
+    const userId = session?.user?.id
+    if (!userId) {
+      return { ok: false, message: 'Unauthorized' }
+    }
+
+    const validData = validationResult.data
+
+    const surveyData = {
+      title: validData.title,
+      shortLabel: validData.shortLabel,
+      emoji: validData.emoji,
+      description: validData.description,
+      tags: validData.tags,
+      targetParticipants: validData.targetParticipants,
+      audience: validData.audience,
+      type: validData.type === 'short' ? SurveyType.SHORT : SurveyType.LONG,
+      creatorId: userId,
+      questions:
+        validData.type === 'short'
+          ? {
+              create: validData.questions.map((question: QuestionProps, index: number) =>
+                mapQuestionToPrisma(question, index),
+              ),
+            }
+          : undefined,
+      blocks:
+        validData.type === 'long'
+          ? {
+              create: validData.blocks.map((block: QuestionBlockProps, blockIndex: number) =>
+                mapBlockToPrisma(block, blockIndex),
+              ),
+            }
+          : undefined,
+    }
+
+    const surveyExists = await prisma.survey.findFirst({
+      where: { id, creatorId: userId },
+      select: { id: true },
+    })
+
+    if (!surveyExists) {
+      return { ok: false, message: 'Survey not found' }
+    }
+
+    await prisma.$transaction(async (tx) => {
+      // clear old relations so we can recreate cleanly
+      await tx.question.deleteMany({
+        where: {
+          OR: [{ surveyId: id }, { block: { surveyId: id } }],
+        },
+      })
+
+      await tx.surveyBlock.deleteMany({
+        where: { surveyId: id },
+      })
+
+      await tx.survey.update({
+        where: {
+          id,
+        },
+        data: surveyData,
+        include: {
+          questions: true,
+          blocks: {
+            include: {
+              questions: true,
+            },
+          },
+        },
+      })
+    })
+
+    return { ok: true, message: 'Survey updated successfully' }
+  } catch (error) {
+    return { ok: false, message: 'Error updating survey', error: (error as Error).message }
+  }
+}
+
 export async function createSurvey(data: SurveyDraft) {
   try {
     const validationResult = SurveySchema.safeParse(data)
     if (!validationResult.success) {
-      return { ok: false, message: 'Validation failed', errors: validationResult.error.flatten }
+      return { ok: false, message: 'Validation failed', errors: validationResult.error.flatten() }
     }
 
     const session = await auth.api.getSession({

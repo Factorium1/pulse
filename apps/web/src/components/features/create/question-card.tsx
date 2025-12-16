@@ -36,7 +36,13 @@ const QuestionCard = ({
             <Smartphone className="h-4 w-4" />
             In Vorschau
           </Button>
-          <Button type="button" variant="outline" size="sm" className="text-xs" onClick={onRemove}>
+          <Button
+            type="button"
+            variant="outline"
+            size="sm"
+            className="text-xs cursor-pointer"
+            onClick={onRemove}
+          >
             <Trash2 className="h-4 w-4" />
             Löschen
           </Button>

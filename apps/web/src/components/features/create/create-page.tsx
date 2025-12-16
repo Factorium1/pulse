@@ -1,19 +1,36 @@
 'use client'
 
-import { createSurvey } from '@/app/(editor)/editor/create/actions'
+import { createSurvey, updateSurvey } from '@/app/(editor)/editor/create/actions'
 import { Button } from '@/components/ui/button'
 import { Input } from '@/components/ui/input'
 import { CheckCircle2, LayoutGrid, Plus, Send, Sparkles, Tag, Target, Users2 } from 'lucide-react'
-import { useState } from 'react'
-import { QuestionBlockProps, QuestionProps, SurveyDraft } from '@/types/props'
+import { useEffect, useState } from 'react'
+import {
+  QuestionBlockProps,
+  QuestionProps,
+  SurveyDraft,
+  SurveyForm,
+  SurveyUpdateDraft,
+} from '@/types/props'
 import QuestionExecuter from './question-executer'
 import BlockExecuter from './block-executer'
 import { v4 as uuidv4 } from 'uuid'
-import { SurveySchema } from '@/types/rules'
+import { SurveySchema, SurveyUpdateSchema } from '@/types/rules'
 import { toast } from 'react-toastify'
 import { useRouter } from 'next/navigation'
+import type { Question, Survey, SurveyBlock } from '@prisma/client'
 
-const CreateSurveyPage = () => {
+type SurveyBlockInput = SurveyBlock & { questions?: Question[]; question?: Question[] }
+
+const CreateSurveyPage = ({
+  survey,
+  questionsData,
+  blocks,
+}: {
+  survey?: Survey
+  questionsData?: Question[]
+  blocks?: SurveyBlockInput[]
+}) => {
   const router = useRouter()
   const [type, setType] = useState<'short' | 'long'>('short')
   const [tags, setTags] = useState<string[]>([])
@@ -25,55 +42,124 @@ const CreateSurveyPage = () => {
   const [targetParticipants, setTargetParticipants] = useState<number>(10)
   const [audience, setAudience] = useState('')
 
+  const createEmptyQuestion = (): QuestionProps => ({
+    id: uuidv4(),
+    type: 'freetext',
+    title: '',
+    questionChoices: 2,
+    answerChoices: 1,
+  })
+
+  const createEmptyBlock = (): QuestionBlockProps => ({
+    id: uuidv4(),
+    date: new Date().toLocaleDateString('de-DE'),
+    time: new Date().toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' }),
+    questions: [createEmptyQuestion()],
+  })
+
+  const mapSurveyType = (value?: Survey['type']): 'short' | 'long' => {
+    if (value === 'LONG') return 'long'
+    if (value === 'SHORT') return 'short'
+    return value === 'long' || value === 'short' ? value : 'short'
+  }
+
+  const mapQuestionType = (value?: Question['type']): QuestionProps['type'] => {
+    switch (value) {
+      case 'MULTIPLE_CHOICE':
+        return 'multiple-choice'
+      case 'SINGLE_CHOICE':
+        return 'single-choice'
+      case 'RATING':
+        return 'rating'
+      default:
+        return 'freetext'
+    }
+  }
+
+  const mapPrismaQuestionToForm = (question: Question): QuestionProps => {
+    const mappedType = mapQuestionType(question.type)
+    const isChoice = mappedType === 'multiple-choice' || mappedType === 'single-choice'
+
+    const questionChoices = isChoice ? Math.max(question.options?.length ?? 0, 2) : undefined
+
+    const answerChoices =
+      mappedType === 'single-choice'
+        ? 1
+        : mappedType === 'multiple-choice'
+          ? Math.max(question.maxAnswers ?? 2, 2)
+          : undefined
+
+    const normalizedOptions =
+      isChoice && questionChoices
+        ? Array.from({ length: questionChoices }, (_, index) => question.options?.[index] ?? '')
+        : undefined
+
+    return {
+      id: question.id,
+      type: mappedType,
+      title: question.title ?? '',
+      description: question.description ?? '',
+      questionChoices,
+      answerChoices,
+      question: normalizedOptions,
+    }
+  }
+
+  const mapPrismaBlockToForm = (block: SurveyBlockInput): QuestionBlockProps => {
+    const questionList = block.questions ?? block.question ?? []
+
+    const dateSource = block.fixedAt ?? block.createdAt
+    const dateObj = dateSource ? new Date(dateSource) : undefined
+    const hasValidDate = dateObj && !Number.isNaN(dateObj.getTime())
+
+    return {
+      id: block.id,
+      date: hasValidDate
+        ? dateObj.toLocaleDateString('de-DE')
+        : new Date().toLocaleDateString('de-DE'),
+      time: hasValidDate
+        ? dateObj.toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' })
+        : new Date().toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' }),
+      questions: questionList.map(mapPrismaQuestionToForm),
+    }
+  }
+
+  useEffect(() => {
+    if (!survey) return
+
+    const mappedType = mapSurveyType(survey.type)
+    setType(mappedType)
+    setTags(survey.tags ?? [])
+    setTitle(survey.title ?? '')
+    setShortLabel(survey.shortLabel ?? '')
+    setEmoji(survey.emoji ?? 'smile')
+    setDescription(survey.description ?? '')
+    setTargetParticipants(survey.targetParticipants ?? 10)
+    setAudience(survey.audience ?? '')
+
+    if (mappedType === 'short' && questionsData?.length) {
+      setQuestions(questionsData.map(mapPrismaQuestionToForm))
+      setQuestionBlocks([])
+    }
+
+    if (mappedType === 'long' && blocks?.length) {
+      setQuestionBlocks(blocks.map(mapPrismaBlockToForm))
+      setQuestions([])
+    }
+  }, [survey, questionsData, blocks])
+
   function handleTypeChange(newType: 'short' | 'long') {
     setType(newType)
   }
 
-  const [questions, setQuestions] = useState<QuestionProps[]>([
-    {
-      id: uuidv4(),
-      type: 'freetext',
-      title: '',
-      questionChoices: 2,
-      answerChoices: 1,
-    },
-  ])
+  const [questions, setQuestions] = useState<QuestionProps[]>(() => [createEmptyQuestion()])
 
-  const [questionBlocks, setQuestionBlocks] = useState<QuestionBlockProps[]>([
-    {
-      id: uuidv4(),
-      date: new Date().toLocaleDateString(),
-      time: new Date().toLocaleTimeString().slice(0, 5),
-      questions: [
-        {
-          id: uuidv4(),
-          type: 'freetext',
-          title: '',
-          questionChoices: 2,
-          answerChoices: 1,
-        },
-      ],
-    },
+  const [questionBlocks, setQuestionBlocks] = useState<QuestionBlockProps[]>(() => [
+    createEmptyBlock(),
   ])
 
   function addBlock() {
-    setQuestionBlocks((prev) => [
-      ...prev,
-      {
-        id: uuidv4(),
-        date: new Date().toLocaleDateString(),
-        time: new Date().toLocaleTimeString().slice(0, 5),
-        questions: [
-          {
-            id: uuidv4(),
-            type: 'freetext',
-            title: '',
-            questionChoices: 2,
-            answerChoices: 1,
-          },
-        ],
-      },
-    ])
+    setQuestionBlocks((prev) => [...prev, createEmptyBlock()])
   }
 
   function changeBlock(blockId: string, updatedBlock: QuestionBlockProps) {
@@ -86,16 +172,7 @@ const CreateSurveyPage = () => {
         block.id === blockId
           ? {
               ...block,
-              questions: [
-                ...block.questions,
-                {
-                  id: uuidv4(),
-                  type: 'freetext',
-                  title: '',
-                  questionChoices: 2,
-                  answerChoices: 1,
-                },
-              ],
+              questions: [...block.questions, createEmptyQuestion()],
             }
           : block,
       ),
@@ -139,16 +216,7 @@ const CreateSurveyPage = () => {
   }
 
   function addQuestion() {
-    setQuestions((prev) => [
-      ...prev,
-      {
-        id: uuidv4(),
-        type: 'freetext',
-        title: '',
-        questionChoices: 2,
-        answerChoices: 1,
-      },
-    ])
+    setQuestions((prev) => [...prev, createEmptyQuestion()])
   }
 
   function removeQuestion(id: string) {
@@ -196,6 +264,54 @@ const CreateSurveyPage = () => {
       setTags((prevTags) => [...prevTags, newTag.trim()])
       setNewTag('')
     }
+    console.log(questions)
+  }
+
+  async function handleChange(e: React.FormEvent<HTMLFormElement>) {
+    if (!survey) {
+      toast.error('Survey not found for update')
+      return
+    }
+    e.preventDefault()
+    const payload: SurveyUpdateDraft = {
+      id: survey.id,
+      title,
+      shortLabel,
+      emoji,
+      description,
+      type,
+      tags,
+      targetParticipants,
+      audience,
+      questions: type === 'short' ? questions : [],
+      blocks: type === 'long' ? questionBlocks : [],
+    }
+
+    const validationResult = SurveyUpdateSchema.safeParse(payload)
+    if (!validationResult.success) {
+      const { fieldErrors, formErrors } = validationResult.error.flatten()
+      const errorMessages = [...formErrors, ...Object.values(fieldErrors).flat()]
+      errorMessages.forEach((msg) => {
+        toast.error(msg)
+      })
+      return
+    }
+
+    try {
+      let res
+      res = await updateSurvey(survey.id, payload)
+
+      if (!res.ok) {
+        toast.error('Fehler beim Aktualisieren der Studie')
+        return
+      }
+
+      toast.success('Studie erfolgreich aktualisiert!')
+      router.push(`/editor/manage`)
+      return
+    } catch (error) {
+      toast.error('Network error: ' + String(error))
+    }
   }
 
   async function handleSubmit(e: React.FormEvent<HTMLFormElement>) {
@@ -224,7 +340,8 @@ const CreateSurveyPage = () => {
     }
 
     try {
-      const res = await createSurvey(payload)
+      let res
+      res = await createSurvey(payload)
 
       if (!res.ok) {
         toast.error(res.message || 'Fehler beim Erstellen der Studie')
@@ -239,7 +356,10 @@ const CreateSurveyPage = () => {
   }
 
   return (
-    <form className="flex-center flex-col w-full p-4 gap-4" onSubmit={handleSubmit}>
+    <form
+      className="flex-center flex-col w-full p-4 gap-4"
+      onSubmit={survey ? handleChange : handleSubmit}
+    >
       <div className="rounded-3xl border border-border/70 bg-linear-to-r from-primary/10 via-accent/20 to-background/80 p-6 shadow-sm backdrop-blur-2xl w-full">
         <div className="flex flex-col gap-3 md:flex-row md:items-center md:justify-between">
           <div className="space-y-2">
