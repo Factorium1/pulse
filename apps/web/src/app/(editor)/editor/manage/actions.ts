@@ -94,12 +94,43 @@ export async function deleteSurvey({
   if (survey.creatorId !== userId) {
     return { ok: false, message: 'Unauthorized' }
   }
-
+  if (survey.status === 'ACTIVE') {
+    return {
+      ok: false,
+      message: 'Cannot delete an active survey',
+    }
+  }
   try {
-    await prisma.survey.delete({
-      where: {
-        id: id,
-      },
+    await prisma.$transaction(async (tx) => {
+      await tx.answer.deleteMany({
+        where: {
+          OR: [
+            { participation: { surveyId: id } },
+            { question: { surveyId: id } },
+            { question: { block: { surveyId: id } } },
+          ],
+        },
+      })
+
+      await tx.surveyParticipation.deleteMany({
+        where: { surveyId: id },
+      })
+
+      await tx.question.deleteMany({
+        where: {
+          OR: [{ surveyId: id }, { block: { surveyId: id } }],
+        },
+      })
+
+      await tx.surveyBlock.deleteMany({
+        where: { surveyId: id },
+      })
+
+      await tx.survey.delete({
+        where: {
+          id,
+        },
+      })
     })
 
     return {
