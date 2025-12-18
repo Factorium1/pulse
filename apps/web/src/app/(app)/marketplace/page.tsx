@@ -1,5 +1,5 @@
 import { Button } from '@/components/ui/button'
-import { ArrowUpRight } from 'lucide-react'
+import { ArrowUpRight, SearchIcon, Stars } from 'lucide-react'
 
 const MarketplacePage = () => {
   return (
@@ -15,7 +15,49 @@ const MarketplacePage = () => {
           Studie erstellen <ArrowUpRight className="h-4 w-4" />
         </Button>
       </div>
-      <div className="flex-between rounded-2xl text-primary-foreground px-6 py-8 shadow-md flex-col lg:flex-row"></div>
+      <div className="flex-between rounded-2xl text-primary-foreground px-6 py-8 shadow-md flex-col lg:flex-row">
+        <div className="flex-start w-full flex-col gap-4">
+          <div className="flex-center gap-2 rounded-md border border-border/60 bg-background/60 w-full py-1 px-3 backdrop-blur">
+            <SearchIcon className="h-4 w-4 text-muted-foreground" />
+            <input
+              type="text"
+              placeholder="Suche nach Thema, Kategorie oder Stichwort..."
+              // value={}
+              // onChange={(e) => setSearchFilter(e.target.value)}
+              className="w-full bg-transparent outline-none placeholder:text-muted-foreground"
+            />
+          </div>
+          <p className="text-foreground/80 flex-center text-sm gap-1">
+            <Stars className="inline-block h-4 w-4" />5 Ergebnisse gefunden
+          </p>
+        </div>
+        <div className="flex items-center justify-end flex-row flex-wrap w-full gap-2">
+          <button
+            className={`rounded-full px-3 py-1 text-xs cursor-pointer ${'ACTIVE' === 'ACTIVE' ? 'bg-indigo-200 border-none text-indigo-500 font-semibold' : 'bg-muted/50 border border-border/60 text-foreground font-normal'}`}
+            // onClick={}
+          >
+            Bewerbung
+          </button>
+          <button
+            className={`rounded-full px-3 py-1 text-xs cursor-pointer ${'ACTIVE' === 'ACTIVE' ? 'bg-indigo-200 border-none text-indigo-500 font-semibold' : 'bg-muted/50 border border-border/60 text-foreground font-normal'}`}
+            // onClick={}
+          >
+            Direktteilnahme
+          </button>
+          <button
+            className={`rounded-full px-3 py-1 text-xs cursor-pointer ${'ACTIVE' === 'ACTIVE' ? 'bg-indigo-200 border-none text-indigo-500 font-semibold' : 'bg-muted/50 border border-border/60 text-foreground font-normal'}`}
+            // onClick={}
+          >
+            Kurz
+          </button>
+          <button
+            className={`rounded-full px-3 py-1 text-xs cursor-pointer ${'ACTIVE' === 'ACTIVE' ? 'bg-indigo-200 border-none text-indigo-500 font-semibold' : 'bg-muted/50 border border-border/60 text-foreground font-normal'}`}
+            // onClick={}
+          >
+            Lang
+          </button>
+        </div>
+      </div>
     </div>
   )
 }
