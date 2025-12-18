@@ -50,7 +50,7 @@
   // ─────────────────────────────
   "npm.packageManager": "pnpm",
   "terminal.integrated.shellIntegration.enabled": true,
-  "terminal.integrated.defaultProfile.osx": "zsh",
+  "terminal.integrated.defaultProfile.osx": "nu",
 
   // ─────────────────────────────
   // UI & Quality of life
