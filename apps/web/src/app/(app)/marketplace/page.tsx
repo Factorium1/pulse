@@ -1,3 +1,7 @@
+'use client'
+
+import PrivacyBadge from '@/components/features/marketplace/privacy-badge'
+import { StudyBadge } from '@/components/features/studies/study-badge'
 import { Button } from '@/components/ui/button'
 import { ArrowUpRight, SearchIcon, Stars } from 'lucide-react'
 
@@ -15,7 +19,7 @@ const MarketplacePage = () => {
           Studie erstellen <ArrowUpRight className="h-4 w-4" />
         </Button>
       </div>
-      <div className="flex-between rounded-2xl text-primary-foreground px-6 py-8 shadow-md flex-col lg:flex-row">
+      <div className="flex-between rounded-2xl text-primary-foreground px-6 py-8 shadow-md flex-col lg:flex-row border border-border/80 bg-card/80">
         <div className="flex-start w-full flex-col gap-4">
           <div className="flex-center gap-2 rounded-md border border-border/60 bg-background/60 w-full py-1 px-3 backdrop-blur">
             <SearchIcon className="h-4 w-4 text-muted-foreground" />
@@ -56,6 +60,14 @@ const MarketplacePage = () => {
           >
             Lang
           </button>
+        </div>
+      </div>
+      <div className="grid grid-cols-1 lg:grid-cols-2">
+        <div className="flex-start rounded-2xl text-primary-foreground px-6 py-8 shadow-md flex-col lg:flex-row border border-border/80 bg-card/80 col-span-1">
+          <div className="flex-between w-full">
+            <StudyBadge name="Gesundheit" color="emerald" emoji="" />
+            <PrivacyBadge status="public" />
+          </div>
         </div>
       </div>
     </div>
