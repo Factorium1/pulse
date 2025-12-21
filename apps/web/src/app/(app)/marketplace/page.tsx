@@ -96,6 +96,20 @@ const MarketplacePage = () => {
             <StudyBadge name="Studenten" />
             <StudyBadge name="Schueler" />
           </div>
+          <div className="flex-between w-full">
+            <div className="flex-center gap-2">
+              <Button variant={'outline'} size={'default'}>
+                Direkt teilnehmen
+              </Button>
+              <Button variant={'outline'} size={'default'}>
+                Beschreibung
+              </Button>
+            </div>
+            <Button variant={'ghost'} size={'default'}>
+              Details <ArrowUpRight className="h-4 w-4" />
+            </Button>
+          </div>
+          <div className="flex-center"></div>
         </div>
       </div>
     </div>
