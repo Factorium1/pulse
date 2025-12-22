@@ -91,6 +91,7 @@ model Survey {
   questions          Question[]
   blocks             SurveyBlock[]
   participants       SurveyParticipation[]
+  marketplace        Boolean               @default(false)
   createdAt          DateTime              @default(now())
   updatedAt          DateTime              @updatedAt
 }
@@ -149,7 +150,7 @@ model Question {
   maxAnswers      Int?
   survey          Survey?      @relation(fields: [surveyId], references: [id])
   surveyId        String?
-  block           SurveyBlock?  @relation(fields: [blockId], references: [id])
+  block           SurveyBlock? @relation(fields: [blockId], references: [id])
   blockId         String?
   order           Int
   isEventQuestion Boolean      @default(false)
