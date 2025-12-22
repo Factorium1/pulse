@@ -1,10 +1,12 @@
-'use client'
-
 import SurveyCard from '@/components/features/marketplace/surveyCard'
 import { Button } from '@/components/ui/button'
+import { SurveyUpdateDraft } from '@/types/props'
 import { ArrowUpRight, SearchIcon, Stars } from 'lucide-react'
+import { getSurveys } from './actions'
 
-const MarketplacePage = () => {
+const MarketplacePage = async () => {
+  const res = await getSurveys()
+  const surveys = res.ok ? (res.surveys ?? []) : []
   return (
     <div className="flex flex-col mt-10 gap-6 px-4 md:px-8 lg:px-12">
       <div className="flex-between rounded-2xl bg-linear-to-r from-primary to-indigo-600 text-primary-foreground px-6 py-8 shadow-md flex-col lg:flex-row gap-6">
@@ -31,7 +33,8 @@ const MarketplacePage = () => {
             />
           </div>
           <p className="text-foreground/80 flex-center text-sm gap-1">
-            <Stars className="inline-block h-4 w-4" />5 Ergebnisse gefunden
+            <Stars className="inline-block h-4 w-4" />
+            {surveys.length} Ergebnisse gefunden
           </p>
         </div>
         <div className="flex items-center justify-end flex-row flex-wrap w-full gap-2">
@@ -62,7 +65,18 @@ const MarketplacePage = () => {
         </div>
       </div>
       <div className="grid grid-cols-1 lg:grid-cols-2">
-        <SurveyCard />
+        {surveys.map((s: SurveyUpdateDraft) => (
+          <SurveyCard
+            key={s.id}
+            title={s.title}
+            description={s.description ?? ''}
+            days={1}
+            remainingPlaces={1}
+            date={new Date(2026, 0, 21)}
+            tags={s.tags}
+            id={s.id}
+          />
+        ))}
       </div>
     </div>
   )
