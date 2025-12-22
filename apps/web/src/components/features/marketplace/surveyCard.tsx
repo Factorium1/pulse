@@ -2,32 +2,50 @@ import { ArrowUpRight, CalendarDays, Clock10Icon, Users2 } from 'lucide-react'
 import { StudyBadge } from '../studies/study-badge'
 import PrivacyBadge from './privacy-badge'
 import { Button } from '@/components/ui/button'
+import Link from 'next/link'
 
-const SurveyCard = () => {
+const SurveyCard = ({
+  title,
+  description,
+  days,
+  remainingPlaces,
+  date,
+  tags,
+  id,
+}: {
+  title: string
+  description: string
+  days: number
+  remainingPlaces: number
+  date: Date
+  tags: string[]
+  id: string
+}) => {
   return (
     <div className="flex-start rounded-2xl px-6 pb-3 pt-8 gap-3 shadow-md flex-col border border-border/80 bg-card/80 col-span-1">
       <div className="flex-between w-full">
         <StudyBadge name="Gesundheit" color="emerald" emoji="" />
         <PrivacyBadge status="public" />
       </div>
-      <div className="h2-bold">Stress-Kompass</div>
-      <p className="text-sm text-muted-foreground">
-        Hilf uns herauszufinden wie Menschen auf Stress reagieren. Am ende bekommst du unsere
-        Analyse.
-      </p>
+      <div className="h2-bold">{title}</div>
+      <p className="text-sm text-muted-foreground">{description}</p>
       <div className="flex items-center justify-start gap-2 w-full flex-wrap">
         <StudyBadge
           color="gray"
-          name="10 Tage • 2 min/Tag"
+          name={`${days} • 2 min/Tag`}
           emoji=<Clock10Icon className="h-4 w-4" />
         />
-        <StudyBadge color="gray" name="Noch 18 Plaetze" emoji=<Users2 className="h-4 w-4" /> />
-        <StudyBadge color="gray" name="Bis 31.01." emoji=<CalendarDays className="h-4 w-4" /> />
+        <StudyBadge
+          color="gray"
+          name={`Noch ${remainingPlaces} Plaetze`}
+          emoji=<Users2 className="h-4 w-4" />
+        />
+        <StudyBadge color="gray" name={`${date}`} emoji=<CalendarDays className="h-4 w-4" /> />
       </div>
       <div className="flex items-center justify-start gap-2 w-full flex-wrap">
-        <StudyBadge name="Sport" />
-        <StudyBadge name="Studenten" />
-        <StudyBadge name="Schueler" />
+        {tags?.map((s) => (
+          <StudyBadge key={s} name={s} />
+        ))}
       </div>
       <div className="flex-between w-full mt-5">
         <div className="flex-center gap-2">
@@ -38,9 +56,11 @@ const SurveyCard = () => {
             Beschreibung
           </Button>
         </div>
-        <Button variant={'ghost'} size={'default'}>
-          Details <ArrowUpRight className="h-4 w-4" />
-        </Button>
+        <Link href={`/marketplace/${id}`}>
+          <Button variant={'ghost'} size={'default'}>
+            Details <ArrowUpRight className="h-4 w-4" />
+          </Button>
+        </Link>
       </div>
     </div>
   )
