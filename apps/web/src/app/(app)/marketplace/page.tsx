@@ -72,7 +72,7 @@ const MarketplacePage = () => {
         </div>
       </div>
       <div className="grid grid-cols-1 lg:grid-cols-2">
-        <div className="flex-start rounded-2xl px-6 py-8 gap-3 shadow-md flex-col border border-border/80 bg-card/80 col-span-1">
+        <div className="flex-start rounded-2xl px-6 pb-3 pt-8 gap-3 shadow-md flex-col border border-border/80 bg-card/80 col-span-1">
           <div className="flex-between w-full">
             <StudyBadge name="Gesundheit" color="emerald" emoji="" />
             <PrivacyBadge status="public" />
@@ -96,7 +96,7 @@ const MarketplacePage = () => {
             <StudyBadge name="Studenten" />
             <StudyBadge name="Schueler" />
           </div>
-          <div className="flex-between w-full">
+          <div className="flex-between w-full mt-5">
             <div className="flex-center gap-2">
               <Button variant={'outline'} size={'default'}>
                 Direkt teilnehmen
