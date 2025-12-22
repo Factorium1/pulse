@@ -14,7 +14,7 @@ export async function getSurveys() {
     return { ok: false, message: 'Unauthorized' }
   }
 
-  const surveys = prisma.survey.findMany({
+  const surveys = await prisma.survey.findMany({
     where: {
       marketplace: true,
       creatorId: {
@@ -22,9 +22,9 @@ export async function getSurveys() {
       },
     },
   })
-  if (!surveys) {
-    return { ok: true, message: 'No survey found' }
+  if (surveys.length === 0) {
+    return { ok: true, message: 'No surveys found', surveys: [] }
   }
 
-  return { ok: true, message: 'Surveys found', surveys: surveys }
+  return { ok: true, message: 'Surveys found', surveys }
 }
