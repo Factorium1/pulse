@@ -32,7 +32,7 @@ const SurveyCard = ({
       <div className="flex items-center justify-start gap-2 w-full flex-wrap">
         <StudyBadge
           color="gray"
-          name={`${days} • 2 min/Tag`}
+          name={`${days} Tage • 2 min/Tag`}
           emoji=<Clock10Icon className="h-4 w-4" />
         />
         <StudyBadge

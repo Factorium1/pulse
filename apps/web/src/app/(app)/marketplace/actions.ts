@@ -17,11 +17,17 @@ export async function getSurveys() {
   const surveys = await prisma.survey.findMany({
     where: {
       marketplace: true,
-      creatorId: {
-        not: userId,
-      },
+      creatorId: { not: userId },
+    },
+    select: {
+      id: true,
+      title: true,
+      description: true,
+      targetParticipants: true,
+      _count: { select: { participants: true } },
     },
   })
+
   if (surveys.length === 0) {
     return { ok: true, message: 'No surveys found', surveys: [] }
   }

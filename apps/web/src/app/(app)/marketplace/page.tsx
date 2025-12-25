@@ -4,6 +4,12 @@ import { SurveyUpdateDraft } from '@/types/props'
 import { ArrowUpRight, SearchIcon, Stars } from 'lucide-react'
 import { getSurveys } from './actions'
 
+type SurveyUpdateCountDraft = SurveyUpdateDraft & {
+  _count: {
+    participants: number
+  }
+}
+
 const MarketplacePage = async () => {
   const res = await getSurveys()
   const surveys = res.ok ? (res.surveys ?? []) : []
@@ -64,14 +70,14 @@ const MarketplacePage = async () => {
           </button>
         </div>
       </div>
-      <div className="grid grid-cols-1 lg:grid-cols-2">
-        {surveys.map((s: SurveyUpdateDraft) => (
+      <div className="grid grid-cols-1 lg:grid-cols-2 lg:gap-4">
+        {surveys.map((s: SurveyUpdateCountDraft) => (
           <SurveyCard
             key={s.id}
             title={s.title}
             description={s.description ?? ''}
             days={1}
-            remainingPlaces={1}
+            remainingPlaces={s.targetParticipants - s._count.participants}
             date={new Date(2026, 0, 21)}
             tags={s.tags}
             id={s.id}
