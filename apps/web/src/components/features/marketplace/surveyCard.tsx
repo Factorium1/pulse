@@ -21,6 +21,12 @@ const SurveyCard = ({
   tags: string[]
   id: string
 }) => {
+  const formattedDate = date.toLocaleDateString('de-DE', {
+    day: '2-digit',
+    month: '2-digit',
+    year: 'numeric',
+  })
+
   return (
     <div className="flex-start rounded-2xl px-6 pb-3 pt-8 gap-3 shadow-md flex-col border border-border/80 bg-card/80 col-span-1">
       <div className="flex-between w-full">
@@ -40,7 +46,11 @@ const SurveyCard = ({
           name={`Noch ${remainingPlaces} Plaetze`}
           emoji=<Users2 className="h-4 w-4" />
         />
-        <StudyBadge color="gray" name={`${date}`} emoji=<CalendarDays className="h-4 w-4" /> />
+        <StudyBadge
+          color="gray"
+          name={`${formattedDate}`}
+          emoji=<CalendarDays className="h-4 w-4" />
+        />
       </div>
       <div className="flex items-center justify-start gap-2 w-full flex-wrap">
         {tags?.map((s) => (
