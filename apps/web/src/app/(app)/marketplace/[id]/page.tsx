@@ -1,17 +1,30 @@
-import { ArrowLeftIcon, ArrowRight, ArrowUpRight } from 'lucide-react'
+import {
+  ArrowLeftIcon,
+  ArrowRight,
+  ArrowUpRight,
+  CalendarDays,
+  Clock10Icon,
+  Users2,
+} from 'lucide-react'
 import { getSurvey } from './actions'
 import { StudyBadge } from '@/components/features/studies/study-badge'
 import { Button } from '@/components/ui/button'
+
 type MarketplaceSurvey = {
   title: string
   shortLabel: string | null
   emoji: string | null
   description: string | null
   tags: string[]
+  targetParticipants: number
+  _count: {
+    participants: number
+  }
 }
 
-const MarketplaceDetailsPage = async ({ params }: { params: { id: string } }) => {
-  const res = await getSurvey(params.id)
+const MarketplaceDetailsPage = async ({ params }: { params: Promise<{ id: string }> }) => {
+  const { id } = await params
+  const res = await getSurvey(id)
 
   if (!res.ok) {
     //TODO: redirect not found 404
@@ -47,10 +60,22 @@ const MarketplaceDetailsPage = async ({ params }: { params: { id: string } }) =>
             <p className="mt-1 text-muted-foreground">
               <span>{description}</span>
             </p>
-            <div className="flex items-center justify-start gap-2 w-full flex-wrap">
-              {survey.tags?.map((s) => (
-                <StudyBadge key={s} name={s} />
-              ))}
+            <div className="flex items-center justify-start gap-2 w-full flex-wrap mt-2">
+              <StudyBadge
+                color="gray"
+                name={'2 Tage • 2 min/Tag'}
+                emoji=<Clock10Icon className="h-4 w-4" />
+              />
+              <StudyBadge
+                color="gray"
+                name={`Noch ${survey.targetParticipants - survey._count.participants} Plaetze`}
+                emoji=<Users2 className="h-4 w-4" />
+              />
+              <StudyBadge
+                color="gray"
+                name={'12.12.2022'}
+                emoji=<CalendarDays className="h-4 w-4" />
+              />
             </div>
           </div>
         </div>

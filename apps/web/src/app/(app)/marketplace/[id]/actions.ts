@@ -5,6 +5,10 @@ import { auth } from '../../../../../../../auth'
 import { prisma } from '../../../../../../../prisma'
 
 export async function getSurvey(id: string) {
+  if (!id) {
+    return { ok: false, message: 'Missing survey id' }
+  }
+
   const session = await auth.api.getSession({
     headers: await headers(),
   })
@@ -26,6 +30,8 @@ export async function getSurvey(id: string) {
         emoji: true,
         description: true,
         tags: true,
+        targetParticipants: true,
+        _count: { select: { participants: true } },
       },
     })
 
