@@ -2,6 +2,13 @@ import { ArrowLeftIcon, ArrowRight, ArrowUpRight } from 'lucide-react'
 import { getSurvey } from './actions'
 import { StudyBadge } from '@/components/features/studies/study-badge'
 import { Button } from '@/components/ui/button'
+type MarketplaceSurvey = {
+  title: string
+  shortLabel: string | null
+  emoji: string | null
+  description: string | null
+  tags: string[]
+}
 
 const MarketplaceDetailsPage = async ({ params }: { params: { id: string } }) => {
   const res = await getSurvey(params.id)
@@ -10,7 +17,8 @@ const MarketplaceDetailsPage = async ({ params }: { params: { id: string } }) =>
     //TODO: redirect not found 404
   }
 
-  const survey = res.survey
+  const survey: MarketplaceSurvey = res.survey
+  const description = survey.description ?? ''
 
   return (
     <div className="flex flex-col mt-10 gap-6 px-4 md:px-8 lg:px-12">
@@ -20,7 +28,7 @@ const MarketplaceDetailsPage = async ({ params }: { params: { id: string } }) =>
         </p>
       </div>
       <div className="rounded-2xl bg-linear-to-r from-primary to-indigo-600 text-primary-foreground px-6 py-8 shadow-md flex-start flex-col gap-2">
-        <StudyBadge name={survey.shortLabel} emoji={survey.emoji} />
+        <StudyBadge name={survey.shortLabel ?? ''} emoji={survey.emoji ?? undefined} />
         <div className="h1-bold">{survey.title}</div>
         <div className="flex flex-col md:flex-row md:justify-between w-full gap-2">
           <Button variant="ghost" size="default">
@@ -30,6 +38,21 @@ const MarketplaceDetailsPage = async ({ params }: { params: { id: string } }) =>
           <Button variant="ghost" size="default">
             Weitere Studien ansehen <ArrowUpRight className="h-4 w-4" />
           </Button>
+        </div>
+      </div>
+      <div className="grid grid-cols-4">
+        <div className="col-span-3 flex-center gap-4">
+          <div className="rounded-2xl border border-border bg-card text-foreground px-6 py-4 shadow-md w-full">
+            <div className="h2-bold">Ueberblick</div>
+            <p className="mt-1 text-muted-foreground">
+              <span>{description}</span>
+            </p>
+            <div className="flex items-center justify-start gap-2 w-full flex-wrap">
+              {survey.tags?.map((s) => (
+                <StudyBadge key={s} name={s} />
+              ))}
+            </div>
+          </div>
         </div>
       </div>
     </div>

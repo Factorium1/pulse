@@ -15,14 +15,17 @@ export async function getSurvey(id: string) {
   }
 
   try {
-    const survey = await prisma.Survey.findFirst({
+    const survey = await prisma.survey.findFirst({
       where: {
         id,
         marketplace: true,
       },
       select: {
         title: true,
+        shortLabel: true,
+        emoji: true,
         description: true,
+        tags: true,
       },
     })
 
