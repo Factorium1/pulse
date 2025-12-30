@@ -1,5 +1,7 @@
-import { ArrowLeftIcon } from 'lucide-react'
+import { ArrowLeftIcon, ArrowRight, ArrowUpRight } from 'lucide-react'
 import { getSurvey } from './actions'
+import { StudyBadge } from '@/components/features/studies/study-badge'
+import { Button } from '@/components/ui/button'
 
 const MarketplaceDetailsPage = async ({ params }: { params: { id: string } }) => {
   const res = await getSurvey(params.id)
@@ -16,6 +18,18 @@ const MarketplaceDetailsPage = async ({ params }: { params: { id: string } }) =>
         <p className="text-muted-foreground flex-center gap-2 text-sm cursor-pointer">
           <ArrowLeftIcon className="h-4 w-4 inline-flex" /> Zurueck zum Marketplace
         </p>
+      </div>
+      <div className="rounded-2xl bg-linear-to-r from-primary to-indigo-600 text-primary-foreground px-6 py-8 shadow-md flex-start flex-col gap-2">
+        <StudyBadge name={survey.shortLabel} emoji={survey.emoji} />
+        <div className="h1-bold">{survey.title}</div>
+        <div className="flex-between flex-row w-full">
+          <Button variant="ghost" size="default">
+            Direkt Teilnehmen <ArrowRight className="h-4 w-4" />
+          </Button>
+          <Button variant="ghost" size="default">
+            Weitere Studien ansehen <ArrowUpRight className="h-4 w-4" />
+          </Button>
+        </div>
       </div>
     </div>
   )
