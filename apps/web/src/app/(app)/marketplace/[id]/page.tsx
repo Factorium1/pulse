@@ -22,7 +22,7 @@ const MarketplaceDetailsPage = async ({ params }: { params: { id: string } }) =>
       <div className="rounded-2xl bg-linear-to-r from-primary to-indigo-600 text-primary-foreground px-6 py-8 shadow-md flex-start flex-col gap-2">
         <StudyBadge name={survey.shortLabel} emoji={survey.emoji} />
         <div className="h1-bold">{survey.title}</div>
-        <div className="flex-between flex-row w-full">
+        <div className="flex flex-col md:flex-row md:justify-between w-full gap-2">
           <Button variant="ghost" size="default">
             Direkt Teilnehmen <ArrowRight className="h-4 w-4" />
           </Button>
