@@ -34,7 +34,9 @@ const SurveyCard = ({
         <PrivacyBadge status="public" />
       </div>
       <div className="h2-bold">{title}</div>
-      <p className="text-sm text-muted-foreground">{description}</p>
+      <p className="text-sm text-muted-foreground">
+        {description.length > 150 ? `${description.slice(0, 150)}…` : description}
+      </p>
       <div className="flex items-center justify-start gap-2 w-full flex-wrap">
         <StudyBadge
           color="gray"
