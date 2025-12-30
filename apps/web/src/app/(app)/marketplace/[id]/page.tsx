@@ -25,6 +25,7 @@ const MarketplaceDetailsPage = async ({ params }: { params: { id: string } }) =>
         <div className="flex flex-col md:flex-row md:justify-between w-full gap-2">
           <Button variant="ghost" size="default">
             Direkt Teilnehmen <ArrowRight className="h-4 w-4" />
+            {/* TODO: Bewerben moeglich machen ueber message system */}
           </Button>
           <Button variant="ghost" size="default">
             Weitere Studien ansehen <ArrowUpRight className="h-4 w-4" />
