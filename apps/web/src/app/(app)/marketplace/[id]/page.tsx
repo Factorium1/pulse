@@ -54,7 +54,7 @@ const MarketplaceDetailsPage = async ({ params }: { params: Promise<{ id: string
         </div>
       </div>
       <div className="grid grid-cols-4">
-        <div className="col-span-3 flex-center gap-4">
+        <div className="col-span-3 flex-center flex-col gap-4">
           <div className="rounded-2xl border border-border bg-card text-foreground px-6 py-4 shadow-md w-full">
             <div className="h2-bold">Ueberblick</div>
             <p className="mt-1 text-muted-foreground">
@@ -77,6 +77,10 @@ const MarketplaceDetailsPage = async ({ params }: { params: Promise<{ id: string
                 emoji=<CalendarDays className="h-4 w-4" />
               />
             </div>
+          </div>
+          <div className="rounded-2xl border border-border bg-card text-foreground px-6 py-4 shadow-md w-full">
+            <div className="h2-bold">Was du machst</div>
+            <p className="mt-1 text-muted-foreground">{/* TODO: Show  */}</p>
           </div>
         </div>
       </div>
