@@ -55,12 +55,12 @@ const MarketplaceDetailsPage = async ({ params }: { params: Promise<{ id: string
       </div>
       <div className="grid grid-cols-4">
         <div className="col-span-3 flex-center flex-col gap-4">
-          <div className="rounded-2xl border border-border bg-card text-foreground px-6 py-4 shadow-md w-full">
+          <div className="rounded-2xl border border-border bg-card text-foreground px-6 py-4 shadow-md w-full flex-start flex-col gap-2">
             <div className="h2-bold">Ueberblick</div>
-            <p className="mt-1 text-muted-foreground">
+            <p className="text-muted-foreground">
               <span>{description}</span>
             </p>
-            <div className="flex items-center justify-start gap-2 w-full flex-wrap mt-2">
+            <div className="flex items-center justify-start gap-2 w-full flex-wrap">
               <StudyBadge
                 color="gray"
                 name={'2 Tage • 2 min/Tag'}
@@ -78,9 +78,9 @@ const MarketplaceDetailsPage = async ({ params }: { params: Promise<{ id: string
               />
             </div>
           </div>
-          <div className="rounded-2xl border border-border bg-card text-foreground px-6 py-4 shadow-md w-full">
+          <div className="rounded-2xl border border-border bg-card text-foreground px-6 py-4 shadow-md w-full flex-start flex-col gap-2">
             <div className="h2-bold">Was du machst</div>
-            <p className="mt-1 text-muted-foreground">{/* TODO: Show  */}</p>
+            <p className="text-muted-foreground">{/* TODO: Show  */}</p>
           </div>
         </div>
       </div>
