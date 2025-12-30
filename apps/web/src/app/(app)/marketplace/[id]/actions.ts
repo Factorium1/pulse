@@ -15,7 +15,7 @@ export async function getSurvey(id: string) {
   }
 
   try {
-    const survey = await prisma.Survey.findOne({
+    const survey = await prisma.Survey.findFirst({
       where: {
         id,
         marketplace: true,
@@ -32,6 +32,6 @@ export async function getSurvey(id: string) {
 
     return { ok: true, survey }
   } catch (err) {
-    return { ok: false, message: 'Network Error', error: err }
+    return { ok: false, message: 'Network Error', error: String(err) }
   }
 }
