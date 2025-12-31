@@ -9,6 +9,7 @@ import {
 import { getSurvey } from './actions'
 import { StudyBadge } from '@/components/features/studies/study-badge'
 import { Button } from '@/components/ui/button'
+import { CalendarCard } from '@/components/features/marketplace/calendar-card'
 
 type MarketplaceSurvey = {
   title: string
@@ -81,6 +82,11 @@ const MarketplaceDetailsPage = async ({ params }: { params: Promise<{ id: string
           <div className="rounded-2xl border border-border bg-card text-foreground px-6 py-4 shadow-md w-full flex-start flex-col gap-2">
             <div className="h2-bold">Was du machst</div>
             <p className="text-muted-foreground">{/* TODO: Show  */}</p>
+          </div>
+          <div className="rounded-2xl border border-border bg-card text-foreground px-6 py-4 shadow-md w-full flex-start flex-col gap-2 overflow-scroll">
+            <div className="h2-bold">Zeitplan</div>
+            <p className="text-muted-foreground">{/* TODO: Show  */}</p>
+            <CalendarCard startDate={new Date()} endDate={new Date('2026-01-01')} />
           </div>
         </div>
       </div>
