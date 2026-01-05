@@ -62,48 +62,70 @@ export async function applicationSurvey(id: string) {
   }
 
   try {
-    const result = await prisma.$transaction(async (tx) => {
-      const survey = await tx.survey.findUnique({
-        where: { id },
-        select: {
-          id: true,
-          marketplace: true,
-          application: true,
-          targetParticipants: true,
-          _count: { select: { participants: true } },
-        },
-      })
+    const result = await prisma.$transaction(
+      async (tx: {
+        survey: {
+          findUnique: (arg0: {
+            where: { id: string }
+            select: {
+              id: boolean
+              marketplace: boolean
+              application: boolean
+              targetParticipants: boolean
+              _count: { select: { participants: boolean } }
+            }
+          }) => any
+        }
+        surveyParticipation: {
+          findFirst: (arg0: {
+            where: { surveyId: string; userId: string }
+            select: { id: boolean }
+          }) => any
+          create: (arg0: { data: { surveyId: string; userId: string } }) => any
+        }
+      }) => {
+        const survey = await tx.survey.findUnique({
+          where: { id },
+          select: {
+            id: true,
+            marketplace: true,
+            application: true,
+            targetParticipants: true,
+            _count: { select: { participants: true } },
+          },
+        })
 
-      if (!survey || !survey.marketplace) return { ok: false, message: 'Survey not available' }
-      if (survey.application !== ApplicationType.DIRECT) {
-        return { ok: false, message: 'Application required' }
-      }
+        if (!survey || !survey.marketplace) return { ok: false, message: 'Survey not available' }
+        if (survey.application !== ApplicationType.DIRECT) {
+          return { ok: false, message: 'Application required' }
+        }
 
-      const existingParticipation = await tx.surveyParticipation.findFirst({
-        where: { surveyId: id, userId },
-        select: { id: true },
-      })
+        const existingParticipation = await tx.surveyParticipation.findFirst({
+          where: { surveyId: id, userId },
+          select: { id: true },
+        })
 
-      if (existingParticipation) {
-        return { ok: false, message: 'Already participating' }
-      }
+        if (existingParticipation) {
+          return { ok: false, message: 'Already participating' }
+        }
 
-      const target = survey.targetParticipants ?? 0
-      const current = survey._count.participants
+        const target = survey.targetParticipants ?? 0
+        const current = survey._count.participants
 
-      if (target > 0 && current >= target) {
-        return { ok: false, message: 'Survey is full' }
-      }
+        if (target > 0 && current >= target) {
+          return { ok: false, message: 'Survey is full' }
+        }
 
-      await tx.surveyParticipation.create({
-        data: {
-          surveyId: id,
-          userId,
-        },
-      })
+        await tx.surveyParticipation.create({
+          data: {
+            surveyId: id,
+            userId,
+          },
+        })
 
-      return { ok: true, message: 'Joined survey' }
-    })
+        return { ok: true, message: 'Joined survey' }
+      },
+    )
 
     return result
   } catch (err) {
