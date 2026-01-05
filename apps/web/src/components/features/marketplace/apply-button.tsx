@@ -3,9 +3,10 @@
 import { Button } from '@/components/ui/button'
 import { ApplicationType } from '@prisma/client'
 import { ArrowRight } from 'lucide-react'
-import { applicationSurvey } from '@/app/(app)/marketplace/[id]/actions'
+import { applicationSurvey, checkParticipation } from '@/app/(app)/marketplace/[id]/actions'
 import { toast } from 'react-toastify'
 import { useRouter } from 'next/navigation'
+import { useEffect, useState } from 'react'
 
 const ApplyButton = ({
   targetParticipants,
@@ -19,6 +20,31 @@ const ApplyButton = ({
   id: string
 }) => {
   const router = useRouter()
+
+  const [alreadyParticipating, setAlreadyParticipating] = useState<boolean | null>(null)
+
+  const isFull = targetParticipants - participants <= 0
+
+  const disabled = isFull || alreadyParticipating === true || alreadyParticipating === null
+
+  useEffect(() => {
+    let cancelled = false
+
+    ;(async () => {
+      try {
+        const res = await checkParticipation(id)
+        if (cancelled) return
+        setAlreadyParticipating(res.ok === false)
+      } catch {
+        if (cancelled) return
+        setAlreadyParticipating(true)
+      }
+    })()
+
+    return () => {
+      cancelled = true
+    }
+  }, [id])
 
   async function handleApplication() {
     try {
@@ -43,8 +69,9 @@ const ApplyButton = ({
     <Button
       variant="ghost"
       size="default"
-      className={`${targetParticipants - participants <= 0 ? 'cursor-not-allowed opacity-50' : ''}`}
-      onClick={() => handleApplication()}
+      disabled={disabled}
+      className={disabled ? 'cursor-not-allowed opacity-50' : ''}
+      onClick={handleApplication}
     >
       {application === 'DIRECT' ? 'Direkt Teilnehmen' : 'Jetzt Bewerben'}{' '}
       <ArrowRight className="h-4 w-4" />

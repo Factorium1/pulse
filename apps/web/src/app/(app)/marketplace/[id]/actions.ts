@@ -133,4 +133,21 @@ export async function applicationSurvey(id: string) {
   }
 }
 
+export async function checkParticipation(surveyId: string) {
+  if (!surveyId) return { ok: false, message: 'Missing surveyId' }
+
+  const session = await auth.api.getSession({ headers: await headers() })
+  const userId = session?.user?.id
+  if (!userId) return { ok: false, message: 'Unauthorized' }
+
+  const existing = await prisma.surveyParticipation.findFirst({
+    where: { surveyId, userId },
+    select: { id: true },
+  })
+
+  if (existing) return { ok: false, message: 'Already participating' }
+
+  return { ok: true, message: 'Not participating yet' }
+}
+
 //Survey side muss geprueft werden ob studie voll ist wenn man teilnehmen will und muss dann verhindert werden
