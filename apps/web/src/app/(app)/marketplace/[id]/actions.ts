@@ -44,3 +44,5 @@ export async function getSurvey(id: string) {
     return { ok: false, message: 'Network Error', error: String(err) }
   }
 }
+
+//Survey side muss geprueft werden ob studie voll ist wenn man teilnehmen will und muss dann verhindert werden

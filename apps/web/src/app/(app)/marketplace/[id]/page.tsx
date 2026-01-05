@@ -45,7 +45,11 @@ const MarketplaceDetailsPage = async ({ params }: { params: Promise<{ id: string
         <StudyBadge name={survey.shortLabel ?? ''} emoji={survey.emoji ?? undefined} />
         <div className="h1-bold">{survey.title}</div>
         <div className="flex flex-col md:flex-row md:justify-between w-full gap-2">
-          <Button variant="ghost" size="default">
+          <Button
+            variant="ghost"
+            size="default"
+            className={`${survey.targetParticipants - survey._count.participants <= 0 ? 'cursor-not-allowed opacity-50' : ''}`}
+          >
             Direkt Teilnehmen <ArrowRight className="h-4 w-4" />
             {/* TODO: Bewerben moeglich machen ueber message system */}
           </Button>
@@ -69,7 +73,11 @@ const MarketplaceDetailsPage = async ({ params }: { params: Promise<{ id: string
               />
               <StudyBadge
                 color="gray"
-                name={`Noch ${survey.targetParticipants - survey._count.participants} Plaetze`}
+                name={
+                  survey.targetParticipants - survey._count.participants <= 0
+                    ? 'Studie ist voll'
+                    : `Noch ${survey.targetParticipants - survey._count.participants} Plaetze`
+                }
                 emoji=<Users2 className="h-4 w-4" />
               />
               <StudyBadge
