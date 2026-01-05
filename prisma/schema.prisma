@@ -92,8 +92,15 @@ model Survey {
   blocks             SurveyBlock[]
   participants       SurveyParticipation[]
   marketplace        Boolean               @default(false)
+  application        ApplicationType       @default(DIRECT)
   createdAt          DateTime              @default(now())
   updatedAt          DateTime              @updatedAt
+}
+
+// Application Enums
+enum ApplicationType {
+  DIRECT
+  APPLICATION
 }
 
 //Survey Enums
