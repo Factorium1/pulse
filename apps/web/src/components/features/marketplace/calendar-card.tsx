@@ -6,14 +6,28 @@ import { useEffect } from 'react'
 
 import { Calendar } from '@/components/ui/calendar'
 
-export function CalendarCard({ startDate, endDate }: { startDate: Date; endDate: Date }) {
-  const [numberOfMonths, setNumberOfMonths] = React.useState(1)
-  const [from, to] = startDate <= endDate ? [startDate, endDate] : [endDate, startDate]
+type CalendarCardProps = {
+  startDate: Date | string
+  endDate: Date | string
+}
 
-  const dateRange: DateRange = {
-    from,
-    to,
-  }
+const parseDate = (value: Date | string) => {
+  const parsed = value instanceof Date ? value : new Date(value)
+  return Number.isNaN(parsed.getTime()) ? undefined : parsed
+}
+
+export function CalendarCard({ startDate, endDate }: CalendarCardProps) {
+  const [numberOfMonths, setNumberOfMonths] = React.useState(1)
+  const parsedStart = parseDate(startDate)
+  const parsedEnd = parseDate(endDate)
+  const [from, to] =
+    parsedStart && parsedEnd
+      ? parsedStart <= parsedEnd
+        ? [parsedStart, parsedEnd]
+        : [parsedEnd, parsedStart]
+      : [undefined, undefined]
+
+  const dateRange: DateRange | undefined = from && to ? { from, to } : undefined
 
   useEffect(() => {
     const getMonthsForWidth = (width: number) => {
