@@ -14,7 +14,7 @@ export async function getSurveys() {
     return { ok: false, message: 'Unauthorized' }
   }
 
-  const surveys = await prisma.survey.findMany({
+  const surveysRaw = await prisma.survey.findMany({
     where: {
       marketplace: true,
       creatorId: { not: userId },
@@ -26,8 +26,34 @@ export async function getSurveys() {
       targetParticipants: true,
       _count: { select: { participants: true } },
       application: true,
+      participants: {
+        where: { userId },
+        select: { userId: true },
+        take: 1,
+      },
     },
   })
+
+  // TODO: add types
+  const surveys = surveysRaw
+    .map((s) => ({
+      ...s,
+      participated: s.participants.length > 0,
+      remaining: s.targetParticipants - s._count.participants,
+    }))
+    .sort((a, b) => {
+      // User is participant
+      if (a.participated !== b.participated) {
+        return Number(a.participated) - Number(b.participated)
+      }
+
+      // Survey is full
+      if (a.remaining <= 0 && b.remaining > 0) return 1
+      if (a.remaining > 0 && b.remaining <= 0) return -1
+
+      return 0
+    })
+    .map(({ participants, ...rest }) => rest)
 
   if (surveys.length === 0) {
     return { ok: true, message: 'No surveys found', surveys: [] }
