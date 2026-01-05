@@ -5,6 +5,7 @@ import { Button } from '@/components/ui/button'
 import { CalendarCard } from '@/components/features/marketplace/calendar-card'
 import { ApplicationType } from '@prisma/client'
 import ApplyButton from '@/components/features/marketplace/apply-button'
+import BackToMarketplaceButton from '@/components/features/marketplace/back-button'
 
 type MarketplaceSurvey = {
   title: string
@@ -33,9 +34,7 @@ const MarketplaceDetailsPage = async ({ params }: { params: Promise<{ id: string
   return (
     <div className="flex flex-col mt-10 gap-6 px-4 md:px-8 lg:px-12">
       <div className="flex-start flex-col gap-4">
-        <p className="text-muted-foreground flex-center gap-2 text-sm cursor-pointer">
-          <ArrowLeftIcon className="h-4 w-4 inline-flex" /> Zurueck zum Marketplace
-        </p>
+        <BackToMarketplaceButton />
       </div>
       <div className="rounded-2xl bg-linear-to-r from-primary to-indigo-600 text-primary-foreground px-6 py-8 shadow-md flex-start flex-col gap-2">
         <StudyBadge name={survey.shortLabel ?? ''} emoji={survey.emoji ?? undefined} />
