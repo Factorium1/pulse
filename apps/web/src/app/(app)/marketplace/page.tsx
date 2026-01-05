@@ -15,14 +15,14 @@ const MarketplacePage = async () => {
   const surveys = res.ok ? (res.surveys ?? []) : []
   return (
     <div className="flex flex-col mt-10 gap-6 px-4 md:px-8 lg:px-12">
-      <div className="flex-between rounded-2xl bg-linear-to-r from-primary to-indigo-600 text-primary-foreground px-6 py-8 shadow-md flex-col lg:flex-row gap-6">
+      <div className="flex items-start sm:justify-between rounded-2xl bg-linear-to-r from-primary to-indigo-600 text-primary-foreground px-6 py-8 shadow-md flex-col lg:flex-row gap-6">
         <div className="flex-start flex-col">
           <p className="h1-bold">Marketplace</p>
           <p className="text-primary-foreground/80">
             Entdecke neue Studien - bewirb dich oder nimm direkt teil.
           </p>
         </div>
-        <Button type="button" variant="outline" size="sm">
+        <Button type="button" variant="outline" size="sm" className="">
           Studie erstellen <ArrowUpRight className="h-4 w-4" />
         </Button>
       </div>
@@ -38,36 +38,38 @@ const MarketplacePage = async () => {
               className="w-full bg-transparent outline-none placeholder:text-muted-foreground"
             />
           </div>
-          <p className="text-foreground/80 flex-center text-sm gap-1">
-            <Stars className="inline-block h-4 w-4" />
-            {surveys.length} Ergebnisse gefunden
-          </p>
-        </div>
-        <div className="flex items-center justify-end flex-row flex-wrap w-full gap-2">
-          <button
-            className={`rounded-full px-3 py-1 text-xs cursor-pointer ${'ACTIVE' === 'ACTIVE' ? 'bg-indigo-200 border-none text-indigo-500 font-semibold' : 'bg-muted/50 border border-border/60 text-foreground font-normal'}`}
-            // onClick={}
-          >
-            Bewerbung
-          </button>
-          <button
-            className={`rounded-full px-3 py-1 text-xs cursor-pointer ${'ACTIVE' === 'ACTIVE' ? 'bg-indigo-200 border-none text-indigo-500 font-semibold' : 'bg-muted/50 border border-border/60 text-foreground font-normal'}`}
-            // onClick={}
-          >
-            Direktteilnahme
-          </button>
-          <button
-            className={`rounded-full px-3 py-1 text-xs cursor-pointer ${'ACTIVE' === 'ACTIVE' ? 'bg-indigo-200 border-none text-indigo-500 font-semibold' : 'bg-muted/50 border border-border/60 text-foreground font-normal'}`}
-            // onClick={}
-          >
-            Kurz
-          </button>
-          <button
-            className={`rounded-full px-3 py-1 text-xs cursor-pointer ${'ACTIVE' === 'ACTIVE' ? 'bg-indigo-200 border-none text-indigo-500 font-semibold' : 'bg-muted/50 border border-border/60 text-foreground font-normal'}`}
-            // onClick={}
-          >
-            Lang
-          </button>
+          <div className="flex-between flex-wrap w-full gap-2">
+            <p className="text-foreground/80 flex-center text-sm gap-1">
+              <Stars className="inline-block h-4 w-4" />
+              {surveys.length} Ergebnisse gefunden
+            </p>
+            <div className="flex-center gap-2 flex-wrap">
+              <button
+                className={`rounded-full px-3 py-1 text-xs cursor-pointer ${'ACTIVE' === 'ACTIVE' ? 'bg-indigo-200 border-none text-indigo-500 font-semibold' : 'bg-muted/50 border border-border/60 text-foreground font-normal'}`}
+                // onClick={}
+              >
+                Bewerbung
+              </button>
+              <button
+                className={`rounded-full px-3 py-1 text-xs cursor-pointer ${'ACTIVE' === 'ACTIVE' ? 'bg-indigo-200 border-none text-indigo-500 font-semibold' : 'bg-muted/50 border border-border/60 text-foreground font-normal'}`}
+                // onClick={}
+              >
+                Direktteilnahme
+              </button>
+              <button
+                className={`rounded-full px-3 py-1 text-xs cursor-pointer ${'ACTIVE' === 'ACTIVE' ? 'bg-indigo-200 border-none text-indigo-500 font-semibold' : 'bg-muted/50 border border-border/60 text-foreground font-normal'}`}
+                // onClick={}
+              >
+                Kurz
+              </button>
+              <button
+                className={`rounded-full px-3 py-1 text-xs cursor-pointer ${'ACTIVE' === 'ACTIVE' ? 'bg-indigo-200 border-none text-indigo-500 font-semibold' : 'bg-muted/50 border border-border/60 text-foreground font-normal'}`}
+                // onClick={}
+              >
+                Lang
+              </button>
+            </div>
+          </div>
         </div>
       </div>
       <div className="grid grid-cols-1 lg:grid-cols-2 lg:gap-4">
