@@ -64,7 +64,7 @@ const SurveyCard = ({
           <Button variant={'outline'} size={'default'}>
             Direkt teilnehmen
           </Button>
-          <Button variant={'outline'} size={'default'}>
+          <Button variant={'outline'} size={'default'} className="hidden md:flex">
             Beschreibung
           </Button>
         </div>
