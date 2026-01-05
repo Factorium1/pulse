@@ -54,7 +54,7 @@ const MarketplaceDetailsPage = async ({ params }: { params: Promise<{ id: string
           </Button>
         </div>
       </div>
-      <div className="grid grid-cols-4">
+      <div className="grid gird-cols-1 md:grid-cols-4">
         <div className="col-span-3 flex-center flex-col gap-4">
           <div className="rounded-2xl border border-border bg-card text-foreground px-6 py-4 shadow-md w-full flex-start flex-col gap-2">
             <div className="h2-bold">Ueberblick</div>
