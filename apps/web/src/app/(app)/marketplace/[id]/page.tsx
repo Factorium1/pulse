@@ -1,15 +1,10 @@
-import {
-  ArrowLeftIcon,
-  ArrowRight,
-  ArrowUpRight,
-  CalendarDays,
-  Clock10Icon,
-  Users2,
-} from 'lucide-react'
+import { ArrowLeftIcon, ArrowUpRight, CalendarDays, Clock10Icon, Users2 } from 'lucide-react'
 import { getSurvey } from './actions'
 import { StudyBadge } from '@/components/features/studies/study-badge'
 import { Button } from '@/components/ui/button'
 import { CalendarCard } from '@/components/features/marketplace/calendar-card'
+import { ApplicationType } from '@prisma/client'
+import ApplyButton from '@/components/features/marketplace/apply-button'
 
 type MarketplaceSurvey = {
   title: string
@@ -21,6 +16,7 @@ type MarketplaceSurvey = {
   _count: {
     participants: number
   }
+  application: ApplicationType
 }
 
 const MarketplaceDetailsPage = async ({ params }: { params: Promise<{ id: string }> }) => {
@@ -45,14 +41,12 @@ const MarketplaceDetailsPage = async ({ params }: { params: Promise<{ id: string
         <StudyBadge name={survey.shortLabel ?? ''} emoji={survey.emoji ?? undefined} />
         <div className="h1-bold">{survey.title}</div>
         <div className="flex flex-col md:flex-row md:justify-between w-full gap-2">
-          <Button
-            variant="ghost"
-            size="default"
-            className={`${survey.targetParticipants - survey._count.participants <= 0 ? 'cursor-not-allowed opacity-50' : ''}`}
-          >
-            Direkt Teilnehmen <ArrowRight className="h-4 w-4" />
-            {/* TODO: Bewerben moeglich machen ueber message system */}
-          </Button>
+          <ApplyButton
+            targetParticipants={survey.targetParticipants}
+            participants={survey._count.participants}
+            application={survey.application}
+            id={id}
+          />
           <Button variant="ghost" size="default">
             Weitere Studien ansehen <ArrowUpRight className="h-4 w-4" />
           </Button>

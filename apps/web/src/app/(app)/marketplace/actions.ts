@@ -25,6 +25,7 @@ export async function getSurveys() {
       description: true,
       targetParticipants: true,
       _count: { select: { participants: true } },
+      application: true,
     },
   })
 

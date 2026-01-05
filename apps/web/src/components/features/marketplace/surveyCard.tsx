@@ -61,9 +61,6 @@ const SurveyCard = ({
       </div>
       <div className="flex-between w-full mt-5">
         <div className="flex-center gap-2">
-          <Button variant={'outline'} size={'default'}>
-            Direkt teilnehmen
-          </Button>
           <Button variant={'outline'} size={'default'} className="hidden md:flex">
             Beschreibung
           </Button>
