@@ -31,7 +31,7 @@ export function AppSidebar() {
         <SidebarMenu>
           <SidebarMenuItem>
             <DropdownMenu>
-              <DropdownMenuTrigger asChild>
+              <DropdownMenuTrigger asChild id="app-sidebar-mode-trigger">
                 <SidebarMenuButton>
                   <Command />
                   Modus

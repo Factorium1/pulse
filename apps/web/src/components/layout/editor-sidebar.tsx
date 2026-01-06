@@ -33,7 +33,7 @@ export function EditorSidebar() {
         <SidebarMenu>
           <SidebarMenuItem>
             <DropdownMenu>
-              <DropdownMenuTrigger asChild>
+              <DropdownMenuTrigger asChild id="editor-sidebar-mode-trigger">
                 <SidebarMenuButton>
                   <Command />
                   Modus
