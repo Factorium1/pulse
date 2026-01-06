@@ -1,4 +1,11 @@
-import { ArrowLeftIcon, ArrowUpRight, CalendarDays, Clock10Icon, Users2 } from 'lucide-react'
+import {
+  ArrowLeftIcon,
+  ArrowUpRight,
+  CalendarDays,
+  Clock10Icon,
+  ShieldAlertIcon,
+  Users2,
+} from 'lucide-react'
 import { getSurvey } from './actions'
 import { StudyBadge } from '@/components/features/studies/study-badge'
 import { Button } from '@/components/ui/button'
@@ -6,6 +13,7 @@ import { CalendarCard } from '@/components/features/marketplace/calendar-card'
 import { ApplicationType } from '@prisma/client'
 import ApplyButton from '@/components/features/marketplace/apply-button'
 import BackToMarketplaceButton from '@/components/features/marketplace/back-button'
+import { SurveyStatus } from '@/types/props'
 
 type MarketplaceSurvey = {
   title: string
@@ -18,6 +26,7 @@ type MarketplaceSurvey = {
     participants: number
   }
   application: ApplicationType
+  status: string
 }
 
 const MarketplaceDetailsPage = async ({ params }: { params: Promise<{ id: string }> }) => {
@@ -30,6 +39,14 @@ const MarketplaceDetailsPage = async ({ params }: { params: Promise<{ id: string
 
   const survey: MarketplaceSurvey = res.survey
   const description = survey.description ?? ''
+
+  const surveyStatus: Record<SurveyStatus, string> = {
+    PLANNED: 'Geplant',
+    ACTIVE: 'Aktiv',
+    PAUSED: 'Pausiert',
+    COMPLETED: 'Abgeschlossen',
+    ARCHIVED: 'Archiviert',
+  }
 
   return (
     <div className="flex flex-col mt-10 gap-6 px-4 md:px-8 lg:px-12">
@@ -80,6 +97,30 @@ const MarketplaceDetailsPage = async ({ params }: { params: Promise<{ id: string
               />
             </div>
           </div>
+
+          {(survey.status === SurveyStatus.PLANNED || survey.status === SurveyStatus.PAUSED) && (
+            <div className="rounded-2xl border border-border bg-card text-foreground px-6 py-4 shadow-md w-full flex-start flex-col gap-2">
+              <div className="flex-start flex-col gap-2">
+                <div className="flex-center gap-2">
+                  <ShieldAlertIcon className="text-orange-300" />
+                  <p className="h3-bold text-orange-300">Warnung</p>
+                </div>
+
+                <div className="flex-center">
+                  <p className="text-sm text-muted-foreground">
+                    Die Studie hat den Status{' '}
+                    <span className="font-semibold text-foreground">
+                      {surveyStatus[survey.status]}
+                    </span>
+                    .
+                    <span className="block">
+                      Der Zeitplan sowie die angegebenen Informationen koennen sich aendern.
+                    </span>
+                  </p>
+                </div>
+              </div>
+            </div>
+          )}
           <div className="rounded-2xl border border-border bg-card text-foreground px-6 py-4 shadow-md w-full flex-start flex-col gap-2">
             <div className="h2-bold">Was du machst</div>
             <p className="text-muted-foreground">{/* TODO: Show  */}</p>

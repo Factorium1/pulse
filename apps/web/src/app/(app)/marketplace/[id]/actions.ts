@@ -4,6 +4,7 @@ import { headers } from 'next/headers'
 import { auth } from '../../../../../../../auth'
 import { prisma } from '../../../../../../../prisma'
 import { ApplicationType } from '@/types/props'
+import { SurveyStatus } from '@prisma/client'
 
 export async function getSurvey(id: string) {
   if (!id) {
@@ -24,6 +25,9 @@ export async function getSurvey(id: string) {
       where: {
         id,
         marketplace: true,
+        status: {
+          in: [SurveyStatus.ACTIVE, SurveyStatus.PLANNED, SurveyStatus.PAUSED],
+        },
       },
       select: {
         title: true,
@@ -34,6 +38,7 @@ export async function getSurvey(id: string) {
         targetParticipants: true,
         _count: { select: { participants: true } },
         application: true,
+        status: true,
       },
     })
 

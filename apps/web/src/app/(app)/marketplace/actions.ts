@@ -3,6 +3,7 @@
 import { headers } from 'next/headers'
 import { auth } from '../../../../../../auth'
 import { prisma } from '../../../../../../prisma'
+import { SurveyStatus } from '@prisma/client'
 
 export async function getSurveys() {
   const session = await auth.api.getSession({
@@ -18,6 +19,9 @@ export async function getSurveys() {
     where: {
       marketplace: true,
       creatorId: { not: userId },
+      status: {
+        in: [SurveyStatus.ACTIVE, SurveyStatus.PLANNED, SurveyStatus.PAUSED],
+      },
     },
     select: {
       id: true,
