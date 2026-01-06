@@ -1,4 +1,6 @@
-type ColorKey = 'indigo' | 'emerald' | 'amber' | 'rose' | 'violet'
+import { ReactElement } from 'react'
+
+type ColorKey = 'indigo' | 'emerald' | 'amber' | 'rose' | 'violet' | 'gray'
 
 const COLOR_STYLES: Record<
   ColorKey,
@@ -13,6 +15,7 @@ const COLOR_STYLES: Record<
   amber: { bg: 'bg-amber-50', text: 'text-amber-800', border: 'border-amber-200' },
   rose: { bg: 'bg-rose-50', text: 'text-rose-700', border: 'border-rose-200' },
   violet: { bg: 'bg-violet-50', text: 'text-violet-700', border: 'border-violet-200' },
+  gray: { bg: 'bg-gray-50', text: 'text-muted-foreground', border: 'border-gray-200' },
 }
 
 export const StudyBadge = ({
@@ -21,7 +24,7 @@ export const StudyBadge = ({
   color = 'indigo',
 }: {
   name: string
-  emoji?: string
+  emoji?: string | ReactElement
   color?: ColorKey
 }) => {
   const c = COLOR_STYLES[color]
