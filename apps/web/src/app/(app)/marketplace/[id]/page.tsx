@@ -127,7 +127,9 @@ const MarketplaceDetailsPage = async ({ params }: { params: Promise<{ id: string
           </div>
           <div className="rounded-2xl border border-border bg-card text-foreground px-6 py-4 shadow-md w-full flex-start flex-col gap-2">
             <div className="h2-bold">Zeitplan</div>
-            <p className="text-muted-foreground">{/* TODO: Show  */}</p>
+            <p className="text-muted-foreground">
+              Der Zeitplan kann durch den Ersteller noch angepasst werden.
+            </p>
             <CalendarCard startDate={new Date()} endDate={new Date('2027-01-01')} />
           </div>
         </div>
