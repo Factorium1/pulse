@@ -2,6 +2,7 @@ import Link from 'next/link'
 import { StudyBadge } from './study-badge'
 
 type SurveyCardProps = {
+  id: string
   title: string
   availableFrom?: string
   availableTo?: string
@@ -16,6 +17,7 @@ type SurveyCardProps = {
 }
 
 const SurveyCard = ({
+  id,
   title,
   availableFrom,
   availableTo,
@@ -52,7 +54,7 @@ const SurveyCard = ({
       <div className="flex flex-between">
         <StudyBadge name={badgeName} emoji={badgeEmoji} color={badgeColor} />
         <Link
-          href={`/survey/${slug}`}
+          href={`/studies/${id}`}
           className="text-sm px-4 py-2 bg-primary rounded-xl text-accent font-semibold"
         >
           {sampling ? 'Jetzt protokollieren' : 'Starten'}

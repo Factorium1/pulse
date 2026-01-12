@@ -159,6 +159,7 @@ const StudiesPage = async () => {
               const badgeName = getBadgeName(survey)
               return (
                 <SurveyCard
+                  id={survey.id}
                   key={`${survey.id}-${block.id}`}
                   title={survey.title}
                   slug={getSlug(survey)}
@@ -180,6 +181,7 @@ const StudiesPage = async () => {
               const badgeName = getBadgeName(survey)
               return (
                 <SurveyCard
+                  id={survey.id}
                   key={`${survey.id}-${block.id}`}
                   title={survey.title}
                   slug={getSlug(survey)}
