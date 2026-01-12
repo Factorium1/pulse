@@ -28,6 +28,31 @@ const StudiesPage = async () => {
       </div>
 
       <div className="grid grid-cols-1 lg:grid-cols-2 gap-4">
+        <p className="text-muted-foreground font-semibold col-span-full">BELIEBIG</p>
+        <SurveyCard
+          title="Schlafprotokoll"
+          slug="schlafprotokoll"
+          estimatedDuration="5min"
+          badgeEmoji="😴"
+          badgeName="Schlaf"
+          badgeColor="violet"
+          samplingLimit={1}
+          sampling={true}
+          Info="Starte, sobald du aufwachst"
+        />
+
+        <SurveyCard
+          title="Kaffee & Energie"
+          slug="kaffee-und-energie"
+          estimatedDuration="5min"
+          badgeEmoji="☕"
+          badgeName="Koffein"
+          badgeColor="emerald"
+          samplingLimit={3}
+          sampling={true}
+          Info="Protokolliere nach jedem Kaffee-Konsum"
+        />
+
         <p className="text-muted-foreground font-semibold col-span-full">HEUTE</p>
         <SurveyCard
           title="Mitarbeiterzufriedenheit"
@@ -58,31 +83,6 @@ const StudiesPage = async () => {
           badgeEmoji="😰"
           badgeName="Stress"
           badgeColor="rose"
-        />
-
-        <p className="text-muted-foreground font-semibold col-span-full">BELIEBIG</p>
-        <SurveyCard
-          title="Schlafprotokoll"
-          slug="schlafprotokoll"
-          estimatedDuration="5min"
-          badgeEmoji="😴"
-          badgeName="Schlaf"
-          badgeColor="violet"
-          samplingLimit={1}
-          sampling={true}
-          Info="Starte, sobald du aufwachst"
-        />
-
-        <SurveyCard
-          title="Kaffee & Energie"
-          slug="kaffee-und-energie"
-          estimatedDuration="5min"
-          badgeEmoji="☕"
-          badgeName="Koffein"
-          badgeColor="emerald"
-          samplingLimit={3}
-          sampling={true}
-          Info="Protokolliere nach jedem Kaffee-Konsum"
         />
       </div>
     </div>
