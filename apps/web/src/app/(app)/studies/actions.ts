@@ -27,9 +27,11 @@ export async function getParticipantSurveys() {
         },
       },
       select: {
+        id: true,
         title: true,
         shortLabel: true,
         emoji: true,
+        tags: true,
         blocks: true,
         participants: {
           where: {
