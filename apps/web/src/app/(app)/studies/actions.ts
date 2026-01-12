@@ -31,6 +31,14 @@ export async function getParticipantSurveys() {
         shortLabel: true,
         emoji: true,
         blocks: true,
+        participants: {
+          where: {
+            userId,
+          },
+          select: {
+            startedAt: true,
+          },
+        },
       },
     })
 

@@ -8,25 +8,57 @@ const StudiesPage = async () => {
     // TODO: Error handling und richtig pruefen ob response error war oder nicht
   }
 
-  console.log(res[0]?.blocks)
+  const surveys = Array.isArray(res) ? res : []
 
-  const eventBlocks = res
+  const eventBlocks = surveys
     .flatMap((survey) => survey.blocks)
-    .filter((block) => {
-      block.scheduleType === BlockScheduleType.EVENT_TRIGGERED
-    })
+    .filter((block) => block.scheduleType === BlockScheduleType.EVENT_TRIGGERED)
 
-  const fixedBlocks = res
+  const blocks = surveys
     .flatMap((survey) => survey.blocks)
-    .filter((block) => {
-      block.scheduleType === BlockScheduleType.FIXED_DATETIME
-    })
+    .filter((block) => block.scheduleType !== BlockScheduleType.EVENT_TRIGGERED)
 
-  const relativeBlocks = res
-    .flatMap((survey) => survey.blocks)
-    .filter((block) => {
-      block.scheduleType === BlockScheduleType.RELATIVE_TO_START
+  function getStudyStart(survey: any): Date | null {
+    const startedAt = survey.participants?.[0]?.startedAt
+    return startedAt ? new Date(startedAt) : null
+  }
+
+  function getExecuteAt(block: any, studyStart: Date | null): Date | null {
+    if (block.scheduleType === BlockScheduleType.FIXED_DATETIME && block.fixedAt) {
+      return new Date(block.fixedAt)
+    }
+
+    if (
+      block.scheduleType === BlockScheduleType.RELATIVE_TO_START &&
+      studyStart &&
+      block.dayOffset != null &&
+      block.timeOfDayMinutes != null
+    ) {
+      const d = new Date(studyStart)
+      d.setDate(d.getDate() + block.dayOffset)
+      d.setHours(0, 0, 0, 0)
+      d.setMinutes(block.timeOfDayMinutes)
+      return d
+    }
+
+    return null
+  }
+
+  function sortBlocks(survey: any) {
+    const studyStart = getStudyStart(survey)
+
+    return (survey.blocks ?? []).slice().sort((a: any, b: any) => {
+      const ax = getExecuteAt(a, studyStart)
+      const bx = getExecuteAt(b, studyStart)
+
+      // Blöcke ohne berechenbare Zeit ans Ende
+      if (!ax && !bx) return 0
+      if (!ax) return 1
+      if (!bx) return -1
+
+      return ax.getTime() - bx.getTime()
     })
+  }
 
   return (
     <div className="flex flex-col mt-10 gap-6 px-4 md:px-8 lg:px-12">
