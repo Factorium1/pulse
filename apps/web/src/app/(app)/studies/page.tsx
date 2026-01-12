@@ -1,11 +1,32 @@
 import SurveyCard from '@/components/features/studies/survey-card'
 import { getParticipantSurveys } from './actions'
+import { BlockScheduleType } from '@prisma/client'
 
 const StudiesPage = async () => {
   const res = await getParticipantSurveys()
   if (!res) {
     // TODO: Error handling und richtig pruefen ob response error war oder nicht
   }
+
+  console.log(res[0]?.blocks)
+
+  const eventBlocks = res
+    .flatMap((survey) => survey.blocks)
+    .filter((block) => {
+      block.scheduleType === BlockScheduleType.EVENT_TRIGGERED
+    })
+
+  const fixedBlocks = res
+    .flatMap((survey) => survey.blocks)
+    .filter((block) => {
+      block.scheduleType === BlockScheduleType.FIXED_DATETIME
+    })
+
+  const relativeBlocks = res
+    .flatMap((survey) => survey.blocks)
+    .filter((block) => {
+      block.scheduleType === BlockScheduleType.RELATIVE_TO_START
+    })
 
   return (
     <div className="flex flex-col mt-10 gap-6 px-4 md:px-8 lg:px-12">
