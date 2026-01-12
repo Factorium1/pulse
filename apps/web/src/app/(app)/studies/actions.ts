@@ -16,12 +16,14 @@ export async function getParticipantSurveys() {
   }
 
   try {
-    const surveys = prisma.survey.findMany({
+    const surveys = await prisma.survey.findMany({
       where: {
-        surveyParticipations: {
-          userId,
-          status: 'ACTIVE',
-          type: SurveyType.LONG,
+        type: SurveyType.LONG,
+        participants: {
+          some: {
+            userId,
+            status: 'ACTIVE',
+          },
         },
       },
       select: {
