@@ -30,7 +30,7 @@ export async function getParticipantSurveys() {
         title: true,
         shortLabel: true,
         emoji: true,
-        surveyBlock: true,
+        blocks: true,
       },
     })
 
