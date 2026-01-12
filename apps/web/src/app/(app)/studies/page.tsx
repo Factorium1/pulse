@@ -162,7 +162,6 @@ const StudiesPage = async () => {
                   id={survey.id}
                   key={`${survey.id}-${block.id}`}
                   title={survey.title}
-                  slug={getSlug(survey)}
                   badgeEmoji={getBadgeEmoji(survey)}
                   badgeName={badgeName}
                   badgeColor={pickBadgeColor(badgeName)}
@@ -184,7 +183,6 @@ const StudiesPage = async () => {
                   id={survey.id}
                   key={`${survey.id}-${block.id}`}
                   title={survey.title}
-                  slug={getSlug(survey)}
                   badgeEmoji={getBadgeEmoji(survey)}
                   badgeName={badgeName}
                   badgeColor={pickBadgeColor(badgeName)}

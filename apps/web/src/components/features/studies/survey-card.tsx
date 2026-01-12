@@ -7,7 +7,6 @@ type SurveyCardProps = {
   availableFrom?: string
   availableTo?: string
   estimatedDuration?: string
-  slug: string
   Info?: string
   samplingLimit?: number
   sampling?: boolean
@@ -22,7 +21,6 @@ const SurveyCard = ({
   availableFrom,
   availableTo,
   estimatedDuration,
-  slug,
   Info,
   samplingLimit,
   sampling,
