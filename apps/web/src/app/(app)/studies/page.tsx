@@ -104,8 +104,10 @@ const StudiesPage = async () => {
     return formatDate(date)
   }
 
+  const scheduledFutureSorted = scheduledSorted.filter((item) => item.executeAt! >= today)
+
   const scheduledGroups = new Map<string, ScheduledItem[]>()
-  scheduledSorted.forEach((item) => {
+  scheduledFutureSorted.forEach((item) => {
     const label = labelForDate(item.executeAt!)
     const bucket = scheduledGroups.get(label) ?? []
     bucket.push(item)
