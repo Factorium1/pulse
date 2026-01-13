@@ -4,6 +4,7 @@ import { LogOut } from 'lucide-react'
 import { StudyBadge } from '../study-badge'
 import { removeParticipation } from '@/app/(app)/studies/manage/actions'
 import { useRouter } from 'next/navigation'
+import { toast } from 'react-toastify'
 
 const LeaveSurveyCard = ({
   badgeName,
@@ -25,7 +26,14 @@ const LeaveSurveyCard = ({
   const router = useRouter()
 
   async function handleLeave() {
-    await removeParticipation(id)
+    const res = await removeParticipation(id)
+
+    if (res.ok) {
+      toast.success('Survey deleted')
+    } else {
+      toast.error('Cant delete Survey')
+    }
+
     router.push('/studies')
   }
 
