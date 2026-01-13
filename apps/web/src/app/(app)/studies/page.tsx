@@ -167,7 +167,8 @@ const StudiesPage = async () => {
                   badgeName={badgeName}
                   badgeColor={pickBadgeColor(badgeName)}
                   sampling={true}
-                  Info={block.title || 'Ereignis-Umfrage'}
+                  info={block.title || 'Ereignis-Umfrage'}
+                  disabled={false}
                 />
               )
             })}
@@ -187,7 +188,8 @@ const StudiesPage = async () => {
                   badgeEmoji={getBadgeEmoji(survey)}
                   badgeName={badgeName}
                   badgeColor={pickBadgeColor(badgeName)}
-                  Info={executeAt ? `am ${formatDateTime(executeAt)}` : undefined}
+                  info={executeAt ? `am ${formatDateTime(executeAt)}` : undefined}
+                  disabled={executeAt ? executeAt > new Date() : false}
                 />
               )
             })}

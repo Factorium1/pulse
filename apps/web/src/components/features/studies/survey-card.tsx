@@ -7,12 +7,13 @@ type SurveyCardProps = {
   availableFrom?: string
   availableTo?: string
   estimatedDuration?: string
-  Info?: string
+  info?: string
   samplingLimit?: number
   sampling?: boolean
   badgeEmoji: string
   badgeName: string
   badgeColor: 'indigo' | 'emerald' | 'amber' | 'rose' | 'violet' //TODO: Badge soll am ende durch db kommen und im online editor auswählbar sein
+  disabled: boolean
 }
 
 const SurveyCard = ({
@@ -21,15 +22,16 @@ const SurveyCard = ({
   availableFrom,
   availableTo,
   estimatedDuration,
-  Info,
+  info,
   samplingLimit,
   sampling,
   badgeEmoji,
   badgeName,
   badgeColor,
+  disabled,
 }: SurveyCardProps) => {
   const Items = [
-    Info && <div>{Info}</div>,
+    info && <div>{info}</div>,
     estimatedDuration && (
       <div>
         <span className="">ca. </span> {estimatedDuration} Min
@@ -53,7 +55,7 @@ const SurveyCard = ({
         <StudyBadge name={badgeName} emoji={badgeEmoji} color={badgeColor} />
         <Link
           href={`/studies/${id}`}
-          className="text-sm px-4 py-2 bg-primary rounded-xl text-accent font-semibold"
+          className={`text-sm px-4 py-2 bg-primary rounded-xl text-accent font-semibold ${disabled ? 'hidden' : ''}`}
         >
           {sampling ? 'Jetzt protokollieren' : 'Starten'}
         </Link>
