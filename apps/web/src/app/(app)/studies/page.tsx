@@ -166,7 +166,6 @@ const StudiesPage = async () => {
                   title={survey.title}
                   badgeEmoji={getBadgeEmoji(survey)}
                   badgeName={badgeName}
-                  badgeColor={pickBadgeColor(badgeName)}
                   sampling={true}
                   info={block.title || 'Ereignis-Umfrage'}
                   disabled={false}
@@ -192,7 +191,6 @@ const StudiesPage = async () => {
                   title={survey.title}
                   badgeEmoji={getBadgeEmoji(survey)}
                   badgeName={badgeName}
-                  badgeColor={pickBadgeColor(badgeName)}
                   info={executeAt ? `am ${formatDateTime(executeAt)}` : undefined}
                   disabled={isDisabled}
                   timeBlocked={isTimeBlocked}

@@ -10,9 +10,8 @@ type SurveyCardProps = {
   info?: string
   samplingLimit?: number
   sampling?: boolean
-  badgeEmoji: string
+  badgeEmoji: 'brain' | 'grow' | 'energy' | 'passion' | 'idea' | 'info'
   badgeName: string
-  badgeColor: 'indigo' | 'emerald' | 'amber' | 'rose' | 'violet' //TODO: Badge soll am ende durch db kommen und im online editor auswählbar sein
   disabled?: boolean
   timeBlocked?: boolean
 }
@@ -20,7 +19,6 @@ type SurveyCardProps = {
 const SurveyCard = ({
   id,
   title,
-  availableFrom,
   availableTo,
   estimatedDuration,
   info,
@@ -28,7 +26,6 @@ const SurveyCard = ({
   sampling,
   badgeEmoji,
   badgeName,
-  badgeColor,
   disabled = false,
   timeBlocked = false,
 }: SurveyCardProps) => {
@@ -54,7 +51,7 @@ const SurveyCard = ({
   return (
     <div className="rounded-xl border border-border bg-card px-4 py-3 shadow-sm text-start">
       <div className="flex flex-between">
-        <StudyBadge name={badgeName} emoji={badgeEmoji} color={badgeColor} />
+        <StudyBadge name={badgeName} preset={badgeEmoji} />
         {!disabled &&
           (timeBlocked ? (
             <span className="text-sm px-4 py-2 bg-muted text-muted-foreground cursor-not-allowed rounded-xl font-semibold">
