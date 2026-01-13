@@ -78,7 +78,8 @@ const StudiesPage = async () => {
     a.getMonth() === b.getMonth() &&
     a.getDate() === b.getDate()
 
-  const today = startOfDay(new Date())
+  const now = new Date()
+  const today = startOfDay(now)
   const tomorrow = new Date(today)
   tomorrow.setDate(tomorrow.getDate() + 1)
 
@@ -169,6 +170,7 @@ const StudiesPage = async () => {
                   sampling={true}
                   info={block.title || 'Ereignis-Umfrage'}
                   disabled={false}
+                  timeBlocked={false}
                 />
               )
             })}
@@ -180,6 +182,9 @@ const StudiesPage = async () => {
             <p className="text-muted-foreground font-semibold col-span-full">{label}</p>
             {items.map(({ survey, block, executeAt }) => {
               const badgeName = getBadgeName(survey)
+              const isTimeBlocked =
+                executeAt != null && isSameDay(executeAt, now) && executeAt > now
+              const isDisabled = executeAt != null && !isSameDay(executeAt, now) && executeAt > now
               return (
                 <SurveyCard
                   id={survey.id}
@@ -189,7 +194,8 @@ const StudiesPage = async () => {
                   badgeName={badgeName}
                   badgeColor={pickBadgeColor(badgeName)}
                   info={executeAt ? `am ${formatDateTime(executeAt)}` : undefined}
-                  disabled={executeAt ? executeAt > new Date() : false}
+                  disabled={isDisabled}
+                  timeBlocked={isTimeBlocked}
                 />
               )
             })}
