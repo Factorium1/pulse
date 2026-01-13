@@ -131,7 +131,6 @@ const StudiesPage = async () => {
 
   const getBadgeName = (survey: any) => survey.tags?.[0] || 'Studie'
   const getBadgeEmoji = (survey: any) => survey.emoji || '📝'
-  const getSlug = (survey: any) => survey.shortLabel || survey.id
 
   return (
     <div className="flex flex-col mt-10 gap-6 px-4 md:px-8 lg:px-12">
