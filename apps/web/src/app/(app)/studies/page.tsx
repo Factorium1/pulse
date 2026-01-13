@@ -2,6 +2,9 @@ import { Fragment } from 'react'
 import SurveyCard from '@/components/features/studies/survey-card'
 import { getParticipantSurveys } from './actions'
 import { BlockScheduleType } from '@prisma/client'
+import { Button } from '@/components/ui/button'
+import { ArrowRight } from 'lucide-react'
+import Link from 'next/link'
 
 const StudiesPage = async () => {
   const res = await getParticipantSurveys()
@@ -136,11 +139,20 @@ const StudiesPage = async () => {
   return (
     <div className="flex flex-col mt-10 gap-6 px-4 md:px-8 lg:px-12">
       <div className="rounded-2xl bg-linear-to-r from-primary to-indigo-600 text-primary-foreground px-6 py-8 shadow-md">
-        <div className="h1-bold">Eingang</div>
-        {/* TODO: Filter erstellen */}
-        <p className="mt-1 text-primary-foreground/90">
-          Alle offenen Aufgaben aus deinen Studien — filterbar & klar gruppiert. 📬✨
-        </p>
+        <div className="flex md:items-center md:justify-between md:flex-row flex-col gap-4">
+          <div className="flex-col">
+            <div className="h1-bold">Eingang</div>
+            {/* TODO: Filter erstellen */}
+            <p className="mt-1 text-primary-foreground/90">
+              Alle offenen Aufgaben aus deinen Studien — filterbar & klar gruppiert. 📬✨
+            </p>
+          </div>
+          <Link href="/studies/manage">
+            <Button variant="default" size="default">
+              Studien verwalten <ArrowRight className="h-4 w-4" />
+            </Button>
+          </Link>
+        </div>
       </div>
       <div className="rounded-2xl border border-border bg-card text-foreground px-6 py-4 shadow-md">
         <div className="h1-bold">So funktioniert’s</div>
