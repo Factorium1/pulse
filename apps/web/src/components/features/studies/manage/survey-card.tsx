@@ -10,7 +10,7 @@ const LeaveSurveyCard = ({
   availableTo,
 }: {
   badgeName: string
-  badgeEmoji: string
+  badgeEmoji: 'info' | 'brain' | 'grow' | 'energy' | 'passion' | 'idea'
   title: string
   info: string
   estimatedDuration: number
@@ -31,11 +31,12 @@ const LeaveSurveyCard = ({
   ].filter(Boolean)
   return (
     <div className="rounded-xl border border-border bg-card px-4 py-3 shadow-sm text-start">
-      <div className="flex flex-between">
+      <div className="flex items-center justify-between">
         <StudyBadge name={badgeName} preset={badgeEmoji} />
-        <div className="bg-red-500 text-200 px-2 py-4">
-          Studie verlassen <LogOut className="h-4 w-4" />
-        </div>
+        <button className="inline-flex items-center gap-2 rounded-lg border border-red-200 bg-red-50 px-3 py-1.5 text-sm font-medium text-red-700 transition-all hover:bg-red-100 hover:border-red-300 cursor-pointer">
+          <LogOut className="h-4 w-4" />
+          Studie verlassen
+        </button>
       </div>
       <p className="h3-bold">{title}</p>
       <div className="flex justify-start flex-row text-sm text-muted-foreground flex-wrap">
