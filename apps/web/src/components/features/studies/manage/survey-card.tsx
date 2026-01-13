@@ -1,5 +1,9 @@
+'use client'
+
 import { LogOut } from 'lucide-react'
 import { StudyBadge } from '../study-badge'
+import { removeParticipation } from '@/app/(app)/studies/manage/actions'
+import { useRouter } from 'next/navigation'
 
 const LeaveSurveyCard = ({
   badgeName,
@@ -8,6 +12,7 @@ const LeaveSurveyCard = ({
   info,
   estimatedDuration,
   availableTo,
+  id,
 }: {
   badgeName: string
   badgeEmoji: 'info' | 'brain' | 'grow' | 'energy' | 'passion' | 'idea'
@@ -15,7 +20,15 @@ const LeaveSurveyCard = ({
   info: string
   estimatedDuration: number
   availableTo: string
+  id: string
 }) => {
+  const router = useRouter()
+
+  async function handleLeave() {
+    await removeParticipation(id)
+    router.push('/studies')
+  }
+
   const Items = [
     info && <div>{info}</div>,
     estimatedDuration && (
@@ -33,7 +46,10 @@ const LeaveSurveyCard = ({
     <div className="rounded-xl border border-border bg-card px-4 py-3 shadow-sm text-start">
       <div className="flex items-center justify-between">
         <StudyBadge name={badgeName} preset={badgeEmoji} />
-        <button className="inline-flex items-center gap-2 rounded-lg border border-red-200 bg-red-50 px-3 py-1.5 text-sm font-medium text-red-700 transition-all hover:bg-red-100 hover:border-red-300 cursor-pointer">
+        <button
+          className="inline-flex items-center gap-2 rounded-lg border border-red-200 bg-red-50 px-3 py-1.5 text-sm font-medium text-red-700 transition-all hover:bg-red-100 hover:border-red-300 cursor-pointer"
+          onClick={() => handleLeave()}
+        >
           <LogOut className="h-4 w-4" />
           Studie verlassen
         </button>

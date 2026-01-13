@@ -31,6 +31,7 @@ const ManageStudiesPage = async () => {
                 info="Example Info"
                 estimatedDuration={12}
                 availableTo="12"
+                id={survey.id}
               />
             )
           })}
