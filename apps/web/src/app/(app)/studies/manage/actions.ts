@@ -15,20 +15,21 @@ export async function getSurveys() {
   }
 
   try {
-    const surveys = await prisma.survey.findMany({
+    const surveys = await prisma.surveyParticipation.findMany({
       where: {
-        participants: {
-          some: {
-            userId,
-            status: 'ACTIVE',
-          },
-        },
+        userId,
+        status: 'ACTIVE',
       },
       select: {
         id: true,
-        title: true,
-        shortLabel: true,
-        emoji: true,
+        survey: {
+          select: {
+            id: true,
+            title: true,
+            shortLabel: true,
+            emoji: true,
+          },
+        },
       },
     })
 
@@ -53,7 +54,7 @@ export async function removeParticipation(id: string) {
   }
 
   try {
-    const result = await prisma.participation.updateMany({
+    const result = await prisma.surveyParticipation.updateMany({
       where: {
         id,
         userId,
@@ -64,8 +65,8 @@ export async function removeParticipation(id: string) {
       },
     })
 
-    if (!result) {
-      return { ok: false }
+    if (!result || result.count === 0) {
+      return { ok: false, message: 'Participation not found' }
     }
 
     return { ok: true }

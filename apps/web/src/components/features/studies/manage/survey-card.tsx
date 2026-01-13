@@ -13,7 +13,7 @@ const LeaveSurveyCard = ({
   info,
   estimatedDuration,
   availableTo,
-  id,
+  participationId,
 }: {
   badgeName: string
   badgeEmoji: 'info' | 'brain' | 'grow' | 'energy' | 'passion' | 'idea'
@@ -21,17 +21,17 @@ const LeaveSurveyCard = ({
   info: string
   estimatedDuration: number
   availableTo: string
-  id: string
+  participationId: string
 }) => {
   const router = useRouter()
 
   async function handleLeave() {
-    const res = await removeParticipation(id)
+    const res = await removeParticipation(participationId)
 
     if (res.ok) {
-      toast.success('Survey deleted')
+      toast.success('Studie verlassen')
     } else {
-      toast.error('Cant delete Survey')
+      toast.error(res.message ?? 'Konnte Studie nicht verlassen')
     }
 
     router.push('/studies')

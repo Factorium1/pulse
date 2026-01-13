@@ -21,17 +21,18 @@ const ManageStudiesPage = async () => {
       </div>
       {surveys && (
         <div className="grid grid-cols-1 md:grid-cols-2 gap-2">
-          {surveys.map((survey) => {
+          {surveys.map((participation) => {
+            const survey = participation.survey
             return (
               <LeaveSurveyCard
-                key={survey.id}
+                key={participation.id}
                 badgeName={survey.shortLabel ?? survey.title}
                 badgeEmoji={survey.emoji}
                 title={survey.title}
                 info="Example Info"
                 estimatedDuration={12}
                 availableTo="12"
-                id={survey.id}
+                participationId={participation.id}
               />
             )
           })}
