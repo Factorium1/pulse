@@ -24,7 +24,8 @@ const ManageStudiesPage = async () => {
           {surveys.map((survey) => {
             return (
               <LeaveSurveyCard
-                badgeName={survey.shortLabel}
+                key={survey.id}
+                badgeName={survey.shortLabel ?? survey.title}
                 badgeEmoji={survey.emoji}
                 title={survey.title}
                 info="Example Info"
