@@ -46,7 +46,11 @@ const ManagePage = ({ questions }: { questions: Question[] }) => {
           <p className="text-primary font-semibold text-sm">
             Frage {Math.min(questionIndex + 1, total)} von {total}
           </p>
-          <SingleChoice />
+          <SingleChoice
+            title={question.title}
+            description={question.description}
+            options={question.options}
+          />
           <div className="flex-between w-full">
             <button
               onClick={() => handleNext()}
