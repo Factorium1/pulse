@@ -4,33 +4,33 @@ import SingleChoice from './single-choice'
 import { Progress } from '@/components/ui/progress'
 import { useState } from 'react'
 import { Question } from '@prisma/client'
-import { redirect } from 'next/navigation'
+import { useRouter } from 'next/router'
 
 const ManagePage = ({ questions }: { questions: Question[] }) => {
-  const [questionLength, setQuestionLength] = useState<number>(1)
-  const [question, setQuestion] = useState<Question>(questions[questionLength - 1])
+  const router = useRouter()
+
+  const [questionIndex, setQuestionIndex] = useState(0)
 
   const total = questions.length
-  const progress = total > 0 ? (questionLength / total) * 100 : 0
+  const progress = total > 0 ? ((questionIndex + 1) / total) * 100 : 0
 
-  const backHidden = questionLength === 1
-  const isLast = total > 0 && questionLength === total
+  const backHidden = questionIndex === 0
+  const isLast = total > 0 && questionIndex === total - 1
 
-  async function handleNext() {
-    if (questionLength === total) {
+  const question = questions[questionIndex]
+
+  function handleNext() {
+    if (isLast) {
       // await
-      redirect('/studies')
-    }
-
-    setQuestion(questions[questionLength])
-  }
-
-  async function handleBack() {
-    if (questionLength === 0) {
+      router.push('/studies')
       return
     }
 
-    setQuestion(questions[questionLength - 1])
+    setQuestionIndex((i) => Math.min(i + 1, total - 1))
+  }
+
+  function handleBack() {
+    setQuestionIndex((i) => Math.max(i - 1, 0))
   }
 
   return (
@@ -39,7 +39,7 @@ const ManagePage = ({ questions }: { questions: Question[] }) => {
       <div className="flex-center">
         <div className="flex-start bg-card rounded-md p-6 shadow-md mt-10 flex-col gap-4 w-full mx-10">
           <p className="text-primary font-semibold text-sm">
-            Frage {questionLength} von {total}
+            Frage {Math.min(questionIndex + 1, total)} von {total}
           </p>
           <SingleChoice />
           <div className="flex-between w-full">
