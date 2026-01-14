@@ -1,24 +1,17 @@
 'use client'
 
-import { GetBlockResult } from '@/app/(app)/studies/surveys/[id]/actions'
 import SingleChoice from './single-choice'
 import { Progress } from '@/components/ui/progress'
 import { useState } from 'react'
-import { redirect } from 'next/navigation'
+import { Question } from '@prisma/client'
 
-const ManagePage = ({ block }: { block: GetBlockResult }) => {
+const ManagePage = ({ questions }: { questions: Question[] }) => {
   const [backHidden, setBackHidden] = useState<boolean>(false)
   const [next, setNext] = useState<boolean>(true)
   const [questionLength, setQuestionLength] = useState<number>(1)
 
-  if (!block.ok) {
-    redirect('/studies')
-  }
-
-  const total = block.block.questions.length
+  const total = questions.length
   const progress = (questionLength / total) * 100
-
-  console.log(block)
 
   return (
     <div className="w-full">
