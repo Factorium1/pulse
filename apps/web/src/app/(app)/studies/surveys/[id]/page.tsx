@@ -9,7 +9,7 @@ const Survey = async ({ params }: { params: Promise<{ id: string }> }) => {
 
   const block: GetBlockResult = await getBlock(id)
 
-  if (!block.ok) {
+  if (!block.ok || block.block.questions.length === 0) {
     redirect('/studies')
   }
 
