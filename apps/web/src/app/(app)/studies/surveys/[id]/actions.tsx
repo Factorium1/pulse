@@ -6,7 +6,7 @@ import { prisma } from '../../../../../../../../prisma'
 import { Prisma } from '@prisma/client'
 
 type SurveyBlockWithQuestions = Prisma.SurveyBlockGetPayload<{
-  include: { questions: true }
+  include: { questions: true; survey: { select: { title: true } } }
 }>
 
 export type GetBlockResult =
@@ -40,6 +40,11 @@ export async function getBlock(id: string): Promise<GetBlockResult> {
         questions: {
           orderBy: {
             order: 'asc',
+          },
+        },
+        survey: {
+          select: {
+            title: true,
           },
         },
       },

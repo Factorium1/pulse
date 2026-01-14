@@ -19,7 +19,7 @@ const Survey = async ({ params }: { params: Promise<{ id: string }> }) => {
         <div className="">
           <p className="h3-bold inline">Survey/</p>
           <Link href="/studies/surveys" className="inline text-primary font-semibold">
-            Alltagsstress
+            {block.block.survey.title}
           </Link>
         </div>
         <Link href="/studies/surveys" className="">
