@@ -1,8 +1,18 @@
 import { Progress } from '@/components/ui/progress'
 import Link from 'next/link'
 import { FaX } from 'react-icons/fa6'
+import { getBlock, type GetBlockResult } from './actions'
+import { redirect } from 'next/navigation'
 
-const Survey = () => {
+const Survey = async ({ params }: { params: Promise<{ id: string }> }) => {
+  const { id } = await params
+
+  const block: GetBlockResult = await getBlock(id)
+
+  if (!block.ok) {
+    redirect('/studies')
+  }
+
   return (
     <div>
       <header className="flex-between px-5 py-4 md:px-0">

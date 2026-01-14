@@ -3,8 +3,13 @@
 import { headers } from 'next/headers'
 import { auth } from '../../../../../../../../auth'
 import { prisma } from '../../../../../../../../prisma'
+import { SurveyBlock } from '@prisma/client'
 
-export async function getBlock(id: string) {
+export type GetBlockResult =
+  | { ok: true; block: SurveyBlock }
+  | { ok: false; message: string; error?: string }
+
+export async function getBlock(id: string): Promise<GetBlockResult> {
   const session = await auth.api.getSession({
     headers: await headers(),
   })
@@ -15,7 +20,7 @@ export async function getBlock(id: string) {
   }
 
   try {
-    const block = await prisma.surveyblock.findFirst({
+    const block = await prisma.surveyBlock.findFirst({
       where: {
         id,
         survey: {
@@ -29,7 +34,7 @@ export async function getBlock(id: string) {
       },
     })
 
-    if (block.survey?.participants?.length < 0 || block === null) {
+    if (!block) {
       return { ok: false, message: 'Unauthorized' }
     }
 
