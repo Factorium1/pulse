@@ -174,6 +174,7 @@ const StudiesPage = async () => {
               return (
                 <SurveyCard
                   id={survey.id}
+                  blockId={block.id}
                   key={`${survey.id}-${block.id}`}
                   title={survey.title}
                   badgeEmoji={getBadgeEmoji(survey)}
@@ -199,6 +200,7 @@ const StudiesPage = async () => {
               return (
                 <SurveyCard
                   id={survey.id}
+                  blockId={block.id}
                   key={`${survey.id}-${block.id}`}
                   title={survey.title}
                   badgeEmoji={getBadgeEmoji(survey)}

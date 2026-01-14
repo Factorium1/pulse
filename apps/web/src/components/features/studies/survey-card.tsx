@@ -3,6 +3,7 @@ import { StudyBadge } from './study-badge'
 
 type SurveyCardProps = {
   id: string
+  blockId: string
   title: string
   availableFrom?: string
   availableTo?: string
@@ -18,6 +19,7 @@ type SurveyCardProps = {
 
 const SurveyCard = ({
   id,
+  blockId,
   title,
   availableTo,
   estimatedDuration,
@@ -59,7 +61,7 @@ const SurveyCard = ({
             </span>
           ) : (
             <Link
-              href={`/studies/surveys/${id}`}
+              href={`/studies/surveys/${blockId}`}
               className="text-sm px-4 py-2 bg-primary text-accent cursor-pointer rounded-xl font-semibold"
             >
               {sampling ? 'Jetzt protokollieren' : 'Starten'}

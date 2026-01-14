@@ -32,7 +32,16 @@ export async function getParticipantSurveys() {
         shortLabel: true,
         emoji: true,
         tags: true,
-        blocks: true,
+        blocks: {
+          select: {
+            id: true,
+            scheduleType: true,
+            fixedAt: true,
+            dayOffset: true,
+            timeOfDayMinutes: true,
+            title: true,
+          },
+        },
         participants: {
           where: {
             userId,
