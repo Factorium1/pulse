@@ -9,7 +9,7 @@ import { useRouter } from 'next/navigation'
 const ManagePage = ({ questions }: { questions: Question[] }) => {
   const router = useRouter()
 
-  const [questionIndex, setQuestionIndex] = useState(0)
+  const [questionIndex, setQuestionIndex] = useState<number>(0)
   const [answers, setAnswers] = useState<string[]>(() => Array(questions.length).fill(''))
 
   const total = questions.length
@@ -38,6 +38,14 @@ const ManagePage = ({ questions }: { questions: Question[] }) => {
     setQuestionIndex((i) => Math.max(i - 1, 0))
   }
 
+  function handleChange(input: string) {
+    setAnswers((prev) => {
+      const next = [...prev]
+      next[questionIndex] = input
+      return next
+    })
+  }
+
   return (
     <div className="w-full">
       <Progress value={progress} className="rounded-none md:rounded-full" />
@@ -50,6 +58,7 @@ const ManagePage = ({ questions }: { questions: Question[] }) => {
             title={question.title}
             description={question.description}
             options={question.options}
+            onChange={handleChange}
           />
           <div className="flex-between w-full">
             <button
