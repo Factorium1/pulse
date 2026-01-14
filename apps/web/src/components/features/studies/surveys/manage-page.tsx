@@ -6,12 +6,13 @@ import { useState } from 'react'
 import { Question } from '@prisma/client'
 
 const ManagePage = ({ questions }: { questions: Question[] }) => {
-  const [backHidden, setBackHidden] = useState<boolean>(false)
-  const [next, setNext] = useState<boolean>(true)
   const [questionLength, setQuestionLength] = useState<number>(1)
 
   const total = questions.length
-  const progress = (questionLength / total) * 100
+  const progress = total > 0 ? (questionLength / total) * 100 : 0
+
+  const backHidden = questionLength === 1
+  const isLast = total > 0 && questionLength === total
 
   return (
     <div className="w-full">
@@ -29,7 +30,7 @@ const ManagePage = ({ questions }: { questions: Question[] }) => {
               Zurück
             </button>
             <button className="bg-primary text-primary-foreground px-6 py-2 rounded-md text-sm font-medium cursor-pointer">
-              {next ? 'Weiter' : 'Absenden'}
+              {isLast ? 'Absenden' : 'Weiter'}
             </button>
           </div>
         </div>
