@@ -3,10 +3,14 @@
 import { headers } from 'next/headers'
 import { auth } from '../../../../../../../../auth'
 import { prisma } from '../../../../../../../../prisma'
-import { SurveyBlock } from '@prisma/client'
+import { Prisma } from '@prisma/client'
+
+type SurveyBlockWithQuestions = Prisma.SurveyBlockGetPayload<{
+  include: { questions: true }
+}>
 
 export type GetBlockResult =
-  | { ok: true; block: SurveyBlock }
+  | { ok: true; block: SurveyBlockWithQuestions }
   | { ok: false; message: string; error?: string }
 
 export async function getBlock(id: string): Promise<GetBlockResult> {
@@ -29,6 +33,13 @@ export async function getBlock(id: string): Promise<GetBlockResult> {
               userId,
               status: 'ACTIVE',
             },
+          },
+        },
+      },
+      include: {
+        questions: {
+          orderBy: {
+            order: 'asc',
           },
         },
       },
