@@ -59,7 +59,7 @@ const SurveyCard = ({
             </span>
           ) : (
             <Link
-              href={`/studies/${id}`}
+              href={`/studies/surveys/${id}`}
               className="text-sm px-4 py-2 bg-primary text-accent cursor-pointer rounded-xl font-semibold"
             >
               {sampling ? 'Jetzt protokollieren' : 'Starten'}
