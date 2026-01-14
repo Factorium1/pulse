@@ -4,7 +4,7 @@ import SingleChoice from './single-choice'
 import { Progress } from '@/components/ui/progress'
 import { useState } from 'react'
 import { Question } from '@prisma/client'
-import { useRouter } from 'next/router'
+import { useRouter } from 'next/navigation'
 
 const ManagePage = ({ questions }: { questions: Question[] }) => {
   const router = useRouter()
