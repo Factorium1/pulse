@@ -2,34 +2,37 @@ import Link from 'next/link'
 import { StudyBadge } from './study-badge'
 
 type SurveyCardProps = {
+  id: string
+  blockId: string
   title: string
   availableFrom?: string
   availableTo?: string
   estimatedDuration?: string
-  slug: string
-  Info?: string
+  info?: string
   samplingLimit?: number
   sampling?: boolean
-  badgeEmoji: string
+  badgeEmoji: 'brain' | 'grow' | 'energy' | 'passion' | 'idea' | 'info'
   badgeName: string
-  badgeColor: 'indigo' | 'emerald' | 'amber' | 'rose' | 'violet' //TODO: Badge soll am ende durch db kommen und im online editor auswählbar sein
+  disabled?: boolean
+  timeBlocked?: boolean
 }
 
 const SurveyCard = ({
+  id,
+  blockId,
   title,
-  availableFrom,
   availableTo,
   estimatedDuration,
-  slug,
-  Info,
+  info,
   samplingLimit,
   sampling,
   badgeEmoji,
   badgeName,
-  badgeColor,
+  disabled = false,
+  timeBlocked = false,
 }: SurveyCardProps) => {
   const Items = [
-    Info && <div>{Info}</div>,
+    info && <div>{info}</div>,
     estimatedDuration && (
       <div>
         <span className="">ca. </span> {estimatedDuration} Min
@@ -50,13 +53,20 @@ const SurveyCard = ({
   return (
     <div className="rounded-xl border border-border bg-card px-4 py-3 shadow-sm text-start">
       <div className="flex flex-between">
-        <StudyBadge name={badgeName} emoji={badgeEmoji} color={badgeColor} />
-        <Link
-          href={`/survey/${slug}`}
-          className="text-sm px-4 py-2 bg-primary rounded-xl text-accent font-semibold"
-        >
-          {sampling ? 'Jetzt protokollieren' : 'Starten'}
-        </Link>
+        <StudyBadge name={badgeName} preset={badgeEmoji} />
+        {!disabled &&
+          (timeBlocked ? (
+            <span className="text-sm px-4 py-2 bg-muted text-muted-foreground cursor-not-allowed rounded-xl font-semibold">
+              {sampling ? 'Jetzt protokollieren' : 'Starten'}
+            </span>
+          ) : (
+            <Link
+              href={`/studies/surveys/${blockId}`}
+              className="text-sm px-4 py-2 bg-primary text-accent cursor-pointer rounded-xl font-semibold"
+            >
+              {sampling ? 'Jetzt protokollieren' : 'Starten'}
+            </Link>
+          ))}
       </div>
       <p className="h3-bold">{title}</p>
       <div className="flex justify-start flex-row text-sm text-muted-foreground flex-wrap">

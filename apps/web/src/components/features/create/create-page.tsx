@@ -444,11 +444,12 @@ const CreateSurveyPage = ({
                 value={emoji}
                 onChange={(e) => setEmoji(e.target.value)}
               >
-                //TODO: Add more options and colors
-                <option value="smile">😊</option>
-                <option value="chart">📊</option>
                 <option value="brain">🧠</option>
+                <option value="grow">🌱</option>
+                <option value="energy">⚡</option>
+                <option value="passion">❤️‍🔥</option>
                 <option value="idea">💡</option>
+                <option value="info">📎</option>
               </select>
             </div>
           </div>
