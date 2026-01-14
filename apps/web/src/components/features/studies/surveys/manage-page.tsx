@@ -10,6 +10,7 @@ const ManagePage = ({ questions }: { questions: Question[] }) => {
   const router = useRouter()
 
   const [questionIndex, setQuestionIndex] = useState(0)
+  const [answers, setAnswers] = useState<string[]>(() => Array(questions.length).fill(''))
 
   const total = questions.length
   const progress = total > 0 ? ((questionIndex + 1) / total) * 100 : 0
@@ -20,6 +21,8 @@ const ManagePage = ({ questions }: { questions: Question[] }) => {
   const question = questions[questionIndex]
 
   function handleNext() {
+    if (!answers[questionIndex].length) return
+
     if (isLast) {
       // await
       router.push('/studies')
@@ -30,6 +33,8 @@ const ManagePage = ({ questions }: { questions: Question[] }) => {
   }
 
   function handleBack() {
+    if (questionIndex <= 0) return
+
     setQuestionIndex((i) => Math.max(i - 1, 0))
   }
 
@@ -45,13 +50,13 @@ const ManagePage = ({ questions }: { questions: Question[] }) => {
           <div className="flex-between w-full">
             <button
               onClick={() => handleNext()}
-              className={`text-sm text-muted-foreground font-medium cursor-pointer border-2 px-6 py-2 rounded-md ${backHidden ? 'invisible' : ''}`}
+              className={`text-sm text-muted-foreground font-medium cursor-pointer border-2 px-6 py-2 rounded-md  ${backHidden ? 'invisible' : ''}`}
             >
               Zurück
             </button>
             <button
               onClick={() => handleBack()}
-              className="bg-primary text-primary-foreground px-6 py-2 rounded-md text-sm font-medium cursor-pointer"
+              className={` px-6 py-2 rounded-md text-sm font-medium ${answers[questionIndex] === '' ? 'cursor-not-allowed bg-muted text-muted-foreground' : 'bg-primary text-primary-foreground'}`}
             >
               {isLast ? 'Absenden' : 'Weiter'}
             </button>
