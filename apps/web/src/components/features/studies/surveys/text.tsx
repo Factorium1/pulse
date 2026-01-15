@@ -17,7 +17,7 @@ const TextQuestion = ({ question, value, onChange }: QuestionComponentProps<stri
           placeholder="Text eingeben..."
           value={value}
           onChange={(e) => onChange(e.target.value)}
-          className="w-full border-2 border-accent rounded-lg p-2 resize-none overflow-hidden"
+          className="w-full border-2 border-accent rounded-lg p-2 resize-none"
         />
       </div>
     </div>
