@@ -58,7 +58,7 @@ const ManagePage = ({ questions }: { questions: Question[] }) => {
             title={question.title}
             description={question.description}
             options={question.options}
-            onChange={handleChange}
+            handleChange={handleChange}
           />
           <div className="flex-between w-full">
             <button
@@ -69,7 +69,7 @@ const ManagePage = ({ questions }: { questions: Question[] }) => {
             </button>
             <button
               onClick={() => handleBack()}
-              className={` px-6 py-2 rounded-md text-sm font-medium ${answers[questionIndex] === '' ? 'cursor-not-allowed bg-muted text-muted-foreground' : 'bg-primary text-primary-foreground'}`}
+              className={` px-6 py-2 rounded-md text-sm font-medium ${answers[questionIndex] === '' ? 'cursor-not-allowed bg-muted text-muted-foreground' : 'bg-primary text-primary-foreground cursor-pointer'}`}
             >
               {isLast ? 'Absenden' : 'Weiter'}
             </button>
