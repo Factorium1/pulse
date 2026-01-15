@@ -13,30 +13,38 @@ import VideoQuestion from './video'
 import ImageQuestion from './image'
 import SingleChoiceQuestion from './single-choice'
 
-type QuestionComponentProps = {
-  question: Question
-  value: string
-  onChange: (value: string) => void
-}
+type AnswerValue = string | string[] | number | null
 
-type QuestionComponent = (props: QuestionComponentProps) => React.ReactNode
+export type QuestionComponentProps<T extends AnswerValue> = {
+  question: Question
+  value: T
+  onChange: (value: T) => void
+}
 
 const QUESTION_COMPONENTS: Record<QuestionType, QuestionComponent> = {
-  TEXT: TextQuestion,
-  MULTIPLE_CHOICE: MultipleChoiceQuestion,
-  SINGLE_CHOICE: SingleChoiceQuestion,
-  SCALE: ScaleQuestion,
-  RATING: RatingQuestion,
-  AUDIO: AudioQuestion,
-  VIDEO: VideoQuestion,
-  IMAGE: ImageQuestion,
+  TEXT: TextQuestion as QuestionComponent,
+  MULTIPLE_CHOICE: MultipleChoiceQuestion as QuestionComponent,
+  SINGLE_CHOICE: SingleChoiceQuestion as QuestionComponent,
+  SCALE: ScaleQuestion as QuestionComponent,
+  RATING: RatingQuestion as QuestionComponent,
+  AUDIO: AudioQuestion as QuestionComponent,
+  VIDEO: VideoQuestion as QuestionComponent,
+  IMAGE: ImageQuestion as QuestionComponent,
 }
+
+type AnyQuestionComponentProps = {
+  question: Question
+  value: AnswerValue
+  onChange: (value: AnswerValue) => void
+}
+
+type QuestionComponent = (props: AnyQuestionComponentProps) => React.ReactNode
 
 const ManagePage = ({ questions }: { questions: Question[] }) => {
   const router = useRouter()
 
   const [questionIndex, setQuestionIndex] = useState<number>(0)
-  const [answers, setAnswers] = useState<string[]>(() => Array(questions.length).fill(''))
+  const [answers, setAnswers] = useState<AnswerValue[]>(() => Array(questions.length).fill(null))
 
   const total = questions.length
   const progress = total > 0 ? ((questionIndex + 1) / total) * 100 : 0
@@ -47,7 +55,7 @@ const ManagePage = ({ questions }: { questions: Question[] }) => {
   const question = questions[questionIndex]
 
   function handleNext() {
-    if (!answers[questionIndex].length) return
+    if (!canGoNext) return
 
     if (isLast) {
       // TODO: await
@@ -64,10 +72,10 @@ const ManagePage = ({ questions }: { questions: Question[] }) => {
     setQuestionIndex((i) => Math.max(i - 1, 0))
   }
 
-  function handleChange(input: string) {
+  function handleChange(value: AnswerValue) {
     setAnswers((prev) => {
       const next = [...prev]
-      next[questionIndex] = input
+      next[questionIndex] = value
       return next
     })
   }
@@ -85,6 +93,39 @@ const ManagePage = ({ questions }: { questions: Question[] }) => {
     return <div className="p-6">Ungültiger Fragenindex.</div>
   }
 
+  function getDefaultAnswer(q: Question): AnswerValue {
+    switch (q.type) {
+      case 'MULTIPLE_CHOICE':
+        return []
+      case 'SCALE':
+      case 'RATING':
+        return 0
+      case 'TEXT':
+      case 'SINGLE_CHOICE':
+        return ''
+      default:
+        return null
+    }
+  }
+
+  function isAnswered(q: Question, v: AnswerValue): boolean {
+    switch (q.type) {
+      case 'TEXT':
+      case 'SINGLE_CHOICE':
+        return typeof v === 'string' && v.trim().length > 0
+      case 'MULTIPLE_CHOICE':
+        return Array.isArray(v) && v.length > 0
+      case 'SCALE':
+      case 'RATING':
+        return typeof v === 'number'
+      default:
+        return v !== null
+    }
+  }
+
+  const currentValue = answers[questionIndex] ?? getDefaultAnswer(question)
+  const canGoNext = isAnswered(question, answers[questionIndex])
+
   return (
     <div className="w-full">
       <Progress value={progress} className="rounded-none md:rounded-full" />
@@ -94,11 +135,7 @@ const ManagePage = ({ questions }: { questions: Question[] }) => {
             Frage {Math.min(questionIndex + 1, total)} von {total}
           </p>
           {RenderQuestion ? (
-            <RenderQuestion
-              question={question}
-              value={answers[questionIndex]}
-              onChange={handleChange}
-            />
+            <RenderQuestion question={question} value={currentValue} onChange={handleChange} />
           ) : (
             <div className="text-sm text-destructive">
               Unbekannter Fragetyp: {String(question.type)}
@@ -113,8 +150,13 @@ const ManagePage = ({ questions }: { questions: Question[] }) => {
               Zurück
             </button>
             <button
-              onClick={() => handleNext()}
-              className={` px-6 py-2 rounded-md text-sm font-medium ${answers[questionIndex] === '' ? 'cursor-not-allowed bg-muted text-muted-foreground' : 'bg-primary text-primary-foreground cursor-pointer'}`}
+              onClick={handleNext}
+              disabled={!canGoNext}
+              className={`px-6 py-2 rounded-md text-sm font-medium ${
+                !canGoNext
+                  ? 'cursor-not-allowed bg-muted text-muted-foreground'
+                  : 'bg-primary text-primary-foreground cursor-pointer'
+              }`}
             >
               {isLast ? 'Absenden' : 'Weiter'}
             </button>
