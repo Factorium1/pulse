@@ -1,6 +1,6 @@
 'use client'
 
-import { useState } from 'react'
+import { toast } from 'react-toastify'
 import { QuestionComponentProps } from './manage-page'
 
 const MultipleChoiceQuestion = ({
@@ -10,11 +10,17 @@ const MultipleChoiceQuestion = ({
 }: QuestionComponentProps<string[]>) => {
   const options = question.options ?? []
   const selected = value ?? []
+  const maxAnswers = question.maxAnswers || options.length
 
   function toggle(option: string) {
-    const next = selected.includes(option)
-      ? selected.filter((o) => o !== option)
-      : [...selected, option]
+    const isSelected = selected.includes(option)
+
+    if (!isSelected && selected.length >= maxAnswers) {
+      toast.error(`Sie dürfen nur ${maxAnswers} Antworten auswählen`)
+      return
+    }
+
+    const next = isSelected ? selected.filter((o) => o !== option) : [...selected, option]
 
     onChange(next)
   }
