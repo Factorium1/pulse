@@ -54,6 +54,18 @@ export async function getBlock(id: string): Promise<GetBlockResult> {
       return { ok: false, message: 'Unauthorized' }
     }
 
+    const now = new Date()
+    const fixed = new Date(block.fixedAt)
+
+    const sameDay: boolean =
+      fixed.getFullYear() === now.getFullYear() &&
+      fixed.getMonth() === now.getMonth() &&
+      fixed.getDate() === now.getDate()
+
+    if (!sameDay || fixed > now) {
+      return { ok: false, message: 'Unauthorized' }
+    }
+
     return { ok: true, block: block }
   } catch (err) {
     return { ok: false, message: 'Network Error', error: String(err) }
