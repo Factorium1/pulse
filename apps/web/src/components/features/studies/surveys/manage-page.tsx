@@ -1,10 +1,36 @@
 'use client'
 
-import SingleChoice from './single-choice'
 import { Progress } from '@/components/ui/progress'
-import { useState } from 'react'
-import { Question } from '@prisma/client'
+import { useMemo, useState } from 'react'
+import { Question, QuestionType } from '@prisma/client'
 import { useRouter } from 'next/navigation'
+import TextQuestion from './text'
+import MultipleChoiceQuestion from './multiple-choice'
+import ScaleQuestion from './scale'
+import RatingQuestion from './rating'
+import AudioQuestion from './audio'
+import VideoQuestion from './video'
+import ImageQuestion from './image'
+import SingleChoiceQuestion from './single-choice'
+
+type QuestionComponentProps = {
+  question: Question
+  value: string
+  onChange: (value: string) => void
+}
+
+type QuestionComponent = (props: QuestionComponentProps) => React.ReactNode
+
+const QUESTION_COMPONENTS: Record<QuestionType, QuestionComponent> = {
+  TEXT: TextQuestion,
+  MULTIPLE_CHOICE: MultipleChoiceQuestion,
+  SINGLE_CHOICE: SingleChoiceQuestion,
+  SCALE: ScaleQuestion,
+  RATING: RatingQuestion,
+  AUDIO: AudioQuestion,
+  VIDEO: VideoQuestion,
+  IMAGE: ImageQuestion,
+}
 
 const ManagePage = ({ questions }: { questions: Question[] }) => {
   const router = useRouter()
@@ -24,7 +50,7 @@ const ManagePage = ({ questions }: { questions: Question[] }) => {
     if (!answers[questionIndex].length) return
 
     if (isLast) {
-      // await
+      // TODO: await
       router.push('/studies')
       return
     }
@@ -46,6 +72,19 @@ const ManagePage = ({ questions }: { questions: Question[] }) => {
     })
   }
 
+  const RenderQuestion = useMemo(() => {
+    if (!question) return null
+    return QUESTION_COMPONENTS[question.type]
+  }, [question])
+
+  if (!total) {
+    return <div className="p-6">Keine Fragen vorhanden.</div>
+  }
+
+  if (!question) {
+    return <div className="p-6">Ungültiger Fragenindex.</div>
+  }
+
   return (
     <div className="w-full">
       <Progress value={progress} className="rounded-none md:rounded-full" />
@@ -54,12 +93,18 @@ const ManagePage = ({ questions }: { questions: Question[] }) => {
           <p className="text-primary font-semibold text-sm">
             Frage {Math.min(questionIndex + 1, total)} von {total}
           </p>
-          <SingleChoice
-            title={question.title}
-            description={question.description}
-            options={question.options}
-            handleChange={handleChange}
-          />
+          {RenderQuestion ? (
+            <RenderQuestion
+              question={question}
+              value={answers[questionIndex]}
+              onChange={handleChange}
+            />
+          ) : (
+            <div className="text-sm text-destructive">
+              Unbekannter Fragetyp: {String(question.type)}
+            </div>
+          )}
+
           <div className="flex-between w-full">
             <button
               onClick={() => handleBack()}
