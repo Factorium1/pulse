@@ -1,14 +1,6 @@
-import { Question } from '@prisma/client'
+import { QuestionComponentProps } from './manage-page'
 
-const TextQuestion = ({
-  question,
-  value,
-  onChange,
-}: {
-  question: Question
-  value: string
-  onChange: (value: string) => void
-}) => {
+const TextQuestion = ({ question, value, onChange }: QuestionComponentProps<string>) => {
   return (
     <div className="flex flex-col w-full gap-4">
       <div className="flex-start gap-2 flex-col">
