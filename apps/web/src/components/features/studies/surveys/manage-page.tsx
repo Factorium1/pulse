@@ -62,13 +62,13 @@ const ManagePage = ({ questions }: { questions: Question[] }) => {
           />
           <div className="flex-between w-full">
             <button
-              onClick={() => handleNext()}
+              onClick={() => handleBack()}
               className={`text-sm text-muted-foreground font-medium cursor-pointer border-2 px-6 py-2 rounded-md  ${backHidden ? 'invisible' : ''}`}
             >
               Zurück
             </button>
             <button
-              onClick={() => handleBack()}
+              onClick={() => handleNext()}
               className={` px-6 py-2 rounded-md text-sm font-medium ${answers[questionIndex] === '' ? 'cursor-not-allowed bg-muted text-muted-foreground' : 'bg-primary text-primary-foreground cursor-pointer'}`}
             >
               {isLast ? 'Absenden' : 'Weiter'}
