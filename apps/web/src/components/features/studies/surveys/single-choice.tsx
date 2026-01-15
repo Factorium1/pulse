@@ -1,6 +1,6 @@
 'use client'
 
-const SingleChoice = ({
+const SingleChoiceQuestion = ({
   title,
   description,
   options = [],
@@ -32,4 +32,4 @@ const SingleChoice = ({
   )
 }
 
-export default SingleChoice
+export default SingleChoiceQuestion
