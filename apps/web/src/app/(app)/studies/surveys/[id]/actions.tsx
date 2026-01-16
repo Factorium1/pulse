@@ -29,6 +29,18 @@ export async function getBlock(id: string): Promise<GetBlockResult> {
     const block = await prisma.surveyBlock.findFirst({
       where: {
         id,
+        questions: {
+          none: {
+            answers: {
+              some: {
+                participation: {
+                  userId,
+                  status: 'ACTIVE',
+                },
+              },
+            },
+          },
+        },
         survey: {
           participants: {
             some: {
