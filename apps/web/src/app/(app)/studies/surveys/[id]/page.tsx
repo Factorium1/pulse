@@ -26,7 +26,7 @@ const Survey = async ({ params }: { params: Promise<{ id: string }> }) => {
           <FaX className="border-2 rounded-full p-1 text-muted-foreground text-2xl font-semibold" />
         </Link>
       </header>
-      {block.ok && <ManagePage questions={block.block.questions} />}
+      {block.ok && <ManagePage questions={block.block.questions} id={id} />}
     </div>
   )
 }

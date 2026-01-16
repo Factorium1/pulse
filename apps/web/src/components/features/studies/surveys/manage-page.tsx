@@ -12,8 +12,11 @@ import AudioQuestion from './audio'
 import VideoQuestion from './video'
 import ImageQuestion from './image'
 import SingleChoiceQuestion from './single-choice'
+import { toast } from 'react-toastify'
+import { CheckQuestionWithAnswers } from '@/types/rules'
+import { sendAnswer } from '@/app/(app)/studies/surveys/[id]/actions'
 
-type AnswerValue = string | string[] | number | null
+export type AnswerValue = string | string[] | number | null
 
 export type QuestionComponentProps<T extends AnswerValue> = {
   question: Question
@@ -40,7 +43,7 @@ type AnyQuestionComponentProps = {
 
 type QuestionComponent = (props: AnyQuestionComponentProps) => React.ReactNode
 
-const ManagePage = ({ questions }: { questions: Question[] }) => {
+const ManagePage = ({ questions, id }: { questions: Question[]; id: string }) => {
   const router = useRouter()
 
   const [questionIndex, setQuestionIndex] = useState<number>(0)
@@ -54,13 +57,24 @@ const ManagePage = ({ questions }: { questions: Question[] }) => {
 
   const question = questions[questionIndex]
 
-  function handleNext() {
+  async function handleNext() {
     if (!canGoNext) return
 
     if (isLast) {
-      // TODO: await
-      router.push('/studies')
-      return
+      const valid = CheckQuestionWithAnswers(questions, answers)
+      if (!valid) {
+        toast.error('Bitte pruefe deine Antworten.')
+        return
+      }
+
+      const res = await sendAnswer(id, answers)
+      if (res.ok) {
+        router.push('/studies')
+        return
+      } else {
+        toast.error(res.message)
+        return
+      }
     }
 
     setQuestionIndex((i) => Math.min(i + 1, total - 1))

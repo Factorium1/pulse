@@ -1,3 +1,5 @@
+import { AnswerValue } from '@/components/features/studies/surveys/manage-page'
+import { Question } from '@prisma/client'
 import { z } from 'zod'
 
 export const QuestionSchema = z
@@ -105,3 +107,103 @@ export const SurveyUpdateSchema = z.discriminatedUnion('type', [
     id: z.string().cuid(),
   }),
 ])
+
+export function SchemaForQuestion(q: Question) {
+  switch (q.type) {
+    case 'TEXT': {
+      return z.string().trim().min(1, 'Answer is required')
+    }
+
+    case 'MULTIPLE_CHOICE': {
+      const maxAnswers = q.maxAnswers ?? q.options.length
+      return z
+        .array(z.string().min(1))
+        .min(1, 'At least one option must be selected')
+        .max(maxAnswers, `Select up to ${maxAnswers} options`)
+        .refine((values) => values.every((v) => q.options.includes(v)), 'Invalid option selected')
+    }
+
+    case 'SINGLE_CHOICE': {
+      return z
+        .string()
+        .min(1, 'Answer is required')
+        .refine((value) => q.options.includes(value), 'Invalid option selected')
+    }
+
+    case 'SCALE':
+    case 'RATING': {
+      return z.number()
+    }
+
+    case 'AUDIO':
+    case 'VIDEO':
+    case 'IMAGE': {
+      return z.string().min(1, 'Answer is required')
+    }
+  }
+
+  return z.never()
+}
+
+export function CheckQuestionWithAnswers(q: Question[], a: AnswerValue[]) {
+  if (q.length !== a.length) {
+    return false
+  }
+
+  for (let i = 0; i < q.length; i += 1) {
+    const question = q[i]
+    const answer = a[i]
+
+    switch (question.type) {
+      case 'TEXT':
+      case 'AUDIO':
+      case 'VIDEO':
+      case 'IMAGE': {
+        if (typeof answer !== 'string' || answer.trim().length === 0) {
+          return false
+        }
+        break
+      }
+
+      case 'MULTIPLE_CHOICE': {
+        if (!Array.isArray(answer) || answer.length === 0) {
+          return false
+        }
+
+        if (
+          answer.some((value) => typeof value !== 'string' || !question.options.includes(value))
+        ) {
+          return false
+        }
+
+        if (question.maxAnswers !== null && question.maxAnswers !== undefined) {
+          if (answer.length > question.maxAnswers) {
+            return false
+          }
+        }
+        break
+      }
+
+      case 'SINGLE_CHOICE': {
+        if (typeof answer !== 'string' || !question.options.includes(answer)) {
+          return false
+        }
+        break
+      }
+
+      case 'SCALE':
+      case 'RATING': {
+        if (typeof answer !== 'number' || !Number.isFinite(answer)) {
+          return false
+        }
+        break
+      }
+
+      default: {
+        return false
+      }
+    }
+  }
+
+  return true
+}
