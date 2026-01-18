@@ -34,8 +34,7 @@ const ManageStudiesPage = async () => {
                 badgeName={survey.shortLabel ?? survey.title}
                 badgeEmoji={survey.emoji}
                 title={survey.title}
-                info="Example Info"
-                estimatedDuration={12}
+                info={survey.description}
                 availableTo="12"
                 participationId={participation.id}
               />
