@@ -11,7 +11,6 @@ const LeaveSurveyCard = ({
   badgeEmoji,
   title,
   info,
-  estimatedDuration,
   availableTo,
   participationId,
 }: {
@@ -19,7 +18,6 @@ const LeaveSurveyCard = ({
   badgeEmoji: 'info' | 'brain' | 'grow' | 'energy' | 'passion' | 'idea'
   title: string
   info: string
-  estimatedDuration: number
   availableTo: string
   participationId: string
 }) => {
@@ -39,14 +37,9 @@ const LeaveSurveyCard = ({
 
   const Items = [
     info && <div>{info}</div>,
-    estimatedDuration && (
-      <div>
-        <span className="">ca. </span> {estimatedDuration} Min
-      </div>
-    ),
     availableTo && (
       <div>
-        <span className="">bis: </span> {availableTo}
+        <span className="">Endet am: </span> {availableTo}
       </div>
     ),
   ].filter(Boolean)

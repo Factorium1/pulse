@@ -33,6 +33,20 @@ export async function getParticipantSurveys() {
         emoji: true,
         tags: true,
         blocks: {
+          where: {
+            questions: {
+              none: {
+                answers: {
+                  some: {
+                    participation: {
+                      userId,
+                      status: 'ACTIVE',
+                    },
+                  },
+                },
+              },
+            },
+          },
           select: {
             id: true,
             scheduleType: true,

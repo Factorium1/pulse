@@ -110,12 +110,14 @@
 }
 
 /* Limit base layer effects to shadcn scope only */
-.shadcn {
-  /* Provide default text/bg within the scope */
-  @apply bg-background text-foreground;
-}
+@layer base {
+  .shadcn {
+    /* Provide default text/bg within the scope */
+    @apply bg-background text-foreground;
+  }
 
-.shadcn,
-.shadcn * {
-  @apply border-border outline-ring/50;
+  .shadcn,
+  .shadcn * {
+    @apply border-border outline-ring/50;
+  }
 }
